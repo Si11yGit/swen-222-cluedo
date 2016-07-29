@@ -1,10 +1,17 @@
 package parts;
 
-public class Character {
+public class Character extends Card{
+
+
 	private String name;
 	private Card card;
 	private Piece piece;
 	private Player player;
+	
+	public Character(String name) {
+		super(name);
+		this.name = name; 
+	}
 
 	public String name() {
 		return name;
