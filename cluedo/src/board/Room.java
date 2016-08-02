@@ -9,8 +9,9 @@ public class Room implements Square {
 	Room connection;
 	String name;
 
-	public Room() {
-
+	public Room(String name, Room connection) {
+		this.name = name;
+		this.connection = connection;
 	}
 
 	@Override
