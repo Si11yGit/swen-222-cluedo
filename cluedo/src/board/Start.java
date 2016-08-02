@@ -3,10 +3,12 @@ package board;
 import parts.Player;
 
 public class Start implements Square {
+	private Coordinate position;
 	private Player player;
 
-	public Start(Player player) {
+	public Start(Player player, Coordinate position) {
 		this.player = player;
+		this.position = position;
 	}
 
 	@Override
@@ -32,6 +34,10 @@ public class Start implements Square {
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	public Coordinate getPosition() {
+		return position;
 	}
 
 }
