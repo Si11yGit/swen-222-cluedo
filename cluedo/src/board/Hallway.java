@@ -53,4 +53,8 @@ public class Hallway implements Square {
 	public Coordinate getPosition() {
 		return position;
 	}
+
+	public String toString() {
+		return " ";
+	}
 }

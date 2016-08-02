@@ -52,4 +52,8 @@ public class Room implements Square {
 	public ArrayList<Coordinate> getPositions() {
 		return positions;
 	}
+
+	public String toString() {
+		return " ";
+	}
 }

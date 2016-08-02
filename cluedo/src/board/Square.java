@@ -6,6 +6,12 @@ public interface Square {
 	 * checks whether characters can enter this square
 	 * @return true or false
 	 */
-	boolean enterable();
+	public boolean enterable();
+
+	/**
+	 * creates string representation of Square
+	 * @return
+	 */
+	public String toString();
 
 }
