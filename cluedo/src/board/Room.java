@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import parts.Player;
 
 public class Room implements Square {
-	ArrayList<Player> players;
-	Room connection;
-	String name;
+	private ArrayList<Coordinate> positions;
+	private ArrayList<Player> players;
+	private Room connection;
+	private String name;
 
-	public Room(String name, Room connection) {
+	public Room(String name, Room connection, ArrayList<Coordinate> positions) {
 		this.name = name;
 		this.connection = connection;
+		this.positions = positions;
 	}
 
 	@Override
@@ -47,4 +49,7 @@ public class Room implements Square {
 		return name;
 	}
 
+	public ArrayList<Coordinate> getPositions() {
+		return positions;
+	}
 }
