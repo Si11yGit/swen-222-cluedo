@@ -54,6 +54,7 @@ public class Hallway implements Square {
 		return position;
 	}
 
+	@Override
 	public String toString() {
 		return " ";
 	}

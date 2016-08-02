@@ -7,6 +7,7 @@ public class Impassable implements Square {
 		this.position = position;
 	}
 
+
 	public Coordinate getPosition() {
 		return position;
 	}
