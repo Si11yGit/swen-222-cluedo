@@ -40,4 +40,7 @@ public class Start implements Square {
 		return position;
 	}
 
+	public String toString() {
+		return " ";
+	}
 }
