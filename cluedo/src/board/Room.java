@@ -26,6 +26,14 @@ public class Room implements Square {
 		this.players = players;
 	}
 
+	public void addPlayer(Player p) {
+		players.add(p);
+	}
+
+	public void removePlayer(Player p) {
+		players.remove(p);
+	}
+
 	public Room getConnection() {
 		return connection;
 	}
