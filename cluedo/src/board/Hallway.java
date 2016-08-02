@@ -5,9 +5,11 @@ import parts.Player;
 public class Hallway implements Square {
 	private boolean entrance;
 	private Player player;
+	private Coordinate position;
 
-	public Hallway(boolean entrance) {
+	public Hallway(boolean entrance, Coordinate position) {
 		this.entrance = entrance;
+		this.position = position;
 	}
 
 	@Override
@@ -44,5 +46,11 @@ public class Hallway implements Square {
 		this.player = player;
 	}
 
-
+	/**
+	 * gets the position of this square
+	 * @return
+	 */
+	public Coordinate getPosition() {
+		return position;
+	}
 }
