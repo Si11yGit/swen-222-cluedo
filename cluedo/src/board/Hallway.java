@@ -1,10 +1,48 @@
 package board;
 
+import parts.Player;
+
 public class Hallway implements Square {
+	private boolean entrance;
+	private Player player;
+
+	public Hallway(boolean entrance) {
+		this.entrance = entrance;
+	}
 
 	@Override
 	public boolean enterable() {
-		return true;
+		if (player == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
+	/**
+	 * returns whether hallway square is the entry to a room
+	 *
+	 * @return true or false
+	 */
+	public boolean entryway() {
+		return entrance;
+	}
+
+	/**
+	 * get player currently in square
+	 * @return player or null if none present
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+	/**
+	 * sets the Player currently in this square
+	 * @param player
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 
 }

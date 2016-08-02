@@ -1,5 +1,7 @@
 package parts;
 
+import board.Piece;
+
 public class Character extends Card{
 
 
