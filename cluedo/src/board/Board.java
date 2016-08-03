@@ -17,7 +17,7 @@ public class Board {
 		setupBoard();
 	}
 
-	
+
 	/**
 	 * sets up the rooms and board for the game. This is hard coded because of
 	 * the awkward shape and positioning of the rooms
@@ -87,7 +87,7 @@ public class Board {
 		}
 		centre = new Coordinate(7, 18);
 		rooms.put("Conservatory", new Room("Conservatory", centre, locations));
-		
+
 		locations = new ArrayList<Coordinate>();
 		for (int y = 37; y < 48; y += 2) {
 			for (int x = 17; x < 32; x += 2) {
@@ -98,7 +98,7 @@ public class Board {
 		}
 		centre = new Coordinate(45, 25);
 		rooms.put("Ballroom", new Room("Ballroom", centre, locations));
-		
+
 		locations = new ArrayList<Coordinate>();
 		for (int y = 39; y < 48; y += 2) {
 			for (int x = 37; x < 48; x += 2) {
@@ -109,7 +109,7 @@ public class Board {
 		}
 		centre = new Coordinate(43, 43);
 		rooms.put("Kitchen", new Room("Kitchen", centre, locations));
-		
+
 		locations = new ArrayList<Coordinate>();
 		for (int y = 21; y < 34; y += 2) {
 			for (int x = 33; x < 48; x += 2) {
@@ -120,7 +120,7 @@ public class Board {
 		}
 		centre = new Coordinate(40, 27);
 		rooms.put("Dining Room", new Room("Dining Room", centre, locations));
-		
+
 		/*
 		 * combines the room coordinates into one list for use in hallway creation
 		 */
@@ -128,7 +128,7 @@ public class Board {
 		for(Room room: rooms.values()) {
 			locations.addAll(room.getPositions());
 		}
-		
+
 		/*
 		 * sets impassable block in the centre of the board
 		 */
@@ -137,7 +137,7 @@ public class Board {
 				board[x][y] = new Impassable(new Coordinate(x, y));
 			}
 		}
-		
+
 		/*
 		 * sets impassable square around the exterior
 		 */
@@ -162,7 +162,7 @@ public class Board {
 				board[i][49] = new Impassable(new Coordinate(i,49));
 			}
 		}
-		
+
 		/*
 		 * adds hallway positions
 		 */
@@ -174,7 +174,81 @@ public class Board {
 			}
 		}
 
-		
+		/*
+		 * add doors
+		 */
+		int doorX = 13;
+		int doorY = 8;
+		String doorName = "Study";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 18;
+		doorY = 9;
+		doorName = "Hall";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 23;
+		doorY = 14;
+		doorName = "Hall";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 25;
+		doorY = 14;
+		doorName = "Hall";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 33;
+		doorY = 12;
+		doorName = "Lounge";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 14;
+		doorY = 17;
+		doorName = "Library";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 7;
+		doorY = 22;
+		doorName = "Library";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 3;
+		doorY = 24;
+		doorName = "Billiard Room";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 12;
+		doorY = 31;
+		doorName = "Billiard Room";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 10;
+		doorY = 39;
+		doorName = "Conservatory";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 16;
+		doorY = 39;
+		doorName = "Ballroom";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 19;
+		doorY = 34;
+		doorName = "Ballroom";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 29;
+		doorY = 34;
+		doorName = "Ballroom";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 32;
+		doorY = 39;
+		doorName = "Ballroom";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 39;
+		doorY = 36;
+		doorName = "Kitchen";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 32;
+		doorY = 25;
+		doorName = "Dining Room";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+		doorX = 35;
+		doorY = 18;
+		doorName = "Dining Room";
+		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
+
+		/*
+		 * create walls
+		 */
 
 	}
 

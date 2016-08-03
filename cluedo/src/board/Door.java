@@ -8,10 +8,12 @@ package board;
 public class Door implements Square {
 	Room room;
 	Hallway hall;
+	Coordinate location;
 
-	public Door(Room room, Hallway hall) {
+	public Door(Room room, Hallway hall, Coordinate location) {
 		this.room = room;
 		this.hall = hall;
+		this.location = location;
 	}
 
 	@Override
