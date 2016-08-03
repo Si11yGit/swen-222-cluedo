@@ -16,6 +16,7 @@ public class Board {
 		this.players = players;
 		setupBoard();
 	}
+	
 
 	/**
 	 * sets up the rooms and board for the game. This is hard coded because of
