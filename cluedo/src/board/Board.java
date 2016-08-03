@@ -17,7 +17,6 @@ public class Board {
 		setupBoard();
 	}
 	
-
 	/**
 	 * sets up the rooms and board for the game. This is hard coded because of
 	 * the awkward shape and positioning of the rooms
