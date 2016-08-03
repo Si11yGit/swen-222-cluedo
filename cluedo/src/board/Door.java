@@ -1,20 +1,33 @@
 package board;
 
 public class Door implements Square {
-	Square side1;
-	Square side2;
+	Room room;
+	Hallway hall;
 
-	public Door(Square side1, Square side2) {
-		this.side1 = side1;
-		this.side2 = side2;
+	public Door(Room room, Hallway hall) {
+		this.room = room;
+		this.hall = hall;
 	}
 
 	@Override
 	public boolean enterable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	public Square
+
+	/**
+	 * gets the Room the door goes to
+	 * @return
+	 */
+	public Square room() {
+		return room;
+	}
+
+	/**
+	 * returns the hallway square the door opens to
+	 * @return
+	 */
+	public Square hall() {
+		return hall;
+	}
 
 }
