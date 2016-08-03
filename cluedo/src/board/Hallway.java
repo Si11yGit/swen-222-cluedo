@@ -9,12 +9,10 @@ import parts.Player;
  *
  */
 public class Hallway implements Square {
-	private boolean entrance;
 	private Player player;
 	private Coordinate position;
 
-	public Hallway(boolean entrance, Coordinate position) {
-		this.entrance = entrance;
+	public Hallway(Coordinate position) {
 		this.position = position;
 	}
 
@@ -25,15 +23,6 @@ public class Hallway implements Square {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * returns whether hallway square is the entry to a room
-	 *
-	 * @return true or false
-	 */
-	public boolean entryway() {
-		return entrance;
 	}
 
 	/**
