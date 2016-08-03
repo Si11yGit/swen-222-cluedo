@@ -251,13 +251,13 @@ public class Board {
 		 */
 		for(int x = 1; x < 48; x += 2) {
 			for(int y = 1; y < 50; y += 2) {
-				if(!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) {
+				if((!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) || x < 2) {
 					board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
-				} else if(!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) {
+				} else if((!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) || x > 47) {
 					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
-				} else if(!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) {
+				} else if((!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) || y < 2) {
 					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
-				} else if(!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) {
+				} else if((!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) || y > 49) {
 					board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
 				}
 			}
@@ -265,10 +265,23 @@ public class Board {
 	}
 
 	public void update() {
-
+		for(int x = 0; x <= 49; x ++) {
+			for(int y = 0; y <= 51; y++) {
+				if (board[x][y] == null) {
+					asciiboard[x][y] = ' ';
+				} else {
+					board[x][y].toString().charAt(0);
+				}
+			}
+		}
 	}
 
 	public void draw() {
-
+		for(int y = 0; y <= 51; y++) {
+			for(int x = 0; x <= 49; x ++) {
+				System.out.print(asciiboard[x][y]);
+			}
+			System.out.print("\n");
+		}
 	}
 }
