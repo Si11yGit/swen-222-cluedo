@@ -26,7 +26,7 @@ public class Board {
 				}
 			}
 		}
-		Coordinate centre = new Coordinate(4, 5);
+		Coordinate centre = new Coordinate(7, 5);
 		rooms.put("Study", new Room("Study", centre, locations));
 
 	}
