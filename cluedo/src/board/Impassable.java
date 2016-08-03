@@ -22,4 +22,8 @@ public class Impassable implements Square {
 		return false;
 	}
 
+	public String toString() {
+		return "█";
+	}
+
 }
