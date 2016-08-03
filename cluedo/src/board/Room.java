@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import parts.Player;
 
+/**
+ * class which represents a room and holds a name, set of Coordinates and player list inside the room
+ *
+ * @author clarkebenj1
+ *
+ */
 public class Room implements Square {
 	private ArrayList<Coordinate> positions;
 	private ArrayList<Player> players;
