@@ -162,6 +162,7 @@ public class Board {
 		board[x][y] = new Impassable(new Coordinate(x, y));
 		
 
+		
 
 	}
 
