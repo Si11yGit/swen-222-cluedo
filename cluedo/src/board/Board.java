@@ -7,8 +7,8 @@ import java.util.Map;
 import parts.Player;
 
 public class Board {
-	Square board[][] = new Square[48][50];
-	char asciiboard[][] = new char[48][50];
+	Square board[][] = new Square[49][51];
+	char asciiboard[][] = new char[49][51];
 	ArrayList<Player> players;
 	Map<String, Room> rooms = new HashMap<String, Room>();
 
@@ -70,8 +70,19 @@ public class Board {
 				locations.add(new Coordinate(x, y));
 			}
 		}
-		centre = new Coordinate(5, 18);
+		centre = new Coordinate(5, 31);
 		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations));
+
+		locations = new ArrayList<Coordinate>();
+		for (int y = 41; y < 48; y += 2) {
+			for (int x = 1; x < 14; x += 2) {
+				if(!((x == 13 && (y == 13 || y == 21)) || (x == 1 && (y == 13 || y == 21)))) {
+					locations.add(new Coordinate(x, y));
+				}
+			}
+		}
+		centre = new Coordinate(7, 18);
+		rooms.put("Conservatory", new Room("Conservatory", centre, locations));
 
 	}
 
