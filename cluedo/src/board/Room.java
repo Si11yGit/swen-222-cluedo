@@ -7,12 +7,12 @@ import parts.Player;
 public class Room implements Square {
 	private ArrayList<Coordinate> positions;
 	private ArrayList<Player> players;
-	private Room connection;
+	private Coordinate centre;
 	private String name;
 
-	public Room(String name, Room connection, ArrayList<Coordinate> positions) {
+	public Room(String name, Coordinate centre, ArrayList<Coordinate> positions) {
 		this.name = name;
-		this.connection = connection;
+		this.centre = centre;
 		this.positions = positions;
 	}
 
@@ -37,12 +37,8 @@ public class Room implements Square {
 		players.remove(p);
 	}
 
-	public Room getConnection() {
-		return connection;
-	}
-
-	public void setConnection(Room connection) {
-		this.connection = connection;
+	public Coordinate getCentre() {
+		return centre;
 	}
 
 	public String getName() {
@@ -51,9 +47,5 @@ public class Room implements Square {
 
 	public ArrayList<Coordinate> getPositions() {
 		return positions;
-	}
-
-	public String toString() {
-		return " ";
 	}
 }
