@@ -141,26 +141,39 @@ public class Board {
 		/*
 		 * sets impassable square around the exterior
 		 */
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y)); 
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
-		board[x][y] = new Impassable(new Coordinate(x, y));
+		board[1][9] = new Impassable(new Coordinate(1, 9));
+		board[1][13] = new Impassable(new Coordinate(1, 13));
+		board[1][21] = new Impassable(new Coordinate(1, 21));
+		board[1][23] = new Impassable(new Coordinate(1, 23));
+		board[1][35] = new Impassable(new Coordinate(1, 35));
+		board[1][39] = new Impassable(new Coordinate(1, 39));
+		board[13][1] = new Impassable(new Coordinate(13, 1));
+		board[17][1] = new Impassable(new Coordinate(17, 1));
+		board[31][1] = new Impassable(new Coordinate(31, 1));
+		board[35][1] = new Impassable(new Coordinate(35, 1));
+		board[13][47] = new Impassable(new Coordinate(13, 47));
+		board[35][47] = new Impassable(new Coordinate(35, 47));
+		board[47][13] = new Impassable(new Coordinate(47, 13));
+		board[47][17] = new Impassable(new Coordinate(47, 17));
+		board[47][33] = new Impassable(new Coordinate(47, 33));
+		board[47][37] = new Impassable(new Coordinate(47, 37));
+		for(int i = 1; i < 48; i += 2) {
+			if(i != 19 || i != 29) {
+				board[i][49] = new Impassable(new Coordinate(i,49));
+			}
+		}
+		
+		/*
+		 * adds hallway positions
+		 */
+		for(int x = 1; x < 48; x += 2) {
+			for(int y = 1; y < 50; y += 2) {
+				if(board[x][y] == null && !locations.contains(new Coordinate(x,y))) {
+					board[x][y] = new Hallway(new Coordinate(x,y));
+				}
+			}
+		}
+
 		
 
 	}
