@@ -249,7 +249,19 @@ public class Board {
 		/*
 		 * create walls
 		 */
-
+		for(int x = 1; x < 48; x += 2) {
+			for(int y = 1; y < 50; y += 2) {
+				if(!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) {
+					board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
+				} else if(!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) {
+					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+				} else if(!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) {
+					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+				} else if(!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) {
+					board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
+				}
+			}
+		}
 	}
 
 	public void update() {
