@@ -1,5 +1,10 @@
 package board;
 
+/**
+ * class which represent a door between a room and the hallway. holds the room and hallway tile which it connects
+ * @author clarkebenj1
+ *
+ */
 public class Door implements Square {
 	Room room;
 	Hallway hall;

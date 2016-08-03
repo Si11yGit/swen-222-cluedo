@@ -1,5 +1,10 @@
 package board;
 
+/**
+ * class to use in array to present impassable tiles
+ * @author clarkebenj1
+ *
+ */
 public class Impassable implements Square {
 	private Coordinate position;
 

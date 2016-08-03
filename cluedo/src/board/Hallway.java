@@ -2,6 +2,12 @@ package board;
 
 import parts.Player;
 
+/**
+ * represents a hallway tile. essentially a mini room witha single coordinate , nmo name and space for one player
+ *
+ * @author clarkebenj1
+ *
+ */
 public class Hallway implements Square {
 	private boolean entrance;
 	private Player player;
