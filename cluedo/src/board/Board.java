@@ -320,7 +320,7 @@ public class Board {
 				if (board[x][y] == null) {
 					asciiboard[x][y] = ' ';
 				} else {
-					board[x][y].toString().charAt(0);
+					asciiboard[x][y] = board[x][y].toString().charAt(0);
 				}
 			}
 		}
