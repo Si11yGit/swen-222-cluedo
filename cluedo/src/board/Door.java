@@ -37,4 +37,8 @@ public class Door implements Square {
 		return hall;
 	}
 
+	public String toString() {
+		return "/";
+	}
+
 }

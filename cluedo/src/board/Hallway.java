@@ -52,7 +52,7 @@ public class Hallway implements Square {
 	@Override
 	public String toString() {
 		if (player == null) {
-			return "□";
+			return "#";
 		} else {
 			return player.toString();
 		}
