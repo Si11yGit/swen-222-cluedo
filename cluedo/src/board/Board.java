@@ -284,4 +284,10 @@ public class Board {
 			System.out.print("\n");
 		}
 	}
+
+
+	public Map<String, Room> getRooms() {
+		// TODO Auto-generated method stub
+		return rooms;
+	}
 }

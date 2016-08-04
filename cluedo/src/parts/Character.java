@@ -23,4 +23,6 @@ public class Character extends Card{
 	public Player player() {
 		return player;
 	}
+	
+	
 }

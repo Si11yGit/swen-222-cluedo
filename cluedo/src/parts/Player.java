@@ -5,13 +5,15 @@ import java.util.List;
 
 public class Player {
 	private Character character;
-	int playerNum;
-	ArrayList<Card> hand;
+	public int playerNum;
+	public ArrayList<Card> hand;
+	private boolean inGame;
 	
 	public Player(int playerNumber, Character playerCharacter){
 		this.character = playerCharacter;
 		this.playerNum = playerNumber;
 		this.hand = new ArrayList<Card>();
+		this.inGame = true;
 	}
 
 
@@ -55,6 +57,10 @@ public class Player {
 	
 	public int getPlayerNumber(){
 		return playerNum;
+	}
+	
+	public boolean getInGame(){
+		return this.inGame;
 	}
 
 	//public void setCharacter(Character character) {

@@ -3,8 +3,10 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import board.Board;
+import board.Room;
 import parts.Card;
 import parts.Player;
 import parts.RoomCard;
@@ -33,148 +35,198 @@ import parts.Character;
  */
 public class Main {
 	//fields:
-		//private HashMap<String, Object> players;//houses a map of players name -> object
-		private ArrayList<Card> allCards;
-		private ArrayList<Player> allPlayers;
-		private int numPlayers;
-		private Solution solution; //solution object
-		private Board board;//reference to a board
-		private boolean gameOver;//whether the game is over or not 
-		
-		public Main(int numPlayers){
-			this.numPlayers=numPlayers;
-			this.allCards = initialiseCards();
-			this.allPlayers = initialisePlayer();
-			this.board = new Board(allPlayers); 
-		}
+	private ArrayList<Card> allCards;
+	private ArrayList<Card> listOfCards;
+	private ArrayList<Player> allPlayers;
+	private int numPlayers;
+	private Solution solution; //solution object
+	private Board board;//reference to a board
+	private boolean gameOver;//whether the game is over or not 
 
-		
-			//25x25 board
-			//player make movement by doing letter/number position
-			//random number for their turn for how far they can move (dice roll)
-			//make an accusation/suggestion
-			//solution class
-			//accuse/suggest are two choice 
-			//if you accuse and are wrong you are out of the game 
-			//each player has a set of card
-		/**
-		 * initialise all the cards 
-		 * @return
-		 */
-		public ArrayList<Card> initialiseCards(){//create method to create all the cards and initialise them into the field
-			ArrayList<Card> cards = new ArrayList<Card>();
+	public Main(int numPlayers){
+		this.numPlayers=numPlayers;
+		this.allCards = initialiseCards();
+		this.listOfCards = allCards;
+		this.allPlayers = initialisePlayer();
+		this.board = new Board(allPlayers);
+		initialiseWeapons();
+		this.solution =  initialiseSolution();
+		dealCards();
+	}
 
-			//add all characters
-			cards.add(new Character("Miss Scarlett"));
-			cards.add(new Character("Colonel Mustard"));
-			cards.add(new Character("Professor Plum"));
-			cards.add(new Character("Reverend Green"));
-			cards.add(new Character("Mrs. White"));
-			cards.add(new Character("Mrs. Peacock"));
+	/**
+	 * initialise all the cards 
+	 * @return
+	 */
+	public ArrayList<Card> initialiseCards(){
+		ArrayList<Card> cards = new ArrayList<Card>();
 
-			//add all weapons
-			cards.add(new Weapon("Candlestick"));
-			cards.add(new Weapon("Revolver"));
-			cards.add(new Weapon("Rope"));
-			cards.add(new Weapon("Spanner"));
-			cards.add(new Weapon("Dagger"));
-			cards.add(new Weapon("Lead Pipe"));
+		//add all characters
+		cards.add(new Character("Miss Scarlett"));
+		cards.add(new Character("Colonel Mustard"));
+		cards.add(new Character("Professor Plum"));
+		cards.add(new Character("Reverend Green"));
+		cards.add(new Character("Mrs. White"));
+		cards.add(new Character("Mrs. Peacock"));
 
-			//add all rooms 
-			cards.add(new RoomCard("Ballroom"));
-			cards.add(new RoomCard("Kitchen"));
-			cards.add(new RoomCard("Conservatory"));
-			cards.add(new RoomCard("Billiard Room"));
-			cards.add(new RoomCard("Library"));
-			cards.add(new RoomCard("Study"));
-			cards.add(new RoomCard("Hall"));
-			cards.add(new RoomCard("Lounge"));
-			cards.add(new RoomCard("Dining Room"));
+		//add all weapons
+		cards.add(new Weapon("Candlestick"));
+		cards.add(new Weapon("Revolver"));
+		cards.add(new Weapon("Rope"));
+		cards.add(new Weapon("Spanner"));
+		cards.add(new Weapon("Dagger"));
+		cards.add(new Weapon("Lead Pipe"));
 
-			return cards;
-		}
-		
-		/**
-		 *This method creates the correct solution for the game to compare accusations or suggestions against.  
-		 * @return
-		 */
-		public Solution initialiseSolution(){//a method to initialise solution/generate one
-			//new Solution();
-			return null;
-		}
-		
-		/**
-		 * A method which initialises the players and creates the correct number of characters to players.
-		 * @return
-		 */
-		public ArrayList<Player> initialisePlayer(){
-			ArrayList<Player> players = new ArrayList<Player>();
-			ArrayList<Character> cards = new ArrayList<Character>();
-			
-			//each player will get a character
-			cards.add(new Character("Miss Scarlett"));
-			cards.add(new Character("Colonel Mustard"));
-			cards.add(new Character("Professor Plum"));
-			cards.add(new Character("Reverend Green"));
-			cards.add(new Character("Mrs. White"));
-			cards.add(new Character("Mrs. Peacock"));
-			
-			//use a random number between 0 and 6 to assign a character to a player
-			
-			for(int i = 0;  i< this.numPlayers;i++){
-				//the random number to assign to a player
-				int rand = (int) Math.round(Math.random()*cards.size());
-				if(rand == cards.size()){rand--;}
-				Character card = cards.get(rand);
-				
-				players.add(new Player(i, card));
-				cards.remove(cards.get(rand)); 
-				System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
+		//add all rooms 
+		cards.add(new RoomCard("Ballroom"));
+		cards.add(new RoomCard("Kitchen"));
+		cards.add(new RoomCard("Conservatory"));
+		cards.add(new RoomCard("Billiard Room"));
+		cards.add(new RoomCard("Library"));
+		cards.add(new RoomCard("Study"));
+		cards.add(new RoomCard("Hall"));
+		cards.add(new RoomCard("Lounge"));
+		cards.add(new RoomCard("Dining Room"));
+
+		return cards;
+	}
+
+	/**
+	 *This method creates the correct solution for the game to compare accusations or suggestions against.  
+	 * @return
+	 */
+	public Solution initialiseSolution(){
+		Character character  = null;
+		Weapon weapon = null;
+		RoomCard room = null;
+
+		while(character == null || room ==  null || room == null){
+			int random = (int) Math.round(Math.random())*listOfCards.size();
+			if(random == listOfCards.size()){random--;}//avoid ArrayIndexOutOfBounds errors
+			Card card = listOfCards.get(random);
+
+			if(card instanceof Character && character == null){
+				character = (Character) card;
+				listOfCards.remove(card);
+			}else if(card instanceof Weapon && weapon == null){
+				weapon = (Weapon) card;
+				listOfCards.remove(card);
+			}else if(card instanceof RoomCard && room == null){
+				room =  (RoomCard) card;
+				listOfCards.remove(card);
 			}
-			return players;
 		}
-		
-		//place the weapons
-		public void initialiseWeapons(){
-			
+		System.out.println("Solution created!");
+		System.out.println("");
+		return new Solution(room, character, weapon);
+	}
+
+	/**
+	 * A method which initialises the players and creates the correct number of characters to players.
+	 * @return
+	 */
+	public ArrayList<Player> initialisePlayer(){
+		ArrayList<Player> players = new ArrayList<Player>();
+		ArrayList<Character> cards = new ArrayList<Character>();
+
+		//each player will get a character
+		cards.add(new Character("Miss Scarlett"));
+		cards.add(new Character("Colonel Mustard"));
+		cards.add(new Character("Professor Plum"));
+		cards.add(new Character("Reverend Green"));
+		cards.add(new Character("Mrs. White"));
+		cards.add(new Character("Mrs. Peacock"));
+
+		//use a random number between 0 and 6 to assign a character to a player
+
+		for(int i = 0;  i< this.numPlayers;i++){
+			Character card = cards.get(i);
+			players.add(new Player(i, card));
+			System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
 		}
-		
-		//start the game
-		public void playGame(){
-			
+		return players;
+	}
+
+	/**
+	 *This is a method which is used to deal all the cards out to the players.
+	 */
+	public void dealCards(){
+		while(!this.allCards.isEmpty()){
+			Player player = this.allPlayers.get(this.allCards.size() % this.numPlayers);
+			Card newCard = this.allCards.get(0);
+			player.deal(newCard); //give the current player the top card
+			newCard.setOwner(player);//set the owner of the card to the current player
+			this.allCards.remove(0);//remove the card from the deck
 		}
-		
-		//deal cards
-		public void dealCards(){
-			while(!this.allCards.isEmpty()){
-				Player player = this.allPlayers.get(this.allCards.size() % this.numPlayers);
-				Card newCard = this.allCards.get(0);
-				player.deal(newCard); //give the current player the top card
-				newCard.setOwner(player);//set the owner of the card to the current player
-				this.allCards.remove(0);//remove the card from the deck
+		for(int i = 0; i <= this.numPlayers; i++){
+			List<Card> cards = this.allPlayers.get(i).getCards();
+			System.out.println("Your cards are: "+cards.toString());
+		}
+		System.out.println();	
+	}
+
+	/**
+	 * sets the game state to over (false)
+	 */
+	public void setGameOver(){
+		this.gameOver = true;
+	}
+
+	/**
+	 * This method places all the weapons in the rooms
+	 */
+	public void initialiseWeapons(){
+		Map<String, Room> rooms =  this.board.getRooms();
+		List<Room> list = new ArrayList<Room>(rooms.values());
+
+		//iterate over all cards
+		for(int i = 0; i<listOfCards.size();i++){
+
+			//if its a weapon card assign it a random room
+			if(this.listOfCards.get(i) instanceof Weapon){
+				Weapon weapon = (Weapon) listOfCards.get(i);
+
+				//a random room index
+				int random = (int) Math.round(Math.random()*list.size());
+
+				//avoid index out of bounds exceptions
+				if(random == list.size()){
+					random--;				
+				}
+				System.out.println("The " + weapon.toString()+" is in "+ rooms.get(random).toString());
+				rooms.remove(random);
 			}
-			for(int i = 0; i <= this.numPlayers; i++){
-				List<Card> cards = this.allPlayers.get(i).getCards();
-				System.out.println("Your cards are: "+cards.toString());
+		}
+		System.out.println();
+	}
+
+	/**
+	 * This method should begin playing the game
+	 */
+	public void playGame(){
+		//random player starts 
+		
+		//
+	}
+
+	/**
+	 * This method determines what to do when the game is over, and declares a player the winner.
+	 */
+	public void gameOver(){
+		setGameOver();
+		for(int i = 0; i < this.allPlayers.size(); i++){
+			if(this.allPlayers.get(i).getInGame()){
+				System.out.println("Player " + this.allPlayers.get(i).getPlayerNumber() + " Wins!!!");
+				break;
 			}
-			System.out.println();	
 		}
-		
-		//set game over
-		public void setGameOver(){
-			this.gameOver = true;
-		}
-		
-		//game over, what to do when game is over, declare somebody the winner
-		public void gameOver(){}
-		
-		//get players
-		public int getNumPlayers(){
-			return this.numPlayers;
-		}
-		
-		//get solution
-		public Solution getSolution(){
-			return this.solution;
-		}
+	}
+
+	public int getNumPlayers(){
+		return this.numPlayers;
+	}
+
+	public Solution getSolution(){
+		return this.solution;
+	}
 }
