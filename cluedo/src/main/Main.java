@@ -233,6 +233,7 @@ public class Main {
 						if(currentPlayers == 0){
 							//no players remaining
 							gameOver();
+							System.out.println("All players have failed to identify the killer!! Game Over");
 							return;
 						}
 					}
@@ -240,13 +241,20 @@ public class Main {
 			}
 
 		}
-		//
 	}
 
 	/**
 	 * Turn method for a player
 	 */
 	public void turn(Player player) {
+		System.out.println(player.character().name() + " its your turn!");
+		System.out.println("");
+		int roll = player.diceRoll();
+		System.out.println("you rolled " + roll);
+		System.out.println("How far down would you like to move? (use negative for up)");
+
+		System.out.println("How far right would you like to move? (use a negative for left)");
+
 
 	}
 
