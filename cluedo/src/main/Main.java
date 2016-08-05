@@ -194,7 +194,7 @@ public class Main {
 				//avoid index out of bounds exceptions
 				if(random == list.size()){
 					random--;				
-				} 
+				}  
 				System.out.println("The " + weapon.toString()+" is in "+ rooms.get(random).toString());
 				rooms.remove(random);
 			}
