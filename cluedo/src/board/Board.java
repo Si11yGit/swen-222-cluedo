@@ -407,7 +407,6 @@ public class Board {
 
 
 	public Map<String, Room> getRooms() {
-		// TODO Auto-generated method stub
 		return rooms;
 	}
 

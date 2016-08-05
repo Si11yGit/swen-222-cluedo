@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import board.Board;
+import board.Coordinate;
 import main.Main;
 
 public class Player {
@@ -17,6 +18,7 @@ public class Player {
 	private Main game;
 	private ArrayList<Card> AllCards;
 	private Board board;
+	private Coordinate position;
 
 	public Player(int playerNumber, Character playerCharacter){
 		this.character = playerCharacter;
@@ -44,6 +46,7 @@ public class Player {
 		int diceTwo = (int) Math.round(Math.random()*6);
 		return diceOne + diceTwo;
 	}
+
 	public Character character() {
 		return character;
 	}
@@ -223,6 +226,10 @@ public class Player {
 		if (playerNum != other.playerNum)
 			return false;
 		return true;
+	}
+
+	public String toString() {
+		return character.toString();
 	}
 
 

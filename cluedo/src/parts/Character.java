@@ -7,9 +7,9 @@ public class Character extends Card{
 	private Card card;
 	private Player player;
 
-	public Character(String name) {
-		super(name);
-		this.name = name;
+	public Character(char c) {
+		super(c);
+		this.name = c;
 	}
 
 	public String name() {
@@ -23,6 +23,8 @@ public class Character extends Card{
 	public Player player() {
 		return player;
 	}
-	
-	
+
+	public String toString() {
+		return name.substring(name.indexOf(" ") + 1,name.indexOf(" ") + 1);
+	}
 }

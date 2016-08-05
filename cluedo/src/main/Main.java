@@ -54,6 +54,7 @@ public class Main {
 		initialiseWeapons();
 		this.solution =  initialiseSolution();
 		dealCards();
+		playGame();
 	}
 
 	/**
