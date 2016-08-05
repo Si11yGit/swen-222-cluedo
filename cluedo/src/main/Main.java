@@ -42,7 +42,7 @@ public class Main {
 	private int numPlayers;
 	private Solution solution; //solution object
 	private Board board;//reference to a board
-	private boolean gameOver;//whether the game is over or not 
+	private boolean gameOver;//whether the game is over or not
 
 	public Main(int numPlayers){
 		this.numPlayers=numPlayers;
@@ -57,7 +57,7 @@ public class Main {
 	}
 
 	/**
-	 * initialise all the cards 
+	 * initialise all the cards
 	 * @return
 	 */
 	public ArrayList<Card> initialiseCards(){
@@ -79,7 +79,7 @@ public class Main {
 		cards.add(new Weapon("Dagger"));
 		cards.add(new Weapon("Lead Pipe"));
 
-		//add all rooms 
+		//add all rooms
 		cards.add(new RoomCard("Ballroom"));
 		cards.add(new RoomCard("Kitchen"));
 		cards.add(new RoomCard("Conservatory"));
@@ -94,7 +94,7 @@ public class Main {
 	}
 
 	/**
-	 *This method creates the correct solution for the game to compare accusations or suggestions against.  
+	 *This method creates the correct solution for the game to compare accusations or suggestions against.
 	 * @return
 	 */
 	public Solution initialiseSolution(){
@@ -164,7 +164,7 @@ public class Main {
 			List<Card> cards = this.allPlayers.get(i).getCards();
 			System.out.println("Your cards are: "+cards.toString());
 		}
-		System.out.println();	
+		System.out.println();
 	}
 
 	/**
@@ -193,8 +193,8 @@ public class Main {
 
 				//avoid index out of bounds exceptions
 				if(random == list.size()){
-					random--;				
-				}  
+					random--;
+				}
 				System.out.println("The " + weapon.toString()+" is in "+ rooms.get(random).toString());
 				rooms.remove(random);
 			}
@@ -210,14 +210,14 @@ public class Main {
 		Player currentPlayer;
 		//all current players
 		int currentPlayers = this.allPlayers.size();
-		//random player starts 
+		//random player starts
 		int random = (int) Math.round(Math.random()*this.allPlayers.size());
 		if(random == this.allPlayers.size()){random--;}//avoid out of bounds exception
 		//loop while game i not over
 		while(!gameOver){
 			//iterate over the players
 			for(int i = random; i < this.allPlayers.size();i++){
-				if(currentPlayers > 1 && !gameOver){
+				if(currentPlayers > 0 && !gameOver){
 					currentPlayer = this.allPlayers.get(i);
 					//is the current player in the game
 					if(currentPlayer.getInGame()){
@@ -233,10 +233,6 @@ public class Main {
 							return;
 						}
 					}
-					if(gameOver){
-						gameOver();
-						return;
-					}
 				}
 				//there must be 1 player left so end game
 				else{
@@ -244,7 +240,7 @@ public class Main {
 					return;
 				}
 			}
-			
+
 		}
 		//
 	}
