@@ -357,15 +357,15 @@ public class Board {
 		}
 	}
 
-<<<<<<< HEAD
+
 
 	public Map<String, Room> getRooms() {
 		// TODO Auto-generated method stub
 		return rooms;
 	}
-=======
+
 	public static void main(String[] args) {
         new Board(new ArrayList<Player>());
     }
->>>>>>> branch 'master' of ssh://git@github.com/Si11yGit/swen-222-cluedo.git
+
 }
