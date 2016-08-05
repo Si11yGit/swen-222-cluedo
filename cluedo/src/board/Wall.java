@@ -13,6 +13,10 @@ public class Wall implements Square {
 		return false;
 	}
 
+	public Coordinate getPosition() {
+		return location;
+	}
+
 	/**
 	 * returns a specific Character which represents a wall on the board
 	 */

@@ -50,6 +50,10 @@ public class Room implements Square {
 		return centre;
 	}
 
+	public Coordinate getPosition() {
+		return centre;
+	}
+
 	public String getName() {
 		return name;
 	}

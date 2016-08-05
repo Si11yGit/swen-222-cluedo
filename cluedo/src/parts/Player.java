@@ -91,21 +91,8 @@ public class Player {
 	 *
 	 */
 	public void move(){
-		//WASD?
-		//loop, until valid input is entered
-
-		//var old location
-		//temporary, new location
-
-		//if the move to the new loc is valid
-		//var new location
-		//setLocation to the new location
-
-		//check if the new location is a door
-			// it is youve found  a door leading to a room
-		//check which room it is, set the location to that room
-
-		//else it is an invalid move so recursively try again
+		prevroom = null;
+		position.getCoordinate();
 
 
 	}

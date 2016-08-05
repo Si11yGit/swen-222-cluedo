@@ -14,4 +14,7 @@ public interface Square {
 	 */
 	public String toString();
 
+
+	public Coordinate getPosition();
+
 }
