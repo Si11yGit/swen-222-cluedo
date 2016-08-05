@@ -49,6 +49,9 @@ public class Hallway implements Square {
 		return position;
 	}
 
+	/**
+	 * returns the specific ccharacter that represents the hallways on the board
+	 */
 	@Override
 	public String toString() {
 		if (player == null) {
