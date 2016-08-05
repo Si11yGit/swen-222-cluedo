@@ -8,6 +8,7 @@ import java.util.List;
 
 import board.Board;
 import board.Coordinate;
+import board.Square;
 import main.Main;
 
 public class Player {
@@ -18,7 +19,7 @@ public class Player {
 	private Main game;
 	private ArrayList<Card> AllCards;
 	private Board board;
-	private Coordinate position;
+	private Square position;
 
 	public Player(int playerNumber, Character playerCharacter){
 		this.character = playerCharacter;
@@ -40,7 +41,7 @@ public class Player {
 		this.AllCards= all;
 	}
 
-	private int	diceRoll(){
+	public int	diceRoll(){
 
 		int diceOne = (int) Math.round(Math.random()*6);
 		int diceTwo = (int) Math.round(Math.random()*6);
