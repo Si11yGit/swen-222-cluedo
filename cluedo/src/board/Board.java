@@ -36,6 +36,47 @@ public class Board {
 		/*
 		 * takes the positions of each room and creates a room object representing each
 		 */
+		setupRooms();
+
+		/*
+		 * combines the room coordinates into one list for use in hallway creation
+		 */
+		ArrayList<Coordinate> locations = new ArrayList<Coordinate>();
+		for(Room room: rooms.values()) {
+			locations.addAll(room.getPositions());
+		}
+
+		/*
+		 * sets impassable block in the centre of the board
+		 */
+		setupCenter();
+
+		/*
+		 * sets impassable square around the exterior
+		 */
+		setupExterior();
+
+		/*
+		 * adds hallway positions
+		 */
+		setupHallways(locations);
+
+		/*
+		 * add doors
+		 */
+		setupDoors();
+
+		/*
+		 * create walls
+		 */
+		setupWalls();
+
+	}
+
+	/**
+	 * sets up each room. this is hard coded due to the design of the board
+	 */
+	public void setupRooms() {
 		ArrayList<Coordinate> locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 8; y += 2) {
 			for (int x = 1; x < 14; x += 2) {
@@ -45,7 +86,7 @@ public class Board {
 			}
 		}
 		Coordinate centre = new Coordinate(7, 5);
-		rooms.put("Study", new Room("Study", centre, locations));
+		rooms.put("Study", new Room("Study", centre, locations, "Stdy"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 14; y += 2) {
@@ -53,8 +94,8 @@ public class Board {
 				locations.add(new Coordinate(x, y));
 			}
 		}
-		centre = new Coordinate(35, 7);
-		rooms.put("Hall", new Room("Hall", centre, locations));
+		centre = new Coordinate(25, 7);
+		rooms.put("Hall", new Room("Hall", centre, locations, "Hall"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 12; y += 2) {
@@ -65,7 +106,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(39, 7);
-		rooms.put("Lounge", new Room("Lounge", centre, locations));
+		rooms.put("Lounge", new Room("Lounge", centre, locations, "Lng"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 13; y < 22; y += 2) {
@@ -76,7 +117,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(7, 18);
-		rooms.put("Library", new Room("Library", centre, locations));
+		rooms.put("Library", new Room("Library", centre, locations, "Lib"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 27; y < 36; y += 2) {
@@ -85,29 +126,31 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(5, 31);
-		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations));
+		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations, "Bill"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 41; y < 48; y += 2) {
 			for (int x = 1; x < 12; x += 2) {
-				if(!((x == 11 || x == 1) && y == 47)) {
+				if(!((x == 11 || x == 1) && y == 41)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
 		}
-		centre = new Coordinate(7, 18);
-		rooms.put("Conservatory", new Room("Conservatory", centre, locations));
+		centre = new Coordinate(7, 45);
+		rooms.put("Conservatory", new Room("Conservatory", centre, locations, "Con"));
+		rooms.get("Conservatory").setTunnel(rooms.get("Lounge"));
+		rooms.get("Lounge").setTunnel(rooms.get("Conservatory"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 37; y < 48; y += 2) {
 			for (int x = 17; x < 32; x += 2) {
-				if(!((x == 17 || x == 19 || x == 29 || x == 31) && y == 41)) {
+				if(!((x == 17 || x == 19 || x == 29 || x == 31) && y == 47)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
 		}
-		centre = new Coordinate(45, 25);
-		rooms.put("Ballroom", new Room("Ballroom", centre, locations));
+		centre = new Coordinate(25, 43);
+		rooms.put("Ballroom", new Room("Ballroom", centre, locations,"Ball"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 39; y < 48; y += 2) {
@@ -118,7 +161,10 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(43, 43);
-		rooms.put("Kitchen", new Room("Kitchen", centre, locations));
+		rooms.put("Kitchen", new Room("Kitchen", centre, locations, "Kitch"));
+
+		rooms.get("Kitchen").setTunnel(rooms.get("Study"));
+		rooms.get("Study").setTunnel(rooms.get("Kitchen"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 21; y < 34; y += 2) {
@@ -129,28 +175,83 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(40, 27);
-		rooms.put("Dining Room", new Room("Dining Room", centre, locations));
+		rooms.put("Dining Room", new Room("Dining Room", centre, locations, "Dining"));
+	}
 
-		/*
-		 * combines the room coordinates into one list for use in hallway creation
-		 */
-		locations = new ArrayList<Coordinate>();
-		for(Room room: rooms.values()) {
-			locations.addAll(room.getPositions());
-		}
-
-		/*
-		 * sets impassable block in the centre of the board
-		 */
+	/**
+	 * sets up central imapassable block
+	 */
+	public void setupCenter() {
 		for (int y = 17; y < 30; y++) {
 			for (int x = 19; x < 28; x++) {
 				board[x][y] = new Impassable(new Coordinate(x, y));
 			}
 		}
+	}
 
-		/*
-		 * sets impassable square around the exterior
-		 */
+	/**
+	 * initializes walls
+	 */
+	public void setupWalls() {
+		for(int x = 1; x < 48; x += 2) {
+			for(int y = 1; y < 50; y += 2) {
+				if (x < 2) {
+					board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x-2][y] != null) || (board[x][y] != null && board[x-2][y] == null)) {
+						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
+					} else if(!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) {
+						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
+					}
+				}
+
+				if (x > 46) {
+					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x+2][y] != null) || (board[x][y] != null && board[x+2][y] == null)) {
+						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+					} else if(!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) {
+						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+					}
+				}
+
+				if (y < 2) {
+					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x][y-2] != null) || (board[x][y] != null && board[x][y-2] == null)) {
+						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+					} else if(!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) {
+						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+					}
+				}
+
+				if (y > 48) {
+					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x][y+2] != null) || (board[x][y] != null && board[x][y+2] == null)) {
+						board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
+					} else if(!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) {
+						board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
+					}
+				}
+
+
+			}
+		}
+	}
+
+	/**
+	 * sets up impassable squares on the board exterior positions
+	 */
+	public void setupExterior() {
 		board[1][9] = new Impassable(new Coordinate(1, 9));
 		board[1][13] = new Impassable(new Coordinate(1, 13));
 		board[1][21] = new Impassable(new Coordinate(1, 21));
@@ -165,17 +266,19 @@ public class Board {
 		board[35][47] = new Impassable(new Coordinate(35, 47));
 		board[47][13] = new Impassable(new Coordinate(47, 13));
 		board[47][17] = new Impassable(new Coordinate(47, 17));
-		board[47][33] = new Impassable(new Coordinate(47, 33));
-		board[47][37] = new Impassable(new Coordinate(47, 37));
+		board[47][33] = new Impassable(new Coordinate(47, 35));
+		board[47][37] = new Impassable(new Coordinate(47, 39));
 		for(int i = 1; i < 48; i += 2) {
 			if(i != 19 || i != 29) {
 				board[i][49] = new Impassable(new Coordinate(i,49));
 			}
 		}
+	}
 
-		/*
-		 * adds hallway positions
-		 */
+	/**
+	 * adds hallway squares to board
+	 */
+	public void setupHallways(ArrayList<Coordinate> locations) {
 		for(int x = 1; x < 48; x += 2) {
 			for(int y = 1; y < 50; y += 2) {
 				if(board[x][y] == null && !locations.contains(new Coordinate(x,y))) {
@@ -183,10 +286,12 @@ public class Board {
 				}
 			}
 		}
+	}
 
-		/*
-		 * add doors
-		 */
+	/**
+	 * adds doors to the board
+	 */
+	public void setupDoors() {
 		int doorX = 13;
 		int doorY = 8;
 		String doorName = "Study";
@@ -255,63 +360,6 @@ public class Board {
 		doorY = 18;
 		doorName = "Dining Room";
 		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
-
-		/*
-		 * create walls
-		 */
-		for(int x = 1; x < 48; x += 2) {
-			for(int y = 1; y < 50; y += 2) {
-				if (x < 2) {
-					board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
-				} else {
-					if (board[x][y] == null) {
-
-					} else if((board[x][y] == null && board[x-2][y] != null) || (board[x][y] != null && board[x-2][y] == null)) {
-						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
-					} else if(!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) {
-						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
-					}
-				}
-
-				if (x > 46) {
-					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
-				} else {
-					if (board[x][y] == null) {
-
-					} else if((board[x][y] == null && board[x+2][y] != null) || (board[x][y] != null && board[x+2][y] == null)) {
-						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
-					} else if(!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) {
-						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
-					}
-				}
-
-				if (y < 2) {
-					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
-				} else {
-					if (board[x][y] == null) {
-
-					} else if((board[x][y] == null && board[x][y-2] != null) || (board[x][y] != null && board[x][y-2] == null)) {
-						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
-					} else if(!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) {
-						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
-					}
-				}
-
-				if (y > 48) {
-					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
-				} else {
-					if (board[x][y] == null) {
-
-					} else if((board[x][y] == null && board[x][y+2] != null) || (board[x][y] != null && board[x][y+2] == null)) {
-						board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
-					} else if(!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) {
-						board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
-					}
-				}
-
-
-			}
-		}
 	}
 
 	public void update() {
@@ -324,36 +372,27 @@ public class Board {
 				}
 			}
 		}
+
+		for(Room room: rooms.values()) {
+			int nameStart = room.getCentre().getX() - room.getID().length()/2;
+			int y = room.getCentre().getY();
+			//places name of room in centre of room
+			for(int x = nameStart; x < nameStart + room.getID().length(); x++) {
+				asciiboard[x][y] = room.getID().toCharArray()[x-nameStart];
+			}
+			//places player counters in room
+			for(int i = 0; i < room.getPlayers().size(); i++) {
+				asciiboard[room.getPositions().get(i).getX()][room.getPositions().get(i).getY()] = room.getPlayers().get(i).toString().charAt(0);
+			}
+		}
 	}
 
 	public void draw() {
-		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	              new FileOutputStream("filename.txt"), "utf-8"))) {
 		for(int y = 0; y <= 50; y++) {
 			for(int x = 0; x <= 48; x ++) {
-				/*if(board[x][y] != null) {
-					//System.out.print(board[x][y].toString());
-					writer.write(board[x][y].getClass().getSimpleName() + " ");
-					System.out.print(board[x][y].getClass());
-				} else {
-					writer.write("null ");
-					System.out.print("null");
-				}*/
-				writer.write(asciiboard[x][y]);
 				System.out.print(asciiboard[x][y]);
 			}
-			writer.write("\n");
 			System.out.print("\n");
-		}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
