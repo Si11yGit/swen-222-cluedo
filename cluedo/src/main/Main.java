@@ -204,8 +204,46 @@ public class Main {
 	 * This method should begin playing the game
 	 */
 	public void playGame(){
+		//current player
+		Player currentPlayer;
+		//all current players
+		int currentPlayers = this.allPlayers.size();
 		//random player starts 
-		
+		int random = (int) Math.round(Math.random()*this.allPlayers.size());
+		if(random == this.allPlayers.size()){random--;}//avoid out of bounds exception
+		//loop while game i not over
+		while(!gameOver){
+			//iterate over the players
+			for(int i = random; i < this.allPlayers.size();i++){
+				if(currentPlayers > 1 && !gameOver){
+					currentPlayer = this.allPlayers.get(i);
+					//is the current player in the game
+					if(currentPlayer.getInGame()){
+						currentPlayer.setGame(this);
+						currentPlayer.takeTurn(false);
+					}
+					//check if a player just lost
+					if(!currentPlayer.getInGame()){
+						currentPlayers--;
+						if(currentPlayers == 1){
+							//last player remaining
+							gameOver();
+							return;
+						}
+					}
+					if(gameOver){
+						gameOver();
+						return;
+					}
+				}
+				//there must be 1 player left so end game
+				else{
+					gameOver();
+					return;
+				}
+			}
+			
+		}
 		//
 	}
 
@@ -228,5 +266,8 @@ public class Main {
 
 	public Solution getSolution(){
 		return this.solution;
+	}
+	public Board getBoard(){
+		return this.board;
 	}
 }
