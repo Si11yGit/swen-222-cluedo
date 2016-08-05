@@ -88,8 +88,12 @@ public class Player {
 		
 	
 	}
-	
-	//check if a location is a valid place to move to 
+	 
+	/**
+	 *this is a method to check if a location is a valid place to move to 
+	 * @param newLoc
+	 * @return
+	 */
 	
 	public Boolean isValidMove(Location newLoc){
 		//cant go outside the board
@@ -115,13 +119,22 @@ public class Player {
 	}
 	
 	//make a "take turn class"
+	
+	/**
+	 * 
+	 * @param leavingRoom
+	 */
 	public void takeTurn(boolean leavingRoom){
 		boolean inRoom;//if a player is in a room or not
 		
 		//if player is not leaving room ...
 	}
 	
-	//passageway checking method?
+	/**
+	 * A method for checking if there is a secret passage way
+	 *
+	 * @return
+	 */
 	public boolean checkForPassageWays(){
 		return true;
 	}
@@ -178,6 +191,49 @@ public class Player {
 			System.out.println("Enter a number");
 		}
 		}	 
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((AllCards == null) ? 0 : AllCards.hashCode());
+		result = prime * result + ((character == null) ? 0 : character.hashCode());
+		result = prime * result + ((hand == null) ? 0 : hand.hashCode());
+		result = prime * result + (inGame ? 1231 : 1237);
+		result = prime * result + playerNum;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (AllCards == null) {
+			if (other.AllCards != null)
+				return false;
+		} else if (!AllCards.equals(other.AllCards))
+			return false;
+		if (character == null) {
+			if (other.character != null)
+				return false;
+		} else if (!character.equals(other.character))
+			return false;
+		if (hand == null) {
+			if (other.hand != null)
+				return false;
+		} else if (!hand.equals(other.hand))
+			return false;
+		if (inGame != other.inGame)
+			return false;
+		if (playerNum != other.playerNum)
+			return false;
+		return true;
 	}
 	
 	
