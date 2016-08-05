@@ -10,6 +10,10 @@ import java.util.Scanner;
 
 import board.Board;
 import board.Coordinate;
+import board.Door;
+import board.Enterable;
+import board.Hallway;
+import board.Impassable;
 import board.Room;
 import board.Square;
 import main.Main;
@@ -22,7 +26,7 @@ public class Player {
 	private Main game;
 	private ArrayList<Card> AllCards;
 	private Board board;
-	private Square position;
+	private Enterable position;
 	private Room prevroom = null;
 	private Scanner scan;
 
@@ -88,11 +92,28 @@ public class Player {
 	//checks that the player is able to move in that direction
 	//if they can't they are prompted to move in a different direction
 	/**
-	 *
+	 * method which moves the player
 	 */
-	public void move(){
-		prevroom = null;
-		position.getPosition();
+	public void move(int x,int y){
+		if (board.getBoard()[this.getX() + x][this.getY() + y] instanceof Hallway) {
+			Hallway hall = (Hallway)board.getBoard()[this.getX() + x][this.getY() + y];
+			hall.addPlayer(this);
+			this.position.removePlayer(this);
+			this.position = hall;
+		} else {
+			Room newRoom;
+			for(Room room: board.getRooms().values()) {
+				for(Coordinate co: room.getPositions()) {
+					if (co.equals(new Coordinate(this.getX() + x,this.getY() + y))) {
+						newRoom = room;
+						newRoom.addPlayer(this);
+						this.position.removePlayer(this);
+						this.position = newRoom;
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	public int getX() {
@@ -110,28 +131,55 @@ public class Player {
 	 */
 
 
-	public Boolean isValidMove(){
+	public boolean isValidMove(int x,int y, int diceRoll){
+		if (abs(x) + abs(y) > diceRoll) {
+			System.out.println("position is out of range");
+			return false;
+		}
 
 		//cant go outside the board
+		if (this.getX() + x < 0 || this.getX() + x >= board.getWidth()
+				|| this.getY() + y < 0 || this.getY() + y >= board.getHeight()) {
+			System.out.println("please choose a position on the board");
+			return false;
+		}
 
-		//location on baord
+		//cant move into impassable square
+		if(board.getBoard()[this.getX() + x][this.getY() + y] instanceof Impassable) {
+			System.out.println("cannot move to impassable block");
+			return false;
+		}
 
-		//if its a door
+		Room destination;
+		if(board.getBoard()[this.getX() + x][this.getY() + y] == null) {
+			for(Room room: board.getRooms().values()) {
+				for(Coordinate co: room.getPositions()) {
+					if (co.equals(new Coordinate(this.getX() + x,this.getY() + y))) {
+						destination = room;
+						Door closest = destination.doors().get(0);
+						for(Door door: destination.doors()) {
+							if (abs(door.getPosition().getX() - this.getX()) + abs(door.getPosition().getY() - this.getY())
+							< abs(closest.getPosition().getX() - this.getX()) + abs(closest.getPosition().getY() - this.getY())) {
+								closest = door;
+							}
+						}
+						if (abs(closest.getPosition().getX() - this.getX()) + abs(closest.getPosition().getY() - this.getY()) > diceRoll) {
+							System.out.println("cant reach room");
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
 
-			//if its not  a previously visited room, or a
-			//aka prevRoom == null
-		 	return true;
+	}
 
-		 	//if we were in there last turn, against the rules
-		 	//return false;
-
-		 //return true; outside the two nested statemnents
-		//else if
-		 	//check if there is another player oon the square
-		 	//return false
-		//else if
-		 	//check if there is a wall there
-
+	public int abs(int x) {
+		if (x < 0) {
+			x = -x;
+		}
+		return x;
 	}
 
 
@@ -338,11 +386,11 @@ public class Player {
 		return character.toString();
 	}
 
-	public Square getPosition() {
+	public Enterable getPosition() {
 		return position;
 	}
 
-	public void setPosition(Square position) {
+	public void setPosition(Enterable position) {
 		this.position = position;
 	}
 

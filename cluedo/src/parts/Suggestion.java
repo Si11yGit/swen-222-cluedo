@@ -1,12 +1,11 @@
 package parts;
 
-public class Suggestion extends Accusation{
+public class Suggestion{
 	private RoomCard room;
 	private Character character;
 	private Weapon weapon;
 
 	public Suggestion(RoomCard room, Character character, Weapon weapon){
-		super(room, character, weapon);
 		this.room = room;
 		this.character = character;
 		this.weapon = weapon;
