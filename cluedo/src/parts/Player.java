@@ -92,9 +92,15 @@ public class Player {
 	 */
 	public void move(){
 		prevroom = null;
-		position.getCoordinate();
+		position.getPosition();
+	}
 
+	public int getX() {
+		return position.getPosition().getX();
+	}
 
+	public int getY() {
+		return position.getPosition().getY();
 	}
 
 	/**

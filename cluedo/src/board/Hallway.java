@@ -8,7 +8,7 @@ import parts.Player;
  * @author clarkebenj1
  *
  */
-public class Hallway implements Square {
+public class Hallway implements Enterable {
 	private Player player;
 	private Coordinate position;
 
@@ -37,8 +37,12 @@ public class Hallway implements Square {
 	 * sets the Player currently in this square
 	 * @param player
 	 */
-	public void setPlayer(Player player) {
+	public void addPlayer(Player player) {
 		this.player = player;
+	}
+
+	public void removePlayer(Player player) {
+		this.player = null;
 	}
 
 	/**

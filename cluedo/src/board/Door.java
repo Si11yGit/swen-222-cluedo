@@ -41,4 +41,9 @@ public class Door implements Square {
 		return "/";
 	}
 
+	@Override
+	public Coordinate getPosition() {
+		return location;
+	}
+
 }

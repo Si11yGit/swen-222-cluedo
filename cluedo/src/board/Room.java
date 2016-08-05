@@ -10,9 +10,10 @@ import parts.Player;
  * @author clarkebenj1
  *
  */
-public class Room implements Square {
+public class Room implements Enterable {
 	private ArrayList<Coordinate> positions;
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Door> doors = new ArrayList<Door>();
 	private Room tunnel;
 	private Coordinate centre;
 	private String name;
@@ -72,5 +73,13 @@ public class Room implements Square {
 
 	public void setTunnel(Room tunnel) {
 		this.tunnel = tunnel;
+	}
+
+	public ArrayList<Door> doors() {
+		return doors;
+	}
+
+	public void setDoor(Door door) {
+		doors.add(door);
 	}
 }
