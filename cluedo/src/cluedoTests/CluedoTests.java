@@ -127,16 +127,23 @@ public class CluedoTests {
 	@Test
 	public void testMainInvalidNumPlayers2(){
 		try{
-			Main main = new Main(7);
+			Main main = new Main(1);
 		}catch(IndexOutOfBoundsException e){
 			
 		}
 	}
 	@Test
-	public void testMainValidNumPlayers1(){
-		Main main = new Main(2);
-		System.out.println(main.getNumPlayers());
-		assert main.getNumPlayers() == 2;
+	public void testPlayAssignedCharacter1(){
+		Character c = new Character("Mrs. White");
+		Player p = new Player(1, c);
 		
+		assertTrue(p.character().getName() == "Mrs. White");
+	}
+	@Test
+	public void testPlayAssignedCharacter2(){
+		Character c = new Character("Mrs. White");
+		Player p = new Player(1, c);
+		
+		assertFalse(p.character().getName() == "Colonel Mustard");
 	}
 }

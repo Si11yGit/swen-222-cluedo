@@ -39,6 +39,7 @@ public class Main {
 	private ArrayList<Card> allCards;
 	private ArrayList<Card> listOfCards;
 	private ArrayList<Player> allPlayers;
+	private ArrayList<Card> preservedCardList; /// for testing purposes
 	private int numPlayers;
 	private Solution solution; //solution object
 	private Board board;//reference to a board
@@ -47,7 +48,8 @@ public class Main {
 	public Main(int numPlayers){
 		this.numPlayers=numPlayers;
 		this.allCards = initialiseCards();
-		this.listOfCards = allCards;
+		this.listOfCards = this.allCards;
+		this.preservedCardList = this.allCards;
 		Collections.shuffle(this.allCards);
 		this.allPlayers = initialisePlayer();
 		this.board = new Board(allPlayers);
@@ -142,11 +144,11 @@ public class Main {
 
 		//use a random number between 0 and 6 to assign a character to a player
 
-		for(int i = 0;  i< this.numPlayers;i++){
+		for(int i = 0;  i< this.numPlayers;++i){
 			Character card = cards.get(i);
 			players.add(new Player(i, card));
 
-			players.get(i).setGame(this);
+			//players.get(i).setGame(this);
 			//System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
 			System.out.println("Player " + i + " you will be  playing as " + card.name() + ".");
 		}
@@ -282,5 +284,8 @@ public class Main {
 	}
 	public Board getBoard(){
 		return this.board;
+	}
+	public ArrayList<Card> getCards(){
+		return this.preservedCardList;
 	}
 }
