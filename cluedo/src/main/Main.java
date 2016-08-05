@@ -217,32 +217,33 @@ public class Main {
 		while(!gameOver){
 			//iterate over the players
 			for(int i = random; i < this.allPlayers.size();i++){
-				if(currentPlayers > 0 && !gameOver){
+				if(!gameOver){
 					currentPlayer = this.allPlayers.get(i);
 					//is the current player in the game
 					if(currentPlayer.getInGame()){
-						currentPlayer.setGame(this);
-						currentPlayer.takeTurn(false);
+						turn(currentPlayer);
 					}
 					//check if a player just lost
 					if(!currentPlayer.getInGame()){
 						currentPlayers--;
-						if(currentPlayers == 1){
-							//last player remaining
+						if(currentPlayers == 0){
+							//no players remaining
 							gameOver();
 							return;
 						}
 					}
 				}
-				//there must be 1 player left so end game
-				else{
-					gameOver();
-					return;
-				}
 			}
 
 		}
 		//
+	}
+
+	/**
+	 * Turn method for a player
+	 */
+	public void turn(Player player) {
+
 	}
 
 	/**
