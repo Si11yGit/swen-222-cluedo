@@ -7,7 +7,7 @@ public class Character extends Card{
 	private Card card;
 	private Player player;
 
-	public Character(char c) {
+	public Character(String c) {
 		super(c);
 		this.name = c;
 	}
