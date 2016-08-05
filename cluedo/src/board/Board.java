@@ -20,11 +20,8 @@ public class Board {
 	ArrayList<Player> players;
 	Map<String, Room> rooms = new HashMap<String, Room>();
 
-	public Board(ArrayList<Player> players) {
-		this.players = players;
+	public Board() {
 		setupBoard();
-		update();
-		draw();
 	}
 
 
@@ -100,7 +97,7 @@ public class Board {
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 12; y += 2) {
 			for (int x = 35; x < 48; x += 2) {
-				if (!((x == 35 || x == 47) && y == 1)) {
+				if (!((x == 35) && y == 1)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
@@ -396,6 +393,7 @@ public class Board {
 				asciiboard[room.getPositions().get(i).getX()][room.getPositions().get(i).getY()] = room.getPlayers().get(i).toString().charAt(0);
 			}
 		}
+		draw();
 	}
 
 	/**
@@ -414,7 +412,11 @@ public class Board {
 		return rooms;
 	}
 
+	public Square[][] getBoard() {
+		return board;
+	}
+
 	public static void main(String[] args) {
-        new Board(new ArrayList<Player>());
+        new Board();
     }
 }

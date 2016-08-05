@@ -20,20 +20,23 @@ public class Starter {
 		System.out.print("How many people will be playing?\n");
 		Scanner scan = new Scanner(System.in);
 		int players = 0;
-		while (players <= 0 || players > 6) {
+		while (players <= 1 || players > 6) {
 			if (scan.hasNext()) {
 				if (scan.hasNextInt()) {
 					players = scan.nextInt();
-					if (players < 1 || players > 6) {
-						System.out.println("please input a positive integer up to 6");
+					if (players <= 1 || players > 6) {
+						System.out.println("please input a positive integer between 2 and 6");
+					} else {
+						new Main(players,scan);
+						break;
 					}
 				} else {
+					scan.nextLine();
 					System.out.println("please input a positive integer");
 				}
 			}
 		}
-		scan.close();
 
-		new Main(players);
+
 	}
 }

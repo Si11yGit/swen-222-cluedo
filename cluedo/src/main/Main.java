@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 import board.Board;
+import board.Hallway;
 import board.Room;
+import board.Square;
 import parts.Card;
 import parts.Player;
 import parts.RoomCard;
@@ -46,9 +48,9 @@ public class Main {
 	private Solution solution; //solution object
 	private Board board;//reference to a board
 	private boolean gameOver;//whether the game is over or not
-	private Scanner scan = new Scanner(System.in);
+	private Scanner scan;
 
-	public Main(int numPlayers){
+	public Main(int numPlayers, Scanner scan){
 		this.numPlayers=numPlayers;
 		this.allCards = initialiseCards();
 		for(Card card: allCards) {
@@ -56,10 +58,14 @@ public class Main {
 		}
 		this.listOfCards = allCards;
 		Collections.shuffle(this.allCards);
-		this.allPlayers = initialisePlayer();
-		this.board = new Board(allPlayers);
-		//initialiseWeapons();
+		this.scan = scan;
+		this.board = new Board();
 		this.solution =  initialiseSolution();
+		this.allPlayers = initialisePlayer();
+		this.board.update();
+
+		//initialiseWeapons();
+
 		dealCards();
 		playGame();
 	}
@@ -147,16 +153,49 @@ public class Main {
 		cards.add(new Character("Mrs. White"));
 		cards.add(new Character("Mrs. Peacock"));
 
-		//use a random number between 0 and 6 to assign a character to a player
-
 		for(int i = 0;  i< this.numPlayers;i++){
 			Character card = cards.get(i);
-			players.add(new Player(i, card));
+			players.add(new Player(i, card, scan));
+
+			Hallway position;
+			switch(i) {
+			case 0:
+				position = (Hallway) board.getBoard()[33][1];
+				players.get(i).setPosition(position);
+				position.setPlayer(players.get(i));
+				break;
+			case 1:
+				position = (Hallway) board.getBoard()[47][15];
+				players.get(i).setPosition(position);
+				position.setPlayer(players.get(i));
+				break;
+			case 2:
+				position = (Hallway) board.getBoard()[1][11];
+				players.get(i).setPosition(position);
+				position.setPlayer(players.get(i));
+				break;
+			case 3:
+				position = (Hallway) board.getBoard()[19][49];
+				players.get(i).setPosition(position);
+				position.setPlayer(players.get(i));
+				break;
+			case 4:
+				position = (Hallway) board.getBoard()[29][49];
+				players.get(i).setPosition(position);
+				position.setPlayer(players.get(i));
+				break;
+			case 5:
+				position = (Hallway) board.getBoard()[1][37];
+				players.get(i).setPosition(position);
+				position.setPlayer(players.get(i));
+				break;
+			}
 
 			players.get(i).setGame(this);
 			//System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
 			System.out.println("Player " + i + " you will be  playing as " + card.name() + ".");
 		}
+
 		return players;
 	}
 
@@ -173,7 +212,7 @@ public class Main {
 		}
 		for(int i = 1; i <= this.numPlayers; ++i){
 			List<Card> cards = this.allPlayers.get(i-1).getCards();
-			System.out.println("Your cards are: "+cards.toString());
+//			System.out.println("Your cards are: "+cards.toString());
 		}
 		System.out.println();
 	}
@@ -242,7 +281,7 @@ public class Main {
 						currentPlayers--;
 						if(currentPlayers == 0){
 							//no players remaining
-							gameOver();
+							setGameOver();
 							System.out.println("All players have failed to identify the killer!! Game Over");
 							return;
 						}
@@ -262,9 +301,10 @@ public class Main {
 		System.out.println("");
 		System.out.println("would you like to make an accusation? (y/n)");
 		check = false;
-		while (check == false) {
+		String response = "";
+		while (!check) {
 			if (scan.hasNext()) {
-				String response = scan.next();
+				response = scan.nextLine();
 				if (response.toLowerCase().equals("y")) {
 					check = true;
 					Suggestion accusation = player.makeAccusation(cardsearch);
@@ -275,17 +315,21 @@ public class Main {
 					} else {
 						System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
 						player.lose();
+						return;
 					}
 				} else if (response.toLowerCase().equals("n")) {
 					check = true;
-				} else {
-
+				} else if (response != null) {
+					System.out.print("enter one of the two choices (y/n)");
 				}
 			}
 		}
 		System.out.println("");
 		int roll = player.diceRoll();
 		System.out.println("you rolled " + roll);
+		if (player.checkForPassageWays()) {
+
+		}
 		while (check == false) {
 			System.out.println("How far down would you like to move? (use negative for up)");
 
@@ -308,9 +352,9 @@ public class Main {
 		}
 		System.out.println("would you like to make an accusation? (y/n)");
 		check = false;
-		while (check == false) {
+		while (!check) {
 			if (scan.hasNext()) {
-				String response = scan.next();
+				response = scan.nextLine();
 				if (response.toLowerCase().equals("y")) {
 					check = true;
 					Suggestion accusation = player.makeAccusation(cardsearch);
@@ -321,15 +365,15 @@ public class Main {
 					} else {
 						System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
 						player.lose();
+						return;
 					}
 				} else if (response.toLowerCase().equals("n")) {
 					check = true;
-				} else {
-
+				} else if (response != null) {
+					System.out.print("enter one of the two choices (y/n)");
 				}
 			}
 		}
-		scan.close();
 	}
 
 	public int getNumPlayers(){

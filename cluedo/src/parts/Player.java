@@ -24,12 +24,14 @@ public class Player {
 	private Board board;
 	private Square position;
 	private Room prevroom = null;
+	private Scanner scan;
 
-	public Player(int playerNumber, Character playerCharacter){
+	public Player(int playerNumber, Character playerCharacter, Scanner scan){
 		this.character = playerCharacter;
 		this.playerNum = playerNumber;
 		this.hand = new ArrayList<Card>();
 		this.inGame = true;
+		this.scan = scan;
 	}
 
 	public void setGame(Main game){
@@ -168,7 +170,6 @@ public class Player {
 		RoomCard room = (RoomCard)cards.get(((Room)position).getName());
 		Weapon weapon = null;
 		Character character = null;
-		Scanner scan = new Scanner(System.in);
 		System.out.println("choose a weapon");
 		System.out.println("options are:");
 		for (Card card: cards.values()) {
@@ -177,10 +178,10 @@ public class Player {
 			}
 		}
 		boolean check = false;
-		String name;
+		String name = "";
 		while(check == false) {
 			if(scan.hasNext()) {
-				name = scan.next();
+				name = scan.nextLine();
 				if (cards.get(name) instanceof Weapon) {
 					weapon = (Weapon) cards.get(name);
 					check = true;
@@ -199,7 +200,7 @@ public class Player {
 		check = false;
 		while(check == false) {
 			if(scan.hasNext()) {
-				name = scan.next();
+				name = scan.nextLine();
 				if (cards.get(name) instanceof Character) {
 					character = (Character) cards.get(name);
 					check = true;
@@ -235,7 +236,6 @@ public class Player {
 		RoomCard room = null;
 		Weapon weapon = null;
 		Character character = null;
-		Scanner scan = new Scanner(System.in);
 		System.out.println("choose a room");
 		System.out.println("options are:");
 		for (Card card: cards.values()) {
@@ -247,7 +247,7 @@ public class Player {
 		String name;
 		while(check == false) {
 			if(scan.hasNext()) {
-				name = scan.next();
+				name = scan.nextLine();
 				if (cards.get(name) instanceof RoomCard) {
 					room = (RoomCard) cards.get(name);
 					check = true;
@@ -266,7 +266,7 @@ public class Player {
 		check = false;
 		while(check == false) {
 			if(scan.hasNext()) {
-				name = scan.next();
+				name = scan.nextLine();
 				if (cards.get(name) instanceof Weapon) {
 					weapon = (Weapon) cards.get(name);
 					check = true;
@@ -285,7 +285,7 @@ public class Player {
 		check = false;
 		while(check == false) {
 			if(scan.hasNext()) {
-				name = scan.next();
+				name = scan.nextLine();
 				if (cards.get(name) instanceof Character) {
 					character = (Character) cards.get(name);
 					check = true;
@@ -296,45 +296,6 @@ public class Player {
 		}
 
 		return new Suggestion(room,character,weapon);
-	}
-
-	/**
-	 * A method for getting text input from the user
-	 * @param string
-	 * @return string
-	 */
-	private static String inputString(String string){
-		System.out.print(string + " ");
-		System.out.println();
-		while(true){
-			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-			try{
-				return input.readLine().toUpperCase();
-			}
-			catch(IOException e){}
-		}
-	}
-
-	/**
-	 * A method for getting text input from the user
-	 * @param string
-	 * @return int
-	 */
-	private static int inputNumber(String string){
-		System.out.print(string + " ");
-		System.out.println();
-		while(true){
-			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-
-		try{
-			String s = input.readLine();
-			return Integer.parseInt(s);
-		}catch(IOException e){
-			System.out.println("Enter a number");
-		}catch(NumberFormatException  e){
-			System.out.println("Enter a number");
-		}
-		}
 	}
 
 	@Override
