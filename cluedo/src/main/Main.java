@@ -147,7 +147,7 @@ public class Main {
 			players.add(new Player(i, card));
 
 			players.get(i).setGame(this);
-			System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
+			//System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
 			System.out.println("Player " + i + " you will be  playing as " + card.name() + ".");
 		}
 		return players;
@@ -164,8 +164,8 @@ public class Main {
 			newCard.setOwner(player);//set the owner of the card to the current player
 			this.allCards.remove(0);//remove the card from the deck
 		}
-		for(int i = 0; i <= this.numPlayers; i++){
-			List<Card> cards = this.allPlayers.get(i).getCards();
+		for(int i = 1; i <= this.numPlayers; ++i){
+			List<Card> cards = this.allPlayers.get(i-1).getCards();
 			System.out.println("Your cards are: "+cards.toString());
 		}
 		System.out.println();
