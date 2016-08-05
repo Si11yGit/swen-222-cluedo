@@ -1,5 +1,8 @@
 package parts;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +122,9 @@ public class Player {
 	}
 	
 	//passageway checking method?
+	public boolean checkForPassageWays(){
+		return true;
+	}
 	
 	//a method that returns the new location of the player (after they move)
 	
@@ -133,7 +139,47 @@ public class Player {
 	//check suggestion
 	//called to prove or disprove a suggestion
 	//check the cards starting to the left (next turn) 
-	//of the current player 
+	//of the current player
+	
+	/**
+	 * A method for getting text input from the user
+	 * @param string
+	 * @return string 
+	 */
+	private static String inputString(String string){
+		System.out.print(string + " ");
+		System.out.println();
+		while(true){
+			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+			try{
+				return input.readLine().toUpperCase();
+			}
+			catch(IOException e){}
+		}
+	}
+	
+	/**
+	 * A method for getting text input from the user
+	 * @param string
+	 * @return int 
+	 */
+	private static int inputNumber(String string){
+		System.out.print(string + " ");
+		System.out.println();
+		while(true){
+			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+		
+		try{
+			String s = input.readLine();
+			return Integer.parseInt(s);
+		}catch(IOException e){
+			System.out.println("Enter a number");
+		}catch(NumberFormatException  e){
+			System.out.println("Enter a number");
+		}
+		}	
+	}
+	
 	
 	//public void setCharacter(Character character) {
 	//	this.character = character;

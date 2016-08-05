@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ public class Main {
 		this.numPlayers=numPlayers;
 		this.allCards = initialiseCards();
 		this.listOfCards = allCards;
+		Collections.shuffle(this.allCards);
 		this.allPlayers = initialisePlayer();
 		this.board = new Board(allPlayers);
 		initialiseWeapons();
@@ -263,7 +265,6 @@ public class Main {
 	public int getNumPlayers(){
 		return this.numPlayers;
 	}
-
 	public Solution getSolution(){
 		return this.solution;
 	}

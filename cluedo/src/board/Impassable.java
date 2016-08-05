@@ -23,7 +23,7 @@ public class Impassable implements Square {
 	}
 
 	public String toString() {
-		return "█";
+		return "@";
 	}
 
 }

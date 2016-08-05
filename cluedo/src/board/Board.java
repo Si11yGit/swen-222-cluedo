@@ -1,5 +1,13 @@
 package board;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +23,8 @@ public class Board {
 	public Board(ArrayList<Player> players) {
 		this.players = players;
 		setupBoard();
+		update();
+		draw();
 	}
 
 
@@ -251,43 +261,111 @@ public class Board {
 		 */
 		for(int x = 1; x < 48; x += 2) {
 			for(int y = 1; y < 50; y += 2) {
-				if((!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) || x < 2) {
+				if (x < 2) {
 					board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
-				} else if((!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) || x > 47) {
-					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
-				} else if((!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) || y < 2) {
-					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
-				} else if((!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) || y > 49) {
-					board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x-2][y] != null) || (board[x][y] != null && board[x-2][y] == null)) {
+						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
+					} else if(!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) {
+						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
+					}
 				}
+
+				if (x > 46) {
+					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x+2][y] != null) || (board[x][y] != null && board[x+2][y] == null)) {
+						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+					} else if(!board[x][y].getClass().equals(board[x+2][y].getClass()) && board[x+1][y] == null) {
+						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
+					}
+				}
+
+				if (y < 2) {
+					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x][y-2] != null) || (board[x][y] != null && board[x][y-2] == null)) {
+						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+					} else if(!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) {
+						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+					}
+				}
+
+				if (y > 48) {
+					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+				} else {
+					if (board[x][y] == null) {
+
+					} else if((board[x][y] == null && board[x][y+2] != null) || (board[x][y] != null && board[x][y+2] == null)) {
+						board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
+					} else if(!board[x][y].getClass().equals(board[x][y+2].getClass()) && board[x-1][y+1] == null) {
+						board[x][y+1]  = new Wall(false, new Coordinate(x,y+1));
+					}
+				}
+
+
 			}
 		}
 	}
 
 	public void update() {
-		for(int x = 0; x <= 49; x ++) {
-			for(int y = 0; y <= 51; y++) {
+		for(int x = 0; x <= 48; x ++) {
+			for(int y = 0; y <= 50; y++) {
 				if (board[x][y] == null) {
 					asciiboard[x][y] = ' ';
 				} else {
-					board[x][y].toString().charAt(0);
+					asciiboard[x][y] = board[x][y].toString().charAt(0);
 				}
 			}
 		}
 	}
 
 	public void draw() {
-		for(int y = 0; y <= 51; y++) {
-			for(int x = 0; x <= 49; x ++) {
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+	              new FileOutputStream("filename.txt"), "utf-8"))) {
+		for(int y = 0; y <= 50; y++) {
+			for(int x = 0; x <= 48; x ++) {
+				/*if(board[x][y] != null) {
+					//System.out.print(board[x][y].toString());
+					writer.write(board[x][y].getClass().getSimpleName() + " ");
+					System.out.print(board[x][y].getClass());
+				} else {
+					writer.write("null ");
+					System.out.print("null");
+				}*/
+				writer.write(asciiboard[x][y]);
 				System.out.print(asciiboard[x][y]);
 			}
+			writer.write("\n");
 			System.out.print("\n");
+		}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
+<<<<<<< HEAD
 
 	public Map<String, Room> getRooms() {
 		// TODO Auto-generated method stub
 		return rooms;
 	}
+=======
+	public static void main(String[] args) {
+        new Board(new ArrayList<Player>());
+    }
+>>>>>>> branch 'master' of ssh://git@github.com/Si11yGit/swen-222-cluedo.git
 }
