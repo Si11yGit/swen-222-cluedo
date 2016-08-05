@@ -179,7 +179,7 @@ public class Board {
 	}
 
 	/**
-	 * sets up central imapassable block
+	 * sets up central impassable block
 	 */
 	public void setupCenter() {
 		for (int y = 17; y < 30; y++) {
@@ -370,6 +370,9 @@ public class Board {
 		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
 	}
 
+	/**
+	 * Updates the board
+	 */
 	public void update() {
 		for(int x = 0; x <= 48; x ++) {
 			for(int y = 0; y <= 50; y++) {
@@ -395,6 +398,9 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Draws the board
+	 */
 	public void draw() {
 		for(int y = 0; y <= 50; y++) {
 			for(int x = 0; x <= 48; x ++) {
@@ -404,8 +410,6 @@ public class Board {
 		}
 	}
 
-
-
 	public Map<String, Room> getRooms() {
 		return rooms;
 	}
@@ -413,5 +417,4 @@ public class Board {
 	public static void main(String[] args) {
         new Board(new ArrayList<Player>());
     }
-
 }

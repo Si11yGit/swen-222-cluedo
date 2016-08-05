@@ -13,6 +13,9 @@ public class Wall implements Square {
 		return false;
 	}
 
+	/**
+	 * returns a specific Character which represents a wall on the board
+	 */
 	public String toString() {
 		if (vertical == true) {
 			return "|";

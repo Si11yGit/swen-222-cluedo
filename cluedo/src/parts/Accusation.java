@@ -56,7 +56,7 @@ public class Accusation {
 	}
 	
 	/**
-	 * an equals method for comparing an accusation to a solution
+	 * a special equals method for comparing an accusation to a solution
 	 * 
 	 * @param Solution
 	 *  @return boolean

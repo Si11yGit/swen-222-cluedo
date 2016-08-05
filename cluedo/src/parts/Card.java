@@ -23,6 +23,7 @@ public class Card {
 	public void setOwner(Player owner) {
 		Owner = owner;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
