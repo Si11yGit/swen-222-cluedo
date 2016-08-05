@@ -86,7 +86,7 @@ public class Board {
 			}
 		}
 		Coordinate centre = new Coordinate(7, 5);
-		rooms.put("Study", new Room("Study", centre, locations));
+		rooms.put("Study", new Room("Study", centre, locations, "Stdy"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 14; y += 2) {
@@ -94,8 +94,8 @@ public class Board {
 				locations.add(new Coordinate(x, y));
 			}
 		}
-		centre = new Coordinate(35, 7);
-		rooms.put("Hall", new Room("Hall", centre, locations));
+		centre = new Coordinate(25, 7);
+		rooms.put("Hall", new Room("Hall", centre, locations, "Hall"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 12; y += 2) {
@@ -106,7 +106,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(39, 7);
-		rooms.put("Lounge", new Room("Lounge", centre, locations));
+		rooms.put("Lounge", new Room("Lounge", centre, locations, "Lng"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 13; y < 22; y += 2) {
@@ -117,7 +117,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(7, 18);
-		rooms.put("Library", new Room("Library", centre, locations));
+		rooms.put("Library", new Room("Library", centre, locations, "Lib"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 27; y < 36; y += 2) {
@@ -126,29 +126,31 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(5, 31);
-		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations));
+		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations, "Bill"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 41; y < 48; y += 2) {
 			for (int x = 1; x < 12; x += 2) {
-				if(!((x == 11 || x == 1) && y == 47)) {
+				if(!((x == 11 || x == 1) && y == 41)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
 		}
-		centre = new Coordinate(7, 18);
-		rooms.put("Conservatory", new Room("Conservatory", centre, locations));
+		centre = new Coordinate(7, 45);
+		rooms.put("Conservatory", new Room("Conservatory", centre, locations, "Con"));
+		rooms.get("Conservatory").setTunnel(rooms.get("Lounge"));
+		rooms.get("Lounge").setTunnel(rooms.get("Conservatory"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 37; y < 48; y += 2) {
 			for (int x = 17; x < 32; x += 2) {
-				if(!((x == 17 || x == 19 || x == 29 || x == 31) && y == 41)) {
+				if(!((x == 17 || x == 19 || x == 29 || x == 31) && y == 47)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
 		}
-		centre = new Coordinate(45, 25);
-		rooms.put("Ballroom", new Room("Ballroom", centre, locations));
+		centre = new Coordinate(25, 43);
+		rooms.put("Ballroom", new Room("Ballroom", centre, locations,"Ball"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 39; y < 48; y += 2) {
@@ -159,7 +161,10 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(43, 43);
-		rooms.put("Kitchen", new Room("Kitchen", centre, locations));
+		rooms.put("Kitchen", new Room("Kitchen", centre, locations, "Kitch"));
+
+		rooms.get("Kitchen").setTunnel(rooms.get("Study"));
+		rooms.get("Study").setTunnel(rooms.get("Kitchen"));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 21; y < 34; y += 2) {
@@ -170,7 +175,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(40, 27);
-		rooms.put("Dining Room", new Room("Dining Room", centre, locations));
+		rooms.put("Dining Room", new Room("Dining Room", centre, locations, "Dining"));
 	}
 
 	/**
@@ -261,8 +266,8 @@ public class Board {
 		board[35][47] = new Impassable(new Coordinate(35, 47));
 		board[47][13] = new Impassable(new Coordinate(47, 13));
 		board[47][17] = new Impassable(new Coordinate(47, 17));
-		board[47][33] = new Impassable(new Coordinate(47, 33));
-		board[47][37] = new Impassable(new Coordinate(47, 37));
+		board[47][33] = new Impassable(new Coordinate(47, 35));
+		board[47][37] = new Impassable(new Coordinate(47, 39));
 		for(int i = 1; i < 48; i += 2) {
 			if(i != 19 || i != 29) {
 				board[i][49] = new Impassable(new Coordinate(i,49));
@@ -367,40 +372,27 @@ public class Board {
 				}
 			}
 		}
-		
+
 		for(Room room: rooms.values()) {
-			
+			int nameStart = room.getCentre().getX() - room.getID().length()/2;
+			int y = room.getCentre().getY();
+			//places name of room in centre of room
+			for(int x = nameStart; x < nameStart + room.getID().length(); x++) {
+				asciiboard[x][y] = room.getID().toCharArray()[x-nameStart];
+			}
+			//places player counters in room
+			for(int i = 0; i < room.getPlayers().size(); i++) {
+				asciiboard[room.getPositions().get(i).getX()][room.getPositions().get(i).getY()] = room.getPlayers().get(i).toString().charAt(0);
+			}
 		}
 	}
 
 	public void draw() {
-		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	              new FileOutputStream("filename.txt"), "utf-8"))) {
 		for(int y = 0; y <= 50; y++) {
 			for(int x = 0; x <= 48; x ++) {
-				/*if(board[x][y] != null) {
-					//System.out.print(board[x][y].toString());
-					writer.write(board[x][y].getClass().getSimpleName() + " ");
-					System.out.print(board[x][y].getClass());
-				} else {
-					writer.write("null ");
-					System.out.print("null");
-				}*/
-				writer.write(asciiboard[x][y]);
 				System.out.print(asciiboard[x][y]);
 			}
-			writer.write("\n");
 			System.out.print("\n");
-		}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

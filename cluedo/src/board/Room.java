@@ -12,14 +12,17 @@ import parts.Player;
  */
 public class Room implements Square {
 	private ArrayList<Coordinate> positions;
-	private ArrayList<Player> players;
+	private ArrayList<Player> players = new ArrayList<Player>();
+	private Room tunnel;
 	private Coordinate centre;
 	private String name;
+	private String id;			//used to shorten name on board
 
-	public Room(String name, Coordinate centre, ArrayList<Coordinate> positions) {
+	public Room(String name, Coordinate centre, ArrayList<Coordinate> positions, String id) {
 		this.name = name;
 		this.centre = centre;
 		this.positions = positions;
+		this.id = id;
 	}
 
 	@Override
@@ -51,7 +54,19 @@ public class Room implements Square {
 		return name;
 	}
 
+	public String getID() {
+		return id;
+	}
+
 	public ArrayList<Coordinate> getPositions() {
 		return positions;
+	}
+
+	public Room getTunnel() {
+		return tunnel;
+	}
+
+	public void setTunnel(Room tunnel) {
+		this.tunnel = tunnel;
 	}
 }
