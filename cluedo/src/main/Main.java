@@ -144,6 +144,7 @@ public class Main {
 		for(int i = 0;  i< this.numPlayers;i++){
 			Character card = cards.get(i);
 			players.add(new Player(i, card));
+			players.get(i).setGame(this);
 			System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
 		}
 		return players;
