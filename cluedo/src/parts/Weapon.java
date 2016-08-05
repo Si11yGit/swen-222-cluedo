@@ -1,5 +1,7 @@
 package parts;
 
+import board.Room;
+
 public class Weapon extends Card{
 	private String name;
 	private Player Owner;
