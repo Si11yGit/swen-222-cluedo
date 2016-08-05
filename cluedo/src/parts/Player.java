@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 import board.Board;
 import board.Coordinate;
+import board.Room;
 import board.Square;
 import main.Main;
 
@@ -20,6 +23,7 @@ public class Player {
 	private ArrayList<Card> AllCards;
 	private Board board;
 	private Square position;
+	private Room prevroom = null;
 
 	public Player(int playerNumber, Character playerCharacter){
 		this.character = playerCharacter;
@@ -99,7 +103,7 @@ public class Player {
 	 * @return
 	 */
 
-	public Boolean isValidMove(Location newLoc){
+	public Boolean isValidMove(Coordinate newLoc){
 		//cant go outside the board
 
 		//location on baord
@@ -129,7 +133,12 @@ public class Player {
 	 * @return
 	 */
 	public boolean checkForPassageWays(){
-		return true;
+		if (position instanceof Room) {
+			if (((Room)position).getTunnel() != null) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//a method that returns the new location of the player (after they move)
@@ -137,15 +146,72 @@ public class Player {
 	//ask for accusations 	//end every turn with this
 	//if they are right then the game is over
 	//if they are wrong then they lose the game
+	/**
+	 * makes a new suggestion to check
+	 * @param cards
+	 * @return
+	 */
+	public Suggestion makeSuggestion(Map<String,Card> cards) {
+		RoomCard room = (RoomCard)cards.get(((Room)position).getName());
+		Weapon weapon = null;
+		Character character = null;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("choose a weapon");
+		System.out.println("options are:");
+		for (Card card: cards.values()) {
+			if (card instanceof Weapon) {
+				System.out.println(card.getName());
+			}
+		}
+		boolean check = false;
+		String name;
+		while(check == false) {
+			if(scan.hasNext()) {
+				name = scan.next();
+				if (cards.get(name) instanceof Weapon) {
+					weapon = (Weapon) cards.get(name);
+					check = true;
+				} else {
+					System.out.println("Please enter a correct option from the list, this is case sensitive");
+				}
+			}
+		}
+		System.out.println("choose a character");
+		System.out.println("options are:");
+		for (Card card: cards.values()) {
+			if (card instanceof Character) {
+				System.out.println(card.getName());
+			}
+		}
+		check = false;
+		while(check == false) {
+			if(scan.hasNext()) {
+				name = scan.next();
+				if (cards.get(name) instanceof Character) {
+					character = (Character) cards.get(name);
+					check = true;
+				} else {
+					System.out.println("Please enter a correct option from the list, this is case sensitive");
+				}
+			}
+		}
 
+		return new Suggestion(room,character,weapon);
+	}
 
-	//ask for suggestions 	//end every turn where player if in room with this
-	//other players disprove
-
-	//check suggestion
-	//called to prove or disprove a suggestion
-	//check the cards starting to the left (next turn)
-	//of the current player
+	/**
+	 * checks a suggestion against the hand of the player. returns true if refuted
+	 * @param seg
+	 * @return
+	 */
+	public boolean refuteSuggestion(Suggestion sug) {
+		for (Card card: hand) {
+			if (sug.compare(card) != null) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * A method for getting text input from the user
@@ -231,6 +297,14 @@ public class Player {
 
 	public String toString() {
 		return character.toString();
+	}
+
+	public Square getPosition() {
+		return position;
+	}
+
+	public void setPosition(Square position) {
+		this.position = position;
 	}
 
 

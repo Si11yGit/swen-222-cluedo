@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import board.Board;
 import board.Room;
@@ -39,6 +40,7 @@ public class Main {
 	private ArrayList<Card> allCards;
 	private ArrayList<Card> listOfCards;
 	private ArrayList<Player> allPlayers;
+	private Map<String,Card> cardsearch = new HashMap<String,Card>();
 	private int numPlayers;
 	private Solution solution; //solution object
 	private Board board;//reference to a board
@@ -47,6 +49,9 @@ public class Main {
 	public Main(int numPlayers){
 		this.numPlayers=numPlayers;
 		this.allCards = initialiseCards();
+		for(Card card: allCards) {
+			cardsearch.put(card.getName(), card)
+		}
 		this.listOfCards = allCards;
 		Collections.shuffle(this.allCards);
 		this.allPlayers = initialisePlayer();
@@ -247,14 +252,18 @@ public class Main {
 	 * Turn method for a player
 	 */
 	public void turn(Player player) {
+		Scanner scan = new Scanner(System.in);
 		System.out.println(player.character().name() + " its your turn!");
 		System.out.println("");
 		int roll = player.diceRoll();
 		System.out.println("you rolled " + roll);
-		System.out.println("How far down would you like to move? (use negative for up)");
+		boolean move = false;
+		while (move == false) {
+			System.out.println("How far down would you like to move? (use negative for up)");
 
-		System.out.println("How far right would you like to move? (use a negative for left)");
+			System.out.println("How far right would you like to move? (use a negative for left)");
 
+		}
 
 	}
 
