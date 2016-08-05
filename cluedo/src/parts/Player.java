@@ -68,6 +68,10 @@ public class Player {
 		return this.inGame;
 	}
 
+	public void lose(){
+		inGame = false;
+	}
+
 	public void setBoard(Board board){
 		this.board =  board;
 	}
@@ -204,13 +208,85 @@ public class Player {
 	 * @param seg
 	 * @return
 	 */
-	public boolean refuteSuggestion(Suggestion sug) {
+	public Card refuteSuggestion(Suggestion sug) {
 		for (Card card: hand) {
 			if (sug.compare(card) != null) {
-				return true;
+				return card;
 			}
 		}
-		return false;
+		return null;
+	}
+
+	/**
+	 * makes a new suggestion which is used as an accusation
+	 * @param cards
+	 * @return
+	 */
+	public Suggestion makeAccusation(Map<String,Card> cards) {
+		RoomCard room = null;
+		Weapon weapon = null;
+		Character character = null;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("choose a room");
+		System.out.println("options are:");
+		for (Card card: cards.values()) {
+			if (card instanceof RoomCard) {
+				System.out.println(card.getName());
+			}
+		}
+		boolean check = false;
+		String name;
+		while(check == false) {
+			if(scan.hasNext()) {
+				name = scan.next();
+				if (cards.get(name) instanceof RoomCard) {
+					room = (RoomCard) cards.get(name);
+					check = true;
+				} else {
+					System.out.println("Please enter a correct option from the list, this is case sensitive");
+				}
+			}
+		}
+		System.out.println("choose a weapon");
+		System.out.println("options are:");
+		for (Card card: cards.values()) {
+			if (card instanceof Weapon) {
+				System.out.println(card.getName());
+			}
+		}
+		check = false;
+		while(check == false) {
+			if(scan.hasNext()) {
+				name = scan.next();
+				if (cards.get(name) instanceof Weapon) {
+					weapon = (Weapon) cards.get(name);
+					check = true;
+				} else {
+					System.out.println("Please enter a correct option from the list, this is case sensitive");
+				}
+			}
+		}
+		System.out.println("choose a character");
+		System.out.println("options are:");
+		for (Card card: cards.values()) {
+			if (card instanceof Character) {
+				System.out.println(card.getName());
+			}
+		}
+		check = false;
+		while(check == false) {
+			if(scan.hasNext()) {
+				name = scan.next();
+				if (cards.get(name) instanceof Character) {
+					character = (Character) cards.get(name);
+					check = true;
+				} else {
+					System.out.println("Please enter a correct option from the list, this is case sensitive");
+				}
+			}
+		}
+
+		return new Suggestion(room,character,weapon);
 	}
 
 	/**

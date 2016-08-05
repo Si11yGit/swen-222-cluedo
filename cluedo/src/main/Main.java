@@ -13,6 +13,7 @@ import parts.Card;
 import parts.Player;
 import parts.RoomCard;
 import parts.Solution;
+import parts.Suggestion;
 import parts.Weapon;
 import parts.Character;
 
@@ -45,12 +46,13 @@ public class Main {
 	private Solution solution; //solution object
 	private Board board;//reference to a board
 	private boolean gameOver;//whether the game is over or not
+	private Scanner scan = new Scanner(System.in);
 
 	public Main(int numPlayers){
 		this.numPlayers=numPlayers;
 		this.allCards = initialiseCards();
 		for(Card card: allCards) {
-			cardsearch.put(card.getName(), card)
+			cardsearch.put(card.getName(), card);
 		}
 		this.listOfCards = allCards;
 		Collections.shuffle(this.allCards);
@@ -252,32 +254,55 @@ public class Main {
 	 * Turn method for a player
 	 */
 	public void turn(Player player) {
-		Scanner scan = new Scanner(System.in);
+		boolean check = false;
 		System.out.println(player.character().name() + " its your turn!");
 		System.out.println("");
 		int roll = player.diceRoll();
 		System.out.println("you rolled " + roll);
-		boolean move = false;
-		while (move == false) {
+		while (check == false) {
 			System.out.println("How far down would you like to move? (use negative for up)");
 
 			System.out.println("How far right would you like to move? (use a negative for left)");
 
 		}
 
-	}
-
-	/**
-	 * This method determines what to do when the game is over, and declares a player the winner.
-	 */
-	public void gameOver(){
-		setGameOver();
-		for(int i = 0; i < this.allPlayers.size(); i++){
-			if(this.allPlayers.get(i).getInGame()){
-				System.out.println("Player " + this.allPlayers.get(i).getPlayerNumber() + " Wins!!!");
-				break;
+		if(player.getPosition() instanceof Room) {
+			System.out.println("you must make a suggestion");
+			Suggestion sug = player.makeSuggestion(cardsearch);
+			for(Player p: allPlayers) {
+				if (!p.equals(player)) {
+					Card refuted = p.refuteSuggestion(sug);
+					if(refuted != null) {
+						System.out.println(p.character().name() + "presents" + refuted.getName());
+						break;
+					}
+				}
 			}
 		}
+		System.out.println("would you like to make an accusation? (y/n)");
+		check = false;
+		while (check == false) {
+			if (scan.hasNext()) {
+				String response = scan.next();
+				if (response.toLowerCase().equals("y")) {
+					check = true;
+					Suggestion accusation = player.makeAccusation(cardsearch);
+					boolean right = accusation.compare(solution);
+					if (right) {
+						System.out.println("Correct!!!! " + player.character().getName() + " you win!!");
+						setGameOver();
+					} else {
+						System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
+						player.lose();
+					}
+				} else if (response.toLowerCase().equals("n")) {
+					check = true;
+				} else {
+
+				}
+			}
+		}
+		scan.close();
 	}
 
 	public int getNumPlayers(){
