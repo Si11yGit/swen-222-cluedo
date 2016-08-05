@@ -51,7 +51,7 @@ public class Main {
 		Collections.shuffle(this.allCards);
 		this.allPlayers = initialisePlayer();
 		this.board = new Board(allPlayers);
-		initialiseWeapons();
+		//initialiseWeapons();
 		this.solution =  initialiseSolution();
 		dealCards();
 		playGame();
@@ -145,8 +145,10 @@ public class Main {
 		for(int i = 0;  i< this.numPlayers;i++){
 			Character card = cards.get(i);
 			players.add(new Player(i, card));
+
 			players.get(i).setGame(this);
 			System.out.println("Player " + i + " you will be  playing as " + card.toString() + ".");
+			System.out.println("Player " + i + " you will be  playing as " + card.name() + ".");
 		}
 		return players;
 	}
@@ -179,30 +181,33 @@ public class Main {
 	/**
 	 * This method places all the weapons in the rooms
 	 */
-	public void initialiseWeapons(){
-		Map<String, Room> rooms =  this.board.getRooms();
-		List<Room> list = new ArrayList<Room>(rooms.values());
+	//Will be used with gui, pointless in current version
 
-		//iterate over all cards
-		for(int i = 0; i<listOfCards.size();i++){
 
-			//if its a weapon card assign it a random room
-			if(this.listOfCards.get(i) instanceof Weapon){
-				Weapon weapon = (Weapon) listOfCards.get(i);
-
-				//a random room index
-				int random = (int) Math.round(Math.random()*list.size());
-
-				//avoid index out of bounds exceptions
-				if(random == list.size()){
-					random--;
-				}
-				System.out.println("The " + weapon.toString()+" is in "+ rooms.get(random).toString());
-				rooms.remove(random);
-			}
-		}
-		System.out.println();
-	}
+//	public void initialiseWeapons(){
+//		Map<String, Room> rooms =  this.board.getRooms();
+//		List<Room> list = new ArrayList<Room>(rooms.values());
+//
+//		//iterate over all cards
+//		for(int i = 0; i<listOfCards.size();i++){
+//
+//			//if its a weapon card assign it a random room
+//			if(this.listOfCards.get(i) instanceof Weapon){
+//				Weapon weapon = (Weapon) listOfCards.get(i);
+//
+//				//a random room index
+//				int random = (int) Math.round(Math.random()*list.size());
+//
+//				//avoid index out of bounds exceptions
+//				if(random == list.size()){
+//					random--;
+//				}
+//				System.out.println("The " + weapon.toString()+" is in "+ rooms.get(random).toString());
+//				rooms.remove(random);
+//			}
+//		}
+//		System.out.println();
+//	}
 
 	/**
 	 * This method should begin playing the game
@@ -231,6 +236,7 @@ public class Main {
 						if(currentPlayers == 0){
 							//no players remaining
 							gameOver();
+							System.out.println("All players have failed to identify the killer!! Game Over");
 							return;
 						}
 					}
@@ -238,13 +244,20 @@ public class Main {
 			}
 
 		}
-		//
 	}
 
 	/**
 	 * Turn method for a player
 	 */
 	public void turn(Player player) {
+		System.out.println(player.character().name() + " its your turn!");
+		System.out.println("");
+		int roll = player.diceRoll();
+		System.out.println("you rolled " + roll);
+		System.out.println("How far down would you like to move? (use negative for up)");
+
+		System.out.println("How far right would you like to move? (use a negative for left)");
+
 
 	}
 

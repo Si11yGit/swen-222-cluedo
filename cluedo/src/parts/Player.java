@@ -8,6 +8,7 @@ import java.util.List;
 
 import board.Board;
 import board.Coordinate;
+import board.Square;
 import main.Main;
 
 public class Player {
@@ -18,7 +19,7 @@ public class Player {
 	private Main game;
 	private ArrayList<Card> AllCards;
 	private Board board;
-	private Coordinate position;
+	private Square position;
 
 	public Player(int playerNumber, Character playerCharacter){
 		this.character = playerCharacter;
@@ -31,16 +32,20 @@ public class Player {
 		this.game = game;
 		setBoard(game.getBoard());
 	}
-
+	
 	public void deal(Card card){
 		this.hand.add(card);
 	}
-
+	
 	public void setAllCards(ArrayList<Card> all){
 		this.AllCards= all;
 	}
-
-	private int	diceRoll(){
+	
+	/**
+	 * Simulates a dice roll in the game
+	 * @return
+	 */
+	public int	diceRoll(){
 
 		int diceOne = (int) Math.round(Math.random()*6);
 		int diceTwo = (int) Math.round(Math.random()*6);
@@ -72,6 +77,9 @@ public class Player {
 	//the player is prompted to move in a direction W,A,S,D
 	//checks that the player is able to move in that direction
 	//if they can't they are prompted to move in a different direction
+	/**
+	 * 
+	 */
 	public void move(){
 		//WASD?
 		//loop, until valid input is entered
@@ -98,7 +106,7 @@ public class Player {
 	 * @return
 	 */
 
-	public Boolean isValidMove(Location newLoc){
+	public Boolean isValidMove(){
 		//cant go outside the board
 
 		//location on baord

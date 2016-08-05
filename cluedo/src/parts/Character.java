@@ -25,6 +25,6 @@ public class Character extends Card{
 	}
 
 	public String toString() {
-		return name.substring(name.indexOf(" ") + 1,name.indexOf(" ") + 1);
+		return name.substring(name.indexOf(" ") + 1,name.indexOf(" ") + 2);
 	}
 }
