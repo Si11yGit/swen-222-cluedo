@@ -296,7 +296,7 @@ public class Main {
 	 * Turn method for a player
 	 */
 	public void turn(Player player) {
-		boolean check = false;
+		boolean check = false;								//used for user response loops
 		System.out.println(player.character().name() + " its your turn!");
 		System.out.println("");
 		System.out.println("would you like to make an accusation? (y/n)");
@@ -328,18 +328,53 @@ public class Main {
 		int roll = player.diceRoll();
 		System.out.println("you rolled " + roll);
 		if (player.checkForPassageWays()) {
+			System.out.println("Secret Tunnel in Room!! would you like to travel to " + ((Room)player.getPosition()).getTunnel() + "? (y/n)");
+			check = false;
+			while (!check) {
+				if (scan.hasNext()) {
+					response = scan.nextLine();
+					if (response.toLowerCase().equals("y")) {
+						check = true;
 
-		}
-		while (check == false) {
+					} else if (response.toLowerCase().equals("n")) {
+						System.out.println("How far down would you like to move? (use negative for up)");
+						boolean check2 = false;
+						while (!check2) {
+
+						}
+						System.out.println("How far right would you like to move? (use a negative for left)");
+						check2 = false;
+						while(!check2) {
+
+						}
+						check = true;
+					} else if (response != null) {
+						System.out.print("enter one of the two choices (y/n)");
+					}
+				}
+			}
+		} else {
 			System.out.println("How far down would you like to move? (use negative for up)");
+			check = false;
+			while (check == false) {
 
+			}
 			System.out.println("How far right would you like to move? (use a negative for left)");
+			check = false;
+			while(check == false) {
 
+			}
 		}
+
 
 		if(player.getPosition() instanceof Room) {
 			System.out.println("you must make a suggestion");
 			Suggestion sug = player.makeSuggestion(cardsearch);
+
+			//moves accused to room of suggestion
+			sug.getCharacter().getOwner().setPosition(player.getPosition());
+			((Room)player.getPosition()).addPlayer(sug.getCharacter().getOwner());
+
 			for(Player p: allPlayers) {
 				if (!p.equals(player)) {
 					Card refuted = p.refuteSuggestion(sug);
