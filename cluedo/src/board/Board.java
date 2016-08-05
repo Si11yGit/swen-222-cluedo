@@ -15,8 +15,11 @@ import java.util.Map;
 import parts.Player;
 
 public class Board {
-	Square board[][] = new Square[49][51];
-	char asciiboard[][] = new char[49][51];
+	int width = 49;
+	int height = 51;
+	Square board[][] = new Square[width][height];
+	char asciiboard[][] = new char[width][height];
+
 	ArrayList<Player> players;
 	Map<String, Room> rooms = new HashMap<String, Room>();
 
@@ -419,4 +422,13 @@ public class Board {
 	public static void main(String[] args) {
         new Board();
     }
+
+	public int getWidth() {
+		return width;
+	}
+
+
+	public int getHeight() {
+		return height;
+	}
 }

@@ -334,18 +334,38 @@ public class Main {
 				if (scan.hasNext()) {
 					response = scan.nextLine();
 					if (response.toLowerCase().equals("y")) {
-						check = true;
 
+						check = true;
 					} else if (response.toLowerCase().equals("n")) {
+						System.out.println("Note: For moving into a Room input movements to be the square just inside the door");
+						System.out.println("");
 						System.out.println("How far down would you like to move? (use negative for up)");
 						boolean check2 = false;
+						int y;
 						while (!check2) {
-
+							if (scan.hasNext()) {
+								if (scan.hasNextInt()) {
+									y = scan.nextInt();
+									check2 = true;
+								} else {
+									scan.nextLine();
+									System.out.println("please input an integer");
+								}
+							}
 						}
 						System.out.println("How far right would you like to move? (use a negative for left)");
 						check2 = false;
+						int x;
 						while(!check2) {
-
+							if (scan.hasNext()) {
+								if (scan.hasNextInt()) {
+									x = scan.nextInt();
+									check2 = true;
+								} else {
+									scan.nextLine();
+									System.out.println("please input an integer");
+								}
+							}
 						}
 						check = true;
 					} else if (response != null) {

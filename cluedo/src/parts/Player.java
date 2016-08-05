@@ -92,7 +92,7 @@ public class Player {
 	 */
 	public void move(){
 		prevroom = null;
-		position.getCoordinate();
+		position.getPosition();
 
 
 	}
