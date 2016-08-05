@@ -257,6 +257,30 @@ public class Main {
 		boolean check = false;
 		System.out.println(player.character().name() + " its your turn!");
 		System.out.println("");
+		System.out.println("would you like to make an accusation? (y/n)");
+		check = false;
+		while (check == false) {
+			if (scan.hasNext()) {
+				String response = scan.next();
+				if (response.toLowerCase().equals("y")) {
+					check = true;
+					Suggestion accusation = player.makeAccusation(cardsearch);
+					boolean right = accusation.compare(solution);
+					if (right) {
+						System.out.println("Correct!!!! " + player.character().getName() + " you win!!");
+						setGameOver();
+					} else {
+						System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
+						player.lose();
+					}
+				} else if (response.toLowerCase().equals("n")) {
+					check = true;
+				} else {
+
+				}
+			}
+		}
+		System.out.println("");
 		int roll = player.diceRoll();
 		System.out.println("you rolled " + roll);
 		while (check == false) {
