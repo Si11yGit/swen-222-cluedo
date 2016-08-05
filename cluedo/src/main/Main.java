@@ -39,6 +39,7 @@ import parts.Character;
  *
  */
 public class Main {
+	private static final String Enterable = null;
 	//fields:
 	private ArrayList<Card> allCards;
 	private ArrayList<Card> listOfCards;
@@ -334,7 +335,10 @@ public class Main {
 				if (scan.hasNext()) {
 					response = scan.nextLine();
 					if (response.toLowerCase().equals("y")) {
-
+						Room newRoom = ((Room)player.getPosition()).getTunnel();
+						((board.Enterable)player.getPosition()).removePlayer(player);
+						player.setPosition(newRoom);
+						newRoom.addPlayer(player);
 						check = true;
 					} else if (response.toLowerCase().equals("n")) {
 						System.out.println("Note: For moving into a Room input movements to be the square just inside the door");
