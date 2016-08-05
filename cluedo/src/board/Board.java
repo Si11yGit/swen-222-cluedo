@@ -120,7 +120,7 @@ public class Board {
 		rooms.put("Library", new Room("Library", centre, locations, "Lib"));
 
 		locations = new ArrayList<Coordinate>();
-		for (int y = 27; y < 36; y += 2) {
+		for (int y = 25; y < 34; y += 2) {
 			for (int x = 1; x < 12; x += 2) {
 				locations.add(new Coordinate(x, y));
 			}
@@ -129,9 +129,9 @@ public class Board {
 		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations, "Bill"));
 
 		locations = new ArrayList<Coordinate>();
-		for (int y = 41; y < 48; y += 2) {
+		for (int y = 39; y < 48; y += 2) {
 			for (int x = 1; x < 12; x += 2) {
-				if(!((x == 11 || x == 1) && y == 41)) {
+				if(!((x == 11 || x == 1) && y == 39)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
@@ -142,7 +142,7 @@ public class Board {
 		rooms.get("Lounge").setTunnel(rooms.get("Conservatory"));
 
 		locations = new ArrayList<Coordinate>();
-		for (int y = 37; y < 48; y += 2) {
+		for (int y = 35; y < 48; y += 2) {
 			for (int x = 17; x < 32; x += 2) {
 				if(!((x == 17 || x == 19 || x == 29 || x == 31) && y == 47)) {
 					locations.add(new Coordinate(x, y));
@@ -153,9 +153,9 @@ public class Board {
 		rooms.put("Ballroom", new Room("Ballroom", centre, locations,"Ball"));
 
 		locations = new ArrayList<Coordinate>();
-		for (int y = 39; y < 48; y += 2) {
+		for (int y = 37; y < 48; y += 2) {
 			for (int x = 37; x < 48; x += 2) {
-				if(!(x == 47 && y == 39)) {
+				if(!(x == 47 && y == 37)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
@@ -167,9 +167,9 @@ public class Board {
 		rooms.get("Study").setTunnel(rooms.get("Kitchen"));
 
 		locations = new ArrayList<Coordinate>();
-		for (int y = 21; y < 34; y += 2) {
+		for (int y = 19; y < 32; y += 2) {
 			for (int x = 33; x < 48; x += 2) {
-				if(!((x == 33 || x == 35 || x == 37) && y == 34)) {
+				if(!((x == 33 || x == 35 || x == 37) && y == 31)) {
 					locations.add(new Coordinate(x, y));
 				}
 			}
@@ -200,7 +200,9 @@ public class Board {
 				} else {
 					if (board[x][y] == null) {
 
-					} else if((board[x][y] == null && board[x-2][y] != null) || (board[x][y] != null && board[x-2][y] == null)) {
+					} else if (board[x-1][y] != null) {
+
+					} else if((board[x][y] == null && board[x-2][y] != null) || (board[x][y] != null && board[x-2][y] == null)&& board[x-1][y] == null) {
 						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
 					} else if(!board[x][y].getClass().equals(board[x-2][y].getClass()) && board[x-1][y] == null) {
 						board[x-1][y]  = new Wall(true, new Coordinate(x-1,y));
@@ -211,6 +213,8 @@ public class Board {
 					board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
 				} else {
 					if (board[x][y] == null) {
+
+					} else if (board[x+1][y] != null) {
 
 					} else if((board[x][y] == null && board[x+2][y] != null) || (board[x][y] != null && board[x+2][y] == null)) {
 						board[x+1][y]  = new Wall(true, new Coordinate(x+1,y));
@@ -224,7 +228,9 @@ public class Board {
 				} else {
 					if (board[x][y] == null) {
 
-					} else if((board[x][y] == null && board[x][y-2] != null) || (board[x][y] != null && board[x][y-2] == null)) {
+					} else if (board[x][y-1] != null) {
+
+					}else if((board[x][y] == null && board[x][y-2] != null) || (board[x][y] != null && board[x][y-2] == null)) {
 						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
 					} else if(!board[x][y].getClass().equals(board[x][y-2].getClass()) && board[x][y-1] == null) {
 						board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
@@ -233,6 +239,8 @@ public class Board {
 
 				if (y > 48) {
 					board[x][y-1]  = new Wall(false, new Coordinate(x,y-1));
+				} else if (board[x][y+1] != null) {
+
 				} else {
 					if (board[x][y] == null) {
 
@@ -266,10 +274,10 @@ public class Board {
 		board[35][47] = new Impassable(new Coordinate(35, 47));
 		board[47][13] = new Impassable(new Coordinate(47, 13));
 		board[47][17] = new Impassable(new Coordinate(47, 17));
-		board[47][33] = new Impassable(new Coordinate(47, 35));
-		board[47][37] = new Impassable(new Coordinate(47, 39));
+		board[47][33] = new Impassable(new Coordinate(47, 33));
+		board[47][37] = new Impassable(new Coordinate(47, 37));
 		for(int i = 1; i < 48; i += 2) {
-			if(i != 19 || i != 29) {
+			if(i != 19 && i != 29) {
 				board[i][49] = new Impassable(new Coordinate(i,49));
 			}
 		}
@@ -308,7 +316,7 @@ public class Board {
 		doorY = 14;
 		doorName = "Hall";
 		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
-		doorX = 33;
+		doorX = 35;
 		doorY = 12;
 		doorName = "Lounge";
 		board[doorX][doorY] = new Door(rooms.get(doorName), (Hallway)board[doorX][doorY], new Coordinate(doorX,doorY));
