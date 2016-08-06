@@ -267,7 +267,7 @@ public class CluedoTests {
 		assert(s.compare(room2) == null);
 	}
 	@Test
-	public void testMainInvalidNumPlayers1(){
+	public void testMainInvalidNumPlayers1() {
 		try{
 			Main main = new Main(7,new Scanner(System.in));
 		}catch(IndexOutOfBoundsException e){

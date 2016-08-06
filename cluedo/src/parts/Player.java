@@ -80,6 +80,7 @@ public class Player {
 
 	public void lose(){
 		inGame = false;
+		this.position.removePlayer(this);
 	}
 
 	public void setBoard(Board board){
@@ -175,6 +176,11 @@ public class Player {
 
 	}
 
+	/**
+	 * get absolute value
+	 * @param x
+	 * @return
+	 */
 	public int abs(int x) {
 		if (x < 0) {
 			x = -x;
