@@ -436,10 +436,6 @@ public class Board {
 		return board;
 	}
 
-	public static void main(String[] args) {
-        new Board();
-    }
-
 	public int getWidth() {
 		return width;
 	}
