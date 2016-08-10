@@ -18,22 +18,10 @@ import parts.RoomCard;
 import parts.Suggestion;
 import parts.Weapon;
 import parts.Character;
-
-//	 ,o888888o.     8 8888         8 8888      88 8 8888888888   8 888888888o.          ,o888888o.
-//	8888     `88.   8 8888         8 8888      88 8 8888         8 8888    `^888.    . 8888     `88.
-//,8 8888       `8. 8 8888         8 8888      88 8 8888         8 8888        `88. ,8 8888       `8b
-//88 8888           8 8888         8 8888      88 8 8888         8 8888         `88 88 8888        `8b
-//88 8888           8 8888         8 8888      88 8 888888888888 8 8888          88 88 8888         88
-//88 8888           8 8888         8 8888      88 8 8888         8 8888          88 88 8888         88
-//88 8888           8 8888         8 8888      88 8 8888         8 8888         ,88 88 8888        ,8P
-//`8 8888       .8' 8 8888         ` 8888     ,8P 8 8888         8 8888        ,88' `8 8888       ,8P
-//	8888     ,88'   8 8888           8888   ,d8P  8 8888         8 8888    ,o88P'    ` 8888     ,88'
-//	 `8888888P'     8 888888888888    `Y88888P'   8 888888888888 8 888888888P'          `8888888P'
-
 /**
  *
  *
- * @author clarkebenj1
+ * @author clarkebenj1, henry
  *
  */
 public class Main {
@@ -52,7 +40,8 @@ public class Main {
 	public Main(int numPlayers, Scanner scan) {
 		this.numPlayers = numPlayers;
 		this.allCards = initialiseCards();
-		for (Card card : allCards) {
+		this.listOfCards = this.allCards;
+		for(Card card: allCards) {
 			cardsearch.put(card.getName(), card);
 		}
 		this.listOfCards = allCards;
@@ -66,7 +55,12 @@ public class Main {
 		// initialiseWeapons();
 
 		dealCards();
-		playGame();
+		try {
+			playGame();
+		} catch (InterruptedException e) {
+			System.out.println("issue with game");
+		}
+		
 	}
 
 	/**
@@ -158,8 +152,8 @@ public class Main {
 		cards.add(new Character("Reverend Green"));
 		cards.add(new Character("Mrs. White"));
 		cards.add(new Character("Mrs. Peacock"));
-
-		for (int i = 0; i < this.numPlayers; i++) {
+		//use a random number between 0 and 6 to assign a character to a player
+		for(int i = 0;  i< this.numPlayers;i++){
 			Character card = cards.get(i);
 			players.add(new Player(i, card, scan));
 
@@ -196,7 +190,6 @@ public class Main {
 				position.addPlayer(players.get(i));
 				break;
 			}
-
 			players.get(i).setGame(this);
 			// System.out.println("Player " + i + " you will be playing as " +
 			// card.toString() + ".");
@@ -265,8 +258,9 @@ public class Main {
 
 	/**
 	 * This method should begin playing the game
+	 * @throws InterruptedException 
 	 */
-	public void playGame() {
+	public void playGame() throws InterruptedException {
 		// current player
 		Player currentPlayer;
 		// all current players
@@ -304,35 +298,21 @@ public class Main {
 
 	/**
 	 * Turn method for a player
+	 * @throws InterruptedException 
 	 */
-	public void turn(Player player) {
-		boolean check = false; // used for user response loops
+	public void turn(Player player) throws InterruptedException {
+		System.out.println(player.character().getName() + ", you are next, please get ready");
+		this.board.update();
 		System.out.println(player.character().name() + " its your turn!");
+		System.out.print("your hand is:");
+		for (Card card: player.getCards()) {
+			System.out.print(card.getName() + ", ");
+		}
+		System.out.println("");
 		System.out.println("");
 		System.out.println("would you like to make an accusation? (y/n)");
-		check = false;
-		String response = "";
-		while (!check) {
-			if (scan.hasNext()) {
-				response = scan.nextLine();
-				if (response.toLowerCase().equals("y")) {
-					check = true;
-					Suggestion accusation = player.makeAccusation(cardsearch);
-					boolean right = accusation.compare(solution);
-					if (right) {
-						System.out.println("Correct!!!! " + player.character().getName() + " you win!!");
-						setGameOver();
-					} else {
-						System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
-						player.lose();
-						return;
-					}
-				} else if (response.toLowerCase().equals("n")) {
-					check = true;
-				} else if (response != null) {
-					System.out.print("enter one of the two choices (y/n)");
-				}
-			}
+		if (yesCheck()) {
+			accuse(player);
 		}
 		System.out.println("");
 		int roll = player.diceRoll();
@@ -340,108 +320,18 @@ public class Main {
 		if (player.checkForPassageWays()) {
 			System.out.println("Secret Tunnel in Room!! would you like to travel to "
 					+ ((Room) player.getPosition()).getTunnel() + "? (y/n)");
-			check = false;
-			while (!check) {
-				if (scan.hasNext()) {
-					response = scan.nextLine();
-					if (response.toLowerCase().equals("y")) {
-						Room newRoom = ((Room) player.getPosition()).getTunnel();
-						((board.Enterable) player.getPosition()).removePlayer(player);
-						player.setPosition(newRoom);
-						newRoom.addPlayer(player);
-						check = true;
-					} else if (response.toLowerCase().equals("n")) {
-						System.out.println("");
-						boolean check3 = false;
-						while (!check3) {
-							System.out.println("How far down would you like to move? (use negative for up)");
-							boolean check2 = false;
-							int y = 0;
-							while (!check2) {
-								if (scan.hasNext()) {
-									if (scan.hasNextInt()) {
-										y = scan.nextInt();
-										y*=2;
-										if (player.getY() + y < 0 || player.getY() + y >= board.getHeight()) {
-											System.out.println("please input somewhere on the board");
-										} else {
-											check2 = true;
-										}
-									} else {
-										scan.nextLine();
-										System.out.println("please input an integer");
-									}
-								}
-							}
-							System.out.println("How far right would you like to move? (use a negative for left)");
-							check2 = false;
-							int x = 0;
-							while (!check2) {
-								if (scan.hasNext()) {
-									if (scan.hasNextInt()) {
-										x = scan.nextInt();
-										x *=2;
-										check2 = true;
-									} else {
-										scan.nextLine();
-										System.out.println("please input an integer");
-									}
-								}
-							}
-							if (player.isValidMove(x,y, roll*2)) {
-								player.move(x, y);
-								check3 = true;
-							}
-						}
-						check = true;
-					} else if (response != null) {
-						System.out.print("enter one of the two choices (y/n)");
-					}
-				}
+			if (yesCheck()) {
+				Room newRoom = ((Room) player.getPosition()).getTunnel();
+				((board.Enterable) player.getPosition()).removePlayer(player);
+				player.setPosition(newRoom);
+				newRoom.addPlayer(player);
+			} else {
+				System.out.println("");
+				move(player, roll);
 			}
 		} else {
 			System.out.println("");
-			boolean check3 = false;
-			while (!check3) {
-				System.out.println("How far down would you like to move? (use negative for up)");
-				boolean check2 = false;
-				int y = 0;
-				while (!check2) {
-					if (scan.hasNext()) {
-						if (scan.hasNextInt()) {
-							y = scan.nextInt();
-							y*=2;
-							if (player.getY() + y < 0 || player.getY() + y >= board.getHeight()) {
-								System.out.println("please input somewhere on the board");
-							} else {
-								check2 = true;
-							}
-						} else {
-							scan.nextLine();
-							System.out.println("please input an integer");
-						}
-					}
-				}
-				System.out.println("How far right would you like to move? (use a negative for left)");
-				check2 = false;
-				int x = 0;
-				while (!check2) {
-					if (scan.hasNext()) {
-						if (scan.hasNextInt()) {
-							x = scan.nextInt();
-							x *=2;
-							check2 = true;
-						} else {
-							scan.nextLine();
-							System.out.println("please input an integer");
-						}
-					}
-				}
-				if (player.isValidMove(x,y, roll*2)) {
-					player.move(x, y);
-					check3 = true;
-				}
-			}
+			move(player, roll);
 		}
 
 		if (player.getPosition() instanceof Room) {
@@ -463,31 +353,90 @@ public class Main {
 			}
 		}
 		System.out.println("would you like to make an accusation? (y/n)");
-		check = false;
+		if (yesCheck()) {
+			accuse(player);
+		}
+	}
+	
+	public void accuse(Player player) {
+		Suggestion accusation = player.makeAccusation(cardsearch);
+		boolean right = accusation.compare(solution);
+		if (right) {
+			System.out.println("Correct!!!! " + player.character().getName() + " you win!!");
+			setGameOver();
+		} else {
+			System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
+			player.lose();
+			return;
+		}
+	}
+	
+	public void move(Player player, int roll) {
+		boolean check3 = false;
+		while (!check3) {
+			System.out.println("How far down would you like to move? (use negative for up)");
+			boolean check2 = false;
+			int y = 0;
+			while (!check2) {
+				if (scan.hasNext()) {
+					if (scan.hasNextInt()) {
+						y = scan.nextInt();
+						y*=2;
+						if (player.getY() + y < 0 || player.getY() + y >= board.getHeight()) {
+							System.out.println("please input somewhere on the board");
+						} else {
+							check2 = true;
+						}
+					} else {
+						scan.nextLine();
+						System.out.println("please input an integer");
+					}
+				}
+			}
+			System.out.println("How far right would you like to move? (use a negative for left)");
+			check2 = false;
+			int x = 0;
+			while (!check2) {
+				if (scan.hasNext()) {
+					if (scan.hasNextInt()) {
+						x = scan.nextInt();
+						x *=2;
+						check2 = true;
+					} else {
+						scan.nextLine();
+						System.out.println("please input an integer");
+					}
+				}
+			}
+			if (player.isValidMove(x,y, roll*2)) {
+				player.move(x, y);
+				check3 = true;
+			}
+		}
+	}
+
+	/**
+	 * check the users response out of y and n
+	 * @return
+	 */
+	public boolean yesCheck() {
+		boolean check = false;
+		String response = "";
 		while (!check) {
 			if (scan.hasNext()) {
 				response = scan.nextLine();
 				if (response.toLowerCase().equals("y")) {
-					check = true;
-					Suggestion accusation = player.makeAccusation(cardsearch);
-					boolean right = accusation.compare(solution);
-					if (right) {
-						System.out.println("Correct!!!! " + player.character().getName() + " you win!!");
-						setGameOver();
-					} else {
-						System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
-						player.lose();
-						return;
-					}
+					return true;
 				} else if (response.toLowerCase().equals("n")) {
-					check = true;
+					return false;
 				} else if (response != null) {
 					System.out.print("enter one of the two choices (y/n)");
 				}
 			}
 		}
+		return false;
 	}
-
+	
 	public int getNumPlayers() {
 		return this.numPlayers;
 	}

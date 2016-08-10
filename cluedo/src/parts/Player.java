@@ -80,6 +80,7 @@ public class Player {
 
 	public void lose(){
 		inGame = false;
+		this.position.removePlayer(this);
 	}
 
 	public void setBoard(Board board){
@@ -143,6 +144,14 @@ public class Player {
 			System.out.println("please choose a position on the board");
 			return false;
 		}
+		
+		if (board.getBoard()[this.getX() + x][this.getY() + y] instanceof Hallway) {
+			Hallway hall = (Hallway)board.getBoard()[this.getX() + x][this.getY() + y];
+			if (hall.getPlayer() != null) {
+				System.out.println("Another player is already in that position");
+				return false;
+			}
+		}
 
 		//cant move into impassable square
 		if(board.getBoard()[this.getX() + x][this.getY() + y] instanceof Impassable) {
@@ -175,6 +184,11 @@ public class Player {
 
 	}
 
+	/**
+	 * get absolute value
+	 * @param x
+	 * @return
+	 */
 	public int abs(int x) {
 		if (x < 0) {
 			x = -x;
