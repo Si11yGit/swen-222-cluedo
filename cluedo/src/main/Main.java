@@ -17,6 +17,7 @@ import parts.Player;
 import parts.RoomCard;
 import parts.Suggestion;
 import parts.Weapon;
+import ui.GUI;
 import parts.Character;
 /**
  *
@@ -60,7 +61,31 @@ public class Main {
 		} catch (InterruptedException e) {
 			System.out.println("issue with game");
 		}
-		
+
+	}
+
+	public Main(GUI gui) {
+		this.allCards = initialiseCards();
+		this.listOfCards = this.allCards;
+		for(Card card: allCards) {
+			cardsearch.put(card.getName(), card);
+		}
+		this.listOfCards = allCards;
+		Collections.shuffle(this.allCards);
+		this.board = new Board();
+		this.solution = initialiseSolution();
+		this.allPlayers = initialisePlayer();
+		this.board.update();
+
+		// initialiseWeapons();
+
+		dealCards();
+		try {
+			playGame();
+		} catch (InterruptedException e) {
+			System.out.println("issue with game");
+		}
+
 	}
 
 	/**
@@ -258,7 +283,7 @@ public class Main {
 
 	/**
 	 * This method should begin playing the game
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
 		// current player
@@ -298,7 +323,7 @@ public class Main {
 
 	/**
 	 * Turn method for a player
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public void turn(Player player) throws InterruptedException {
 		System.out.println(player.character().getName() + ", you are next, please get ready");
@@ -357,7 +382,7 @@ public class Main {
 			accuse(player);
 		}
 	}
-	
+
 	public void accuse(Player player) {
 		Suggestion accusation = player.makeAccusation(cardsearch);
 		boolean right = accusation.compare(solution);
@@ -370,7 +395,7 @@ public class Main {
 			return;
 		}
 	}
-	
+
 	public void move(Player player, int roll) {
 		boolean check3 = false;
 		while (!check3) {
@@ -436,7 +461,7 @@ public class Main {
 		}
 		return false;
 	}
-	
+
 	public int getNumPlayers() {
 		return this.numPlayers;
 	}
