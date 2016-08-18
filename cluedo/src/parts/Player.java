@@ -56,7 +56,6 @@ public class Player {
 	 * @return
 	 */
 	public int	diceRoll(){
-
 		int diceOne = (int) Math.round(Math.random()*6);
 		int diceTwo = (int) Math.round(Math.random()*6);
 		return diceOne + diceTwo;
@@ -144,7 +143,7 @@ public class Player {
 			System.out.println("please choose a position on the board");
 			return false;
 		}
-		
+
 		if (board.getBoard()[this.getX() + x][this.getY() + y] instanceof Hallway) {
 			Hallway hall = (Hallway)board.getBoard()[this.getX() + x][this.getY() + y];
 			if (hall.getPlayer() != null) {
