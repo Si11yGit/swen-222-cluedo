@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -52,7 +53,7 @@ public class GUI extends JFrame implements KeyListener, MouseListener, WindowLis
 
 		// create file in menu bar
 		file = new JMenu("File");
-		menuBar.add(file);
+		menu.add(file);
 		//add new game to file
 		menuNewGame = new JMenuItem("New Game");
 		// action listener to create a new game
@@ -119,7 +120,7 @@ public class GUI extends JFrame implements KeyListener, MouseListener, WindowLis
 			String[] guess = createGuessAccuseGUI(false);
 			if(guess == null){break;}
 			game.guessAccuse(guess[0], null, guess[1], false);
-			options.guessEnabled(false);
+			playerOptions.guessEnabled(false);
 			break;
 		case "Accuse":
 			String[] accuse = createGuessAccuseGUI(true);
@@ -212,8 +213,8 @@ public class GUI extends JFrame implements KeyListener, MouseListener, WindowLis
 	 */
 	public void endTurn() {
 		game.endTurn();
-		options.rollEnabled(true);
-		hand.updateLabels();
+		playerOptions.rollEnabled(true);
+		handDisplay.updateLabels();
 		Output.setText("Player "+game.getCurrentPlayer().getName()+"'s turn\n");
 	}
 	
