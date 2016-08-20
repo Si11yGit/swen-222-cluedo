@@ -112,10 +112,10 @@ public class GUI extends JFrame implements KeyListener, MouseListener, WindowLis
 		System.out.println(s);
 		switch(s){
 		case "Roll Dice":
-			game.diceRoll();
+			game.diceRoll();// this will need to be currentplayer.diceroll
 			break;
 		case "Guess":
-			if(game.getCurrentPlayer().getRoom() == null){break;}
+			if(game.getCurrentPlayer().getRoom() == null){break;}//will need to add get current player method to "Main"
 			String[] guess = createGuessAccuseGUI(false);
 			if(guess == null){break;}
 			game.guessAccuse(guess[0], null, guess[1], false);
