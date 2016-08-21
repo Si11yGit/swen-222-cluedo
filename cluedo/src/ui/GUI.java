@@ -113,7 +113,7 @@ public class GUI extends JFrame implements KeyListener, MouseListener, WindowLis
 		System.out.println(s);
 		switch(s){
 		case "Roll Dice":
-			game.diceRoll();// this will need to be currentplayer.diceroll
+			game.z();// this will need to be currentplayer.diceroll
 			break;
 		case "Guess":
 			if(game.getCurrentPlayer().getRoom() == null){break;}//will need to add get current player method to "Main"

@@ -17,7 +17,7 @@ import parts.Card;
  */
 public class HandPanel extends JPanel {
 	
-	private static final long serialVersionUID = -6086777099635929213L;
+	//private static final long serialVersionUID = ;
 	
 	private Main game;
 	private List<JLabel> cardLabels; 
@@ -44,7 +44,7 @@ public class HandPanel extends JPanel {
 	 * update the icon on the labels when a player has moved
 	 */
 	public void updateLabels() {
-		List<Card> newCards = game.getCurrentPlayer().getHand();
+		List<Card> newCards = game.getCurrentPlayer().getHand();//need to add current player method somewhere
 		for(int i = 0; i < cardLabels.size(); i++) {
 			if(i >= newCards.size()){
 				cardLabels.get(i).setIcon(null);
