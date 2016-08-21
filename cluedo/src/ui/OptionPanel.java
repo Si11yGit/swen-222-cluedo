@@ -9,11 +9,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 
 public class OptionPanel extends JPanel {
-/**	
+
 	//The different buttons that the panel has
 	private JButton accuse;
 	private JButton suggest;
@@ -26,13 +28,15 @@ public class OptionPanel extends JPanel {
 	
 	//other buttons
 	private JButton stairs;
+	private JScrollPane scroll;
+	
 
 	/**
 	Create the Panel, this is a class that creates
 	 a panel with the options a player has when making
 	 a move
 	*/
-	/**
+
 	public OptionPanel(Frame frame){
 		setBorder(new TitledBorder(null,"Options", TitledBorder.LEADING, TitledBorder.TOP));
 		GridBagLayout layout = new GridBagLayout();
@@ -57,7 +61,6 @@ public class OptionPanel extends JPanel {
 		
 		accuse.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e ){
-						accuse.setEnabled(false);
 						frame.buttonPressed(e);//gotta make a fram class
 					};
 		});
@@ -92,7 +95,7 @@ public class OptionPanel extends JPanel {
 		gbcRollDice.gridy = 1;
 		add(rollDice, gbcRollDice);
 		
-		suggest.addActionListener(new ActionListener(){
+		rollDice.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e ){
 						rollDice.setEnabled(false);
 						frame.buttonPressed(e);//gotta make a frame class
@@ -100,10 +103,63 @@ public class OptionPanel extends JPanel {
 		});
 		
 		//Stairs button
+		stairs =  new JButton("Stairs");
+		stairs.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e ){
+				frame.buttonPressed(e);//gotta make a frame class
+			};
+		});
+		GridBagConstraints gbcStairs = new GridBagConstraints();
+		gbcStairs.fill = GridBagConstraints.BOTH;
+		gbcStairs.insets = new Insets(0,0,5,5);
+		gbcStairs.gridx = 0;
+		gbcStairs.gridy = 1;
+		add(stairs, gbcStairs);
 		
 		// End turn button
 		endTurn =  new JButton("End Turn");
 		GridBagConstraints gbcEndTurn = new GridBagConstraints();
+		gbcEndTurn.fill = GridBagConstraints.BOTH;
+		gbcEndTurn.insets = new Insets(0,0,5,5);
+		gbcEndTurn.gridx = 0;
+		gbcEndTurn.gridy = 2;
+		add(endTurn, gbcEndTurn);
+		
+		endTurn.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e ){
+						endTurn.setEnabled(true);
+						rollDice.setEnabled(true);
+						frame.buttonPressed(e);//gotta make a frame class
+					};
+		});
+		
+		//Scrolling in the options pan
+		scroll = new JScrollPane();
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		GridBagConstraints gbcScroll = new GridBagConstraints();
+		gbcScroll.fill = GridBagConstraints.BOTH;
+		gbcScroll.gridwidth = 2;
+		gbcScroll.gridx = 0;
+		gbcScroll.gridy = 3;
+		add(scroll, gbcScroll);
+		
+		//txt area
+		textArea = new JTextArea(5, 20);
+		scroll.setViewportView(textArea);
+		textArea.setEditable(false);
+				
+		
+		
 	}
-	*/
+	public JTextArea getTextArea(){
+		return textArea;
+	}
+	
+	public void guessEnabled(boolean enable){
+		suggest.setEnabled(enable);
+		}
+	
+	public void rollEnabled(boolean enable){
+		rollDice.setEnabled(enable);
+		}
 }
