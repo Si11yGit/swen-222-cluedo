@@ -14,10 +14,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import main.Main;
+import parts.Player;
 
 public class Frame extends JFrame implements KeyListener, MouseListener, WindowListener{
 	
@@ -34,7 +36,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	//panels
 	private JPanel outerPanel;
 	private OptionPanel options;
-	private HandPanel handPanel;
+	private HandPanel hand;
 	private BoardPanel board;
 	//the game
 	private Main game;
@@ -82,15 +84,17 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		outerPanel .setLayout(new BorderLayout(0,0));
 		setContentPane(outerPanel);
 		
-		//create hand panel
+		//create board panel
 		board = new BoardPanel(game);
 		outerPanel.add(board, BorderLayout.EAST);
 		
 		//create options panel
 		options = new OptionPanel(this);
-		outerMostPane
-		//create board panel 
+		outerPanel.add(options, BorderLayout.WEST);
 		
+		//create hand panel 
+		hand = new HandPanel(game);
+		outerPanel.add(hand, BorderLayout.SOUTH);
 		
 		pack();
 		this.setLocationRelativeTo(null);
@@ -105,142 +109,167 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	
 
 	protected void newGame() {
-		// TODO Auto-generated method stub
-		
+		game.restart();//add a restart method to the Main
+		this.dispose();
 	}
 
 
-
+ /**
+  * exits the game
+  */
 	protected void exitGame() {
-		// TODO Auto-generated method stub
-		
+		int option = JOptionPane.showOptionDialog(this, "Are you sure you want to exit?", 
+						"Confirm Exit", JOptionPane.YES_NO_OPTION, 
+							JOptionPane.QUESTION_MESSAGE, null,null, null);
+		if(option == JOptionPane.YES_OPTION){
+			System.exit(0);
+		}
 	}
 
 
 
 	public void buttonPressed(ActionEvent e) {
+		String s = e.getActionCommand();
+		System.out.println(s);
 		
-		
+		switch(s){
+		case "Roll Dice":
+			game.diceRoll();//need to move the dice roll method into the Main class
+			break;
+		case "Suggest":
+			if(game.getCurrentPlayer().getRoom() == null){
+				break;
+				}
+			String[] suggestion = createAccuseGUI(false);
+			if(suggestion == null){
+				break;
+			}
+			game.suggestion(suggestion[0], null, suggestion[1], false);
+			options.suggestionEnabled(false);
+			break;
+		case "Accuse":
+			String[] accuse = createAccuseGUI(true);
+			if(accuse == null){
+				break;
+			}
+			game.accusation(accuse[0], accuse[1], accuse[2], true);
+			break;
+		case "End Turn":
+			endTurn();
+			break;
+		case "Use Stairs":
+			break;
+		}
+		requestFocus();
 	}
 
 
+	/**
+	 * ends the players turn 
+	 */
+	private void endTurn() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	/**
+	 * game over
+	 * 
+	 *  @param the parameter is the player that Won
+	 */
+	public void gameOver(Player player){
+		int option = JOptionPane.showOptionDialog(this, player.getCharacter().name() + " has won!!!!",
+						"Winner!!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, 
+							null, new String[]{"New Game", "Exit"}, "New Game");
+		if(option == JOptionPane.OK_OPTION){
+			newGame();
+		}else{
+			System.exit(0);
+		}
+	}
+	
+	/**
+	 * creates the GUI for a guess or an accuse and returns the selected options for them.
+	 * 
+	 * @param isAccuse - is this an accuse for a guess
+	 * @return string array holding the selected options (character-> room -> weapon)
+	 */
+	private String[] createAccuseGUI(boolean isAccuse) {
+		String[] answers;
+		//create correct length array
+		if(isAccuse){answers = new String[3];} 
+		else {answers = new String[2];} // a guess does not need to have a room
+		
+		//create character select GUI
+		CharacterSelect cs = new CharacterSelect(game);
+		int i = JOptionPane.showOptionDialog(this, cs, "Character Select", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if(i == JOptionPane.CANCEL_OPTION || i == JOptionPane.CLOSED_OPTION) {
+			return null;
+		}
+		answers[0] = cs.getSelectedChar();
+		//if is an accuse get a room
+		if(isAccuse){
+			// create Room select GUI
+			RoomSelect rs = new RoomSelect(game);
+			int k = JOptionPane.showOptionDialog(this, rs, "Room Select", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if(k == JOptionPane.CANCEL_OPTION || k == JOptionPane.CLOSED_OPTION) {
+				return null;
+			}
+			answers[1] = rs.getSelectedRoom();
+		}
+		// create weapon select GUI
+		WeaponSelect ws = new WeaponSelect(game);
+		int j = JOptionPane.showOptionDialog(this, ws, "Weapon Select", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if(j == JOptionPane.CANCEL_OPTION || j == JOptionPane.CLOSED_OPTION) {
+			return null;
+		}
+		answers[answers.length-1] = ws.getSelectedWeapon();
+		return answers;
+	}
+	
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
+	}	
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
-
-
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyPressed(KeyEvent arg0) {	
 	}
-
-
-
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent arg0) {		
 	}
-
-
-
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

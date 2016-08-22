@@ -37,6 +37,7 @@ public class Main {
 	private Board board;// reference to a board
 	private boolean gameOver;// whether the game is over or not
 	private Scanner scan;
+	private Player currentPlayer;
 
 	public Main(int numPlayers, Scanner scan) {
 		this.numPlayers = numPlayers;
@@ -286,8 +287,6 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
-		// current player
-		Player currentPlayer;
 		// all current players
 		int currentPlayers = this.allPlayers.size();
 		// random player starts
@@ -302,11 +301,11 @@ public class Main {
 				if (!gameOver) {
 					currentPlayer = this.allPlayers.get(i);
 					// is the current player in the game
-					if (currentPlayer.getInGame()) {
-						turn(currentPlayer);
+					if (this.currentPlayer.getInGame()) {
+						turn(this.currentPlayer);
 					}
 					// check if a player just lost
-					if (!currentPlayer.getInGame()) {
+					if (!this.currentPlayer.getInGame()) {
 						currentPlayers--;
 						if (currentPlayers == 0) {
 							// no players remaining
@@ -320,7 +319,20 @@ public class Main {
 
 		}
 	}
-
+	public Player getCurrentPlayer(){
+		return currentPlayer;
+	}
+	
+	/**
+	 * Simulates a dice roll in the game
+	 * @return
+	 */
+	public int	diceRoll(){
+		int diceOne = (int) Math.round(Math.random()*6);
+		int diceTwo = (int) Math.round(Math.random()*6);
+		return diceOne + diceTwo;
+	}
+	
 	/**
 	 * Turn method for a player
 	 * @throws InterruptedException
@@ -340,7 +352,7 @@ public class Main {
 			accuse(player);
 		}
 		System.out.println("");
-		int roll = player.diceRoll();
+		int roll = diceRoll();
 		System.out.println("you rolled " + roll);
 		if (player.checkForPassageWays()) {
 			System.out.println("Secret Tunnel in Room!! would you like to travel to "

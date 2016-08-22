@@ -51,15 +51,7 @@ public class Player {
 		this.AllCards= all;
 	}
 
-	/**
-	 * Simulates a dice roll in the game
-	 * @return
-	 */
-	public int	diceRoll(){
-		int diceOne = (int) Math.round(Math.random()*6);
-		int diceTwo = (int) Math.round(Math.random()*6);
-		return diceOne + diceTwo;
-	}
+	
 
 	public Character character() {
 		return character;
@@ -86,11 +78,6 @@ public class Player {
 		this.board =  board;
 	}
 
-
-	//move method which is tacked with moving the player,
-	//the player is prompted to move in a direction W,A,S,D
-	//checks that the player is able to move in that direction
-	//if they can't they are prompted to move in a different direction
 	/**
 	 * method which moves the player
 	 */
@@ -129,8 +116,6 @@ public class Player {
 	 * @param newLoc
 	 * @return
 	 */
-
-
 	public boolean isValidMove(int x,int y, int diceRoll){
 		if (abs(x) + abs(y) > diceRoll) {
 			System.out.println("position is out of range");
@@ -195,7 +180,6 @@ public class Player {
 		return x;
 	}
 
-
 	/**
 	 * A method for checking if there is a secret passage way
 	 *
@@ -210,11 +194,6 @@ public class Player {
 		return false;
 	}
 
-	//a method that returns the new location of the player (after they move)
-
-	//ask for accusations 	//end every turn with this
-	//if they are right then the game is over
-	//if they are wrong then they lose the game
 	/**
 	 * makes a new suggestion to check
 	 * @param cards
@@ -398,6 +377,10 @@ public class Player {
 	public String toString() {
 		return character.toString();
 	}
+	
+	public Character getCharacter(){
+		return character;
+	}
 
 	public Enterable getPosition() {
 		return position;
@@ -406,9 +389,4 @@ public class Player {
 	public void setPosition(Enterable position) {
 		this.position = position;
 	}
-
-
-	//public void setCharacter(Character character) {
-	//	this.character = character;
-	//}
 }
