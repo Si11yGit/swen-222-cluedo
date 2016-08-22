@@ -30,7 +30,7 @@ public class HandPanel extends JPanel {
 		cardLabels = new ArrayList<JLabel>();
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setToolTipText("Current players hand");
-		List<Card> hand = game.getCurrentPlayer().getHand();
+		List<Card> hand = game.getCurrentPlayer().getCards();
 		for(Card c : hand) {
 			ImageIcon card = c.getIcon();
 			
@@ -44,7 +44,11 @@ public class HandPanel extends JPanel {
 	 * update the icon on the labels when a player has moved
 	 */
 	public void updateLabels() {
+<<<<<<< HEAD
 		List<Card> newCards = game.getCurrentPlayer().getHand();
+=======
+		List<Card> newCards = game.getCurrentPlayer().getCards();//need to add current player method somewhere
+>>>>>>> branch 'master' of ssh://git@github.com/Si11yGit/swen-222-cluedo.git
 		for(int i = 0; i < cardLabels.size(); i++) {
 			if(i >= newCards.size()){
 				cardLabels.get(i).setIcon(null);

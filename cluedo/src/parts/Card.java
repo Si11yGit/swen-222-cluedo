@@ -2,8 +2,11 @@ package parts;
 
 import javax.swing.ImageIcon;
 
+<<<<<<< HEAD
 import main.Main;
 
+=======
+>>>>>>> branch 'master' of ssh://git@github.com/Si11yGit/swen-222-cluedo.git
 public class Card {
 	private String name;
 	private Player Owner;
@@ -57,6 +60,7 @@ public class Card {
 	public String toString() {
 		return "Card [name=" + name + "]";
 	}
+<<<<<<< HEAD
 	private static ImageIcon makeImageIcon(String s){
 		s = s.toLowerCase();
 		java.net.URL imageURL = Main.class.getResource("images/cards/"+s+"png");
@@ -72,6 +76,12 @@ public class Card {
 	public ImageIcon getIcon() {
 		
 		return icon;
+=======
+	
+	public ImageIcon getIcon() {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> branch 'master' of ssh://git@github.com/Si11yGit/swen-222-cluedo.git
 	}
 
 	
