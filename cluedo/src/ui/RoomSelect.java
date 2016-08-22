@@ -66,7 +66,6 @@ public class RoomSelect extends JPanel implements ActionListener{
 	}
 
 	public String getSelectedRoom() {
-		// TODO Auto-generated method stub
 		return selectedRoom;
 	}
 

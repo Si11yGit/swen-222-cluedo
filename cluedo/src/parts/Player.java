@@ -403,9 +403,9 @@ public class Player {
 	}
 
 
-	//public void setCharacter(Character character) {
-	//	this.character = character;
-	//}
+	public ArrayList<Card> getHand(){
+		return hand;
+	}
 
 
 	public Card getRoom() {

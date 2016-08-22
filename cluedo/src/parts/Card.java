@@ -1,8 +1,13 @@
 package parts;
 
+import javax.swing.ImageIcon;
+
+import main.Main;
+
 public class Card {
 	private String name;
 	private Player Owner;
+	private ImageIcon icon;
 	/**
 	 * Create a new card with a given parameter
 	 * 
@@ -10,6 +15,7 @@ public class Card {
 	 */
 	public Card(String name){
 		this.name = name;
+		icon = makeImageIcon(name);
 	}
 	public String getName() {
 		return name;
@@ -50,6 +56,22 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [name=" + name + "]";
+	}
+	private static ImageIcon makeImageIcon(String s){
+		s = s.toLowerCase();
+		java.net.URL imageURL = Main.class.getResource("images/cards/"+s+"png");
+		ImageIcon icon = null;
+		if(imageURL != null){
+			icon = new ImageIcon(imageURL);
+		}
+		if(icon == null){
+			System.out.println("card is null");
+		}
+		return icon;
+	}
+	public ImageIcon getIcon() {
+		
+		return icon;
 	}
 
 	
