@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import main.Main;
+import parts.Card;
 import parts.Weapon;
 
 /**
@@ -39,7 +40,7 @@ public class WeaponSelect extends JPanel implements ActionListener{
 		weapons = new ArrayList<String>();
 		
 		//get all weapons
-		for(Weapon w : game.getWeapons()) {
+		for(Card w : game.getWeapons()) {
 			weapons.add(w.getName());
 		}
 		
@@ -87,12 +88,13 @@ public class WeaponSelect extends JPanel implements ActionListener{
 	 * @param path
 	 * @return
 	 */
-	private ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = Main.class.getResource("images/cards/"+path);
+	private ImageIcon createImageIcon(String s) {
+		s = s.toLowerCase();
+        java.net.URL imgURL = Main.class.getResource("images/cards/"+s);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            System.err.println("Couldn't find file: " + path);
+            System.err.println("File: " + s +" doesn't exist!!!");
             return null;
         }
     }

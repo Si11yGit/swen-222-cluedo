@@ -15,12 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import main.Main;
+import parts.Card;
 
 /**
  * character select panel for the dialog that is used when performing a guess or accuse
  *
  */
-public class CharacterSelecter extends JPanel implements ActionListener{
+public class CharacterSelect extends JPanel implements ActionListener{
 	
 	private static final long serialVersionUID = -2930990384432294892L;
 	
@@ -29,10 +30,10 @@ public class CharacterSelecter extends JPanel implements ActionListener{
 	private List<String> characters;
 	
 	
-	public CharacterSelecter(Main game) {
+	public CharacterSelect(Main game) {
 		super(new BorderLayout());
 		characters = new ArrayList<String>();
-		for(Character c : game.getCharacters()) {
+		for(Card c : game.getCharacters()) {
 			characters.add(c.getName());
 		}
 		//create buttons for each weapon
@@ -71,13 +72,13 @@ public class CharacterSelecter extends JPanel implements ActionListener{
 		
 	}
 	
-	private ImageIcon createImageIcon(String path) {
-		path = path.toLowerCase();
-        java.net.URL imgURL = Game.class.getResource("images/cards/"+path);
+	private ImageIcon createImageIcon(String s) {
+		s = s.toLowerCase();
+        java.net.URL imgURL = Main.class.getResource("images/cards/"+s);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            System.err.println("Couldn't find file: " + path);
+            System.err.println("File: " + s +" doesn't exist!!!");
             return null;
         }
     }
