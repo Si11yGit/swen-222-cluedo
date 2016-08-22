@@ -74,7 +74,7 @@ public class Main {
 
 	public Main(Frame gui) {
 		this.frame = gui;
-		this.numPlayers = 6;  //this neds to be fixed
+		this.numPlayers = 6;  //this needs to be fixed
 		this.allCards = initialiseCards();
 		this.listOfCards = this.allCards;
 		for(Card c : allCards){

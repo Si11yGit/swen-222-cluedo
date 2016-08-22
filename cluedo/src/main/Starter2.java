@@ -3,7 +3,11 @@ package main;
 import java.awt.EventQueue;
 
 import ui.Frame;
-
+/**
+ * Starter for GUI intialization
+ * @author Ben
+ *
+ */
 public class Starter2 {
 	static boolean gameFinished = false;
 	static private Frame frame;
@@ -14,11 +18,10 @@ public class Starter2 {
 							frame = new Frame();
 							frame.setVisible(true);
 						}catch(Exception e){
-							e.printStackTrace();
+							
 						}
 					}
 				});
-				new Main(frame);
 	}
 }
 

@@ -1,5 +1,10 @@
 package parts;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import main.Main;
@@ -59,14 +64,11 @@ public class Card {
 	}
 
 	private static ImageIcon makeImageIcon(String s){
-		s = s.toLowerCase();
-		java.net.URL imageURL = Main.class.getResource("images/cards/"+s+"png");
+		java.net.URL imageURL = Main.class.getResource("images/cards/"+s+".png");
+
 		ImageIcon icon = null;
-		if(imageURL != null){
+		if (imageURL != null) {
 			icon = new ImageIcon(imageURL);
-		}
-		if(icon == null){
-			System.out.println("card is null");
 		}
 		return icon;
 	}
