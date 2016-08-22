@@ -1,5 +1,7 @@
 package parts;
 
+import javax.swing.ImageIcon;
+
 public class Card {
 	private String name;
 	private Player Owner;
@@ -50,6 +52,11 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [name=" + name + "]";
+	}
+	
+	public ImageIcon getIcon() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
