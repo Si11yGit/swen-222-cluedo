@@ -163,7 +163,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		}
 		requestFocus();
 	}
-
+	
+	
 
 	/**
 	 * ends the players turn 
