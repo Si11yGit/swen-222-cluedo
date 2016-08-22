@@ -352,7 +352,7 @@ public class Main {
 		}
 		
 	}
-	public void makeAcccusation(String character, String room, String weapon){
+	public void makeAccusation(String character, String room, String weapon){
 		List<Card> accusation = new ArrayList<Card>();
 		for(Card c : characters){
 			if(c.getName().equals(character)){
@@ -533,7 +533,15 @@ public class Main {
 	public Suggestion getSolution() {
 		return this.solution;
 	}
-
+	public ArrayList<Card> getWeapons(){
+		return this.weapons;
+	}
+	public ArrayList<Card> getRoom(){
+		return this.rooms;
+	}
+	public ArrayList<Card> getCharacters(){
+		return this.characters;
+	}
 	public Board getBoard() {
 		return this.board;
 	}

@@ -145,7 +145,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 			if(suggestion == null){
 				break;
 			}
-			game.getCurrentPlayer().makeSuggestion(suggestion[0], null, suggestion[1], false);
+			game.makeSuggestion(suggestion[0], null, suggestion[1]);
 			options.suggestionEnabled(false);
 			break;
 		case "Accuse":
@@ -153,7 +153,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 			if(accuse == null){
 				break;
 			}
-			game.getCurrentPlayer().makeAccusation(accuse[0], accuse[1], accuse[2], true);
+			game.makeAccusation(accuse[0], accuse[1], accuse[2]);
 			break;
 		case "End Turn":
 			endTurn();
