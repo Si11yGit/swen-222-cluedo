@@ -199,6 +199,7 @@ public class Player {
 	 * @param cards
 	 * @return
 	 */
+	/**
 	public Suggestion makeSuggestion(Map<String,Card> cards) {
 		RoomCard room = (RoomCard)cards.get(((Room)position).getName());
 		Weapon weapon = null;
@@ -245,12 +246,13 @@ public class Player {
 
 		return new Suggestion(room,character,weapon);
 	}
-
+	*/
 	/**
 	 * checks a suggestion against the hand of the player. returns true if refuted
 	 * @param seg
 	 * @return
 	 */
+	/**
 	public Card refuteSuggestion(Suggestion sug) {
 		for (Card card: hand) {
 			if (sug.compare(card) != null) {
@@ -259,12 +261,13 @@ public class Player {
 		}
 		return null;
 	}
-
+	 */
 	/**
 	 * makes a new suggestion which is used as an accusation
 	 * @param cards
 	 * @return
 	 */
+	/**
 	public Suggestion makeAccusation(Map<String,Card> cards) {
 		RoomCard room = null;
 		Weapon weapon = null;
@@ -330,7 +333,10 @@ public class Player {
 
 		return new Suggestion(room,character,weapon);
 	}
-
+*/
+	/**
+	 * A method for creating a suggestion
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -388,5 +394,10 @@ public class Player {
 
 	public void setPosition(Enterable position) {
 		this.position = position;
+	}
+
+	public Card getRoom() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

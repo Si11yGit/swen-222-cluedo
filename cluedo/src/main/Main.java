@@ -17,6 +17,7 @@ import parts.Player;
 import parts.RoomCard;
 import parts.Suggestion;
 import parts.Weapon;
+import ui.Frame;
 import ui.GUI;
 import parts.Character;
 /**
@@ -31,6 +32,11 @@ public class Main {
 	private ArrayList<Card> allCards;
 	private ArrayList<Card> listOfCards;
 	private ArrayList<Player> allPlayers;
+	
+	private ArrayList<Card> characters;
+	private ArrayList<Card> rooms;
+	private ArrayList<Card> weapons;
+	
 	private Map<String, Card> cardsearch = new HashMap<String, Card>();
 	private int numPlayers;
 	private Suggestion solution; // solution object
@@ -38,6 +44,8 @@ public class Main {
 	private boolean gameOver;// whether the game is over or not
 	private Scanner scan;
 	private Player currentPlayer;
+	static boolean gameFinished = false;
+	static private Frame frame;
 
 	public Main(int numPlayers, Scanner scan) {
 		this.numPlayers = numPlayers;
@@ -65,9 +73,14 @@ public class Main {
 
 	}
 
-	public Main(GUI gui) {
+	public Main(Frame gui) {
 		this.allCards = initialiseCards();
 		this.listOfCards = this.allCards;
+		for(Card c : allCards){
+			if(c instanceof Character){characters.add(c);}
+			else if(c instanceof Weapon){weapons.add(c);}
+			else if(c instanceof RoomCard){rooms.add(c);}
+		}
 		for(Card card: allCards) {
 			cardsearch.put(card.getName(), card);
 		}
@@ -323,6 +336,42 @@ public class Main {
 		return currentPlayer;
 	}
 	
+	public void makeSuggestion(String character, String room, String weapon){
+		List<Card> suggestion = new ArrayList<Card>();
+		for(Card c : characters){
+			if(c.getName().equals(character)){
+				suggestion.add(c);
+			}
+		}	
+		suggestion.add(currentPlayer.getRoom());
+		for(Card w : weapons){
+			if(w.getName().equals(weapon)){
+				suggestion.add(w);
+			}
+			
+		}
+		
+	}
+	public void makeAcccusation(String character, String room, String weapon){
+		List<Card> accusation = new ArrayList<Card>();
+		for(Card c : characters){
+			if(c.getName().equals(character)){
+				accusation.add(c);
+			}
+		}
+		for(Card r : rooms){
+			if(r.getName().equals(room)){
+				accusation.add(r);
+			}
+		}
+		for(Card w : weapons){
+			if(w.getName().equals(weapon)){
+				accusation.add(w);
+			}
+			
+		}
+	}
+	
 	/**
 	 * Simulates a dice roll in the game
 	 * @return
@@ -451,7 +500,10 @@ public class Main {
 			}
 		}
 	}
-
+	public static void restart(){
+		frame = new Frame();
+		frame.setVisible(true);
+	}
 	/**
 	 * check the users response out of y and n
 	 * @return

@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import main.Main;
 import parts.Player;
 
+
 public class Frame extends JFrame implements KeyListener, MouseListener, WindowListener{
 	
 	//the frame is the window which holds all the other swing components
@@ -140,19 +141,19 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 			if(game.getCurrentPlayer().getRoom() == null){
 				break;
 				}
-			String[] suggestion = createAccuseGUI(false);
+			String[] suggestion = createGuessGUI(false);
 			if(suggestion == null){
 				break;
 			}
-			game.suggestion(suggestion[0], null, suggestion[1], false);
+			game.getCurrentPlayer().makeSuggestion(suggestion[0], null, suggestion[1], false);
 			options.suggestionEnabled(false);
 			break;
 		case "Accuse":
-			String[] accuse = createAccuseGUI(true);
+			String[] accuse = createGuessGUI(true);
 			if(accuse == null){
 				break;
 			}
-			game.accusation(accuse[0], accuse[1], accuse[2], true);
+			game.getCurrentPlayer().makeAccusation(accuse[0], accuse[1], accuse[2], true);
 			break;
 		case "End Turn":
 			endTurn();
@@ -178,8 +179,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	 *  @param the parameter is the player that Won
 	 */
 	public void gameOver(Player player){
-		int option = JOptionPane.showOptionDialog(this, player.getCharacter().name() + " has won!!!!",
-						"Winner!!", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, 
+		int option = JOptionPane.showOptionDialog(this, player.getCharacter().name() + " has 					won!!!!", "Winner!!", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE, 
 							null, new String[]{"New Game", "Exit"}, "New Game");
 		if(option == JOptionPane.OK_OPTION){
 			newGame();
@@ -194,10 +195,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	 * @param isAccuse - is this an accuse for a guess
 	 * @return string array holding the selected options (character-> room -> weapon)
 	 */
-	private String[] createAccuseGUI(boolean isAccuse) {
+	private String[] createGuessGUI(boolean isAccuse) {
 		String[] answers;
 		//create correct length array
-		if(isAccuse){answers = new String[3];} 
+		if(isAccuse){answers = new String[3];} //if we are accusing someone or just suggestion
 		else {answers = new String[2];} // a guess does not need to have a room
 		
 		//create character select GUI
