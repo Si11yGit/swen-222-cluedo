@@ -17,8 +17,10 @@ import parts.Card;
  */
 public class HandPanel extends JPanel {
 	
-	//private static final long serialVersionUID = ;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Main game;
 	private List<JLabel> cardLabels; 
 
@@ -44,11 +46,9 @@ public class HandPanel extends JPanel {
 	 * update the icon on the labels when a player has moved
 	 */
 	public void updateLabels() {
-<<<<<<< HEAD
+
 		List<Card> newCards = game.getCurrentPlayer().getHand();
-=======
-		List<Card> newCards = game.getCurrentPlayer().getCards();//need to add current player method somewhere
->>>>>>> branch 'master' of ssh://git@github.com/Si11yGit/swen-222-cluedo.git
+		//List<Card> newCards = game.getCurrentPlayer().getCards();//need to add current player method somewhere
 		for(int i = 0; i < cardLabels.size(); i++) {
 			if(i >= newCards.size()){
 				cardLabels.get(i).setIcon(null);
