@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Color;
+
 import parts.Player;
 
 /**
@@ -54,7 +56,7 @@ public class Hallway implements Enterable {
 	}
 
 	/**
-	 * returns the specific ccharacter that represents the hallways on the board
+	 * returns the specific character that represents the hallways on the board
 	 */
 	@Override
 	public String toString() {
@@ -63,5 +65,10 @@ public class Hallway implements Enterable {
 		} else {
 			return player.toString();
 		}
+	}
+
+	@Override
+	public Color getColor() {
+		return Color.orange;
 	}
 }

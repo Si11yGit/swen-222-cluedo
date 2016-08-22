@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Color;
+
 public class Wall implements Square {
 	private boolean vertical;
 	private Coordinate location;
@@ -26,6 +28,12 @@ public class Wall implements Square {
 		} else {
 			return "_";
 		}
+	}
+
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return Color.DARK_GRAY;
 	}
 
 }
