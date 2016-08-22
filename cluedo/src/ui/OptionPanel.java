@@ -38,7 +38,7 @@ public class OptionPanel extends JPanel {
 	*/
 
 	public OptionPanel(Frame frame){
-		setBorder(new TitledBorder(null,"Options", TitledBorder.LEADING, TitledBorder.TOP));
+		setBorder(new TitledBorder(null,"Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout layout = new GridBagLayout();
 		layout.columnWidths = new int[]{0, 0, 0};
 		layout.rowHeights = new int[]{0, 0, 0, 0, 0};

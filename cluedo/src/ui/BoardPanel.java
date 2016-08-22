@@ -78,8 +78,8 @@ public class BoardPanel extends JPanel{
 	 * Displays the names of any players on the tile then the name of the square.
 	 */
 	private void setMouseover() {
-		for (int i =0; i < labels[i].length; i++) {
-			for (int j = 0; j < labels.length; j++) {
+		for (int i =0; i < labels.length; i++) {
+			for (int j = 0; j < labels[i].length; j++) {
 				if (game.getBoard().getBoardArray()[i][j] != null && game.getBoard().getBoardArray()[i][j].getPlayer() != null) {
 					labels[i][j].setToolTipText(game.getBoard().getBoardArray()[i][j].getPlayer().toString());
 				} else if(board[i][j] instanceof Room) {

@@ -73,7 +73,8 @@ public class Main {
 	}
 
 	public Main(Frame gui) {
-		this.numPlayers = 6;
+		this.frame = gui;
+		this.numPlayers = 6;  //this neds to be fixed
 		this.allCards = initialiseCards();
 		this.listOfCards = this.allCards;
 		for(Card c : allCards){
@@ -544,5 +545,10 @@ public class Main {
 	}
 	public Board getBoard() {
 		return this.board;
+	}
+
+	public void doorClicked(Square square) {
+		// TODO Auto-generated method stub
+		
 	}
 }

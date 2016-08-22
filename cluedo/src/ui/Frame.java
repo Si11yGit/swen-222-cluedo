@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import board.Coordinate;
+import board.Square;
 import main.Main;
 import parts.Player;
 
@@ -43,7 +45,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	//the game
 	private Main game;
 	
-	public Frame (){
+	public Frame(){
 		//Initialize the game
 		this.game = new Main(this);
 		
@@ -95,8 +97,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		outerPanel.add(options, BorderLayout.WEST);
 		
 		//create hand panel 
-//		hand = new HandPanel(game);
-//		outerPanel.add(hand, BorderLayout.SOUTH);
+		hand = new HandPanel(game);
+		outerPanel.add(hand, BorderLayout.SOUTH);
 		
 		pack();
 		this.setLocationRelativeTo(null);
@@ -111,7 +113,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	
 
 	protected void newGame() {
-		game.restart();//add a restart method to the Main
+		game.restart();
 		this.dispose();
 	}
 
@@ -174,7 +176,12 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * moves the player on the board
+	 */
+	public void movePlayer(Player player, Coordinate oldPos, Coordinate newPos){
+		board.movePlayer(player, oldPos, newPos);
+	}
 	/**
 	 * game over
 	 * 
@@ -229,6 +236,13 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		answers[answers.length-1] = ws.getSelectedWeapon();
 		return answers;
 	}
+	public BoardPanel getBoard(){
+		return this.board;
+	}
+	
+	public OptionPanel getOptions(){
+		return this.options;
+	}
 	
 	@Override
 	public void windowActivated(WindowEvent arg0) {
@@ -238,6 +252,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	}
 	@Override
 	public void windowClosing(WindowEvent arg0) {
+		exitGame();
 	}	
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
@@ -252,7 +267,14 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	public void windowOpened(WindowEvent arg0) {
 	}
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
+		requestFocus();
+		int x = e.getX()-board.getX()-8;
+		int y = e.getY()-board.getY()-53;
+		Square square = board.checkMouseOnDoor(x, y);
+		if(square != null){
+			game.doorClicked(square);
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {

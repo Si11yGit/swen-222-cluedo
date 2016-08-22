@@ -53,7 +53,7 @@ public class RoomSelect extends JPanel implements ActionListener{
 		}
 		
 		//set images for the buttons
-		roomPic = new JLabel(createImageIcon(rooms.get(0)+".png"));
+		roomPic = new JLabel(createImageIcon(rooms.get(0)+".jpg"));
 		//add buttons to panel
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
 		for(JRadioButton b : buttons) {
@@ -72,13 +72,13 @@ public class RoomSelect extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		selectedRoom = e.getActionCommand();
-				roomPic.setIcon(createImageIcon(e.getActionCommand()+".png"));
+				roomPic.setIcon(createImageIcon(e.getActionCommand()+".jpg"));
 		
 	}
 	
 	private ImageIcon createImageIcon(String s){
 		s = s.toLowerCase();
-		java.net.URL imgURL = Main.class.getResource("");
+		java.net.URL imgURL = Main.class.getResource("cards/"+s);
 		if(imgURL != null){
 			return new ImageIcon(imgURL);
 		}else{

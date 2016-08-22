@@ -44,7 +44,7 @@ public class HandPanel extends JPanel {
 	 * update the icon on the labels when a player has moved
 	 */
 	public void updateLabels() {
-		List<Card> newCards = game.getCurrentPlayer().getHand();//need to add current player method somewhere
+		List<Card> newCards = game.getCurrentPlayer().getHand();
 		for(int i = 0; i < cardLabels.size(); i++) {
 			if(i >= newCards.size()){
 				cardLabels.get(i).setIcon(null);

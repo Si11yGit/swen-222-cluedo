@@ -63,7 +63,7 @@ public class WeaponSelect extends JPanel implements ActionListener{
 		
 		//set first button to selected and update image
 		buttons[0].setSelected(true);
-		weaponPicture = new JLabel(createImageIcon(weapons.get(0)+".png"));
+		weaponPicture = new JLabel(createImageIcon(weapons.get(0)+".jpg"));
 		
 		//add buttons to button panel
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
@@ -81,7 +81,7 @@ public class WeaponSelect extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//update selected weapon and image
 		selectedWeapon = e.getActionCommand();
-		weaponPicture.setIcon(createImageIcon(e.getActionCommand()+".png"));		
+		weaponPicture.setIcon(createImageIcon(e.getActionCommand()+".jpg"));		
 	}
 	/**
 	 * create imageIcon for the weapons
@@ -90,7 +90,7 @@ public class WeaponSelect extends JPanel implements ActionListener{
 	 */
 	private ImageIcon createImageIcon(String s) {
 		s = s.toLowerCase();
-        java.net.URL imgURL = Main.class.getResource("images/cards/"+s);
+        java.net.URL imgURL = Main.class.getResource("cards/"+s);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
