@@ -35,7 +35,7 @@ public class RoomSelect extends JPanel implements ActionListener{
 			rooms.add(r.getName());
 		}
 		
-		//create buttons for each of the rooms
+		//create buttons for each of the rooms 
 		JRadioButton[] buttons = new JRadioButton[rooms.size()];
 		for(int i = 0; i < buttons.length; i++){
 			buttons[i] = new JRadioButton(rooms.get(i));
