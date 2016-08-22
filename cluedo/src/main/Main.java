@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import board.Board;
 import board.Hallway;
 import board.Impassable;
@@ -53,6 +55,7 @@ public class Main {
 		for(Card card: allCards) {
 			cardsearch.put(card.getName(), card);
 		}
+
 		this.listOfCards = allCards;
 		Collections.shuffle(this.allCards);
 		this.scan = scan;
@@ -91,15 +94,13 @@ public class Main {
 		this.solution = initialiseSolution();
 		this.allPlayers = initialisePlayer();
 		this.board.update();
-
 		// initialiseWeapons();
-
 		dealCards();
-//		try {
-//			playGame();
-//		} catch (InterruptedException e) {
-//			System.out.println("issue with game");
-//		}
+		try {
+			playGame();
+		} catch (InterruptedException e) {
+			System.out.println("issue with game");
+		}
 
 	}
 
@@ -248,7 +249,7 @@ public class Main {
 			Card newCard = this.allCards.get(0);
 			player.deal(newCard); // give the current player the top card
 			newCard.setOwner(player);// set the owner of the card to the current
-										// player
+			System.out.println(newCard.toString() + "has been addded to the hand");							// player
 			this.allCards.remove(0);// remove the card from the deck
 		}
 		for (int i = 1; i <= this.numPlayers; ++i) {
@@ -301,6 +302,18 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
+		/**numPlayers = 0;
+		while(numPlayers < 3 || numPlayers > 6){
+			String inputValue = (String)JOptionPane.showInputDialog(null, "Enter amount of players (3-6): ", "Cluedo", JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if(inputValue == null){
+				exitGame();
+			}
+			try{
+				numPlayers = Integer.parseInt(inputValue);
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null,"Please enter an integer.", "Error", JOptionPane.OK_OPTION);
+			}
+		}*/
 		// all current players
 		int currentPlayers = this.allPlayers.size();
 		// random player starts
@@ -444,7 +457,6 @@ public class Main {
 			accuse(player);
 		}
 	}
-
 	public void accuse(Player player) {
 		Suggestion accusation = player.makeAccusation(cardsearch);
 		boolean right = accusation.compare(solution);
@@ -457,7 +469,6 @@ public class Main {
 			return;
 		}
 	}
-
 	public void move(Player player, int roll) {
 		boolean check3 = false;
 		while (!check3) {
@@ -526,11 +537,9 @@ public class Main {
 		}
 		return false;
 	}
-
 	public int getNumPlayers() {
 		return this.numPlayers;
 	}
-
 	public Suggestion getSolution() {
 		return this.solution;
 	}
@@ -546,7 +555,6 @@ public class Main {
 	public Board getBoard() {
 		return this.board;
 	}
-
 	public void doorClicked(Square square) {
 		// TODO Auto-generated method stub
 		

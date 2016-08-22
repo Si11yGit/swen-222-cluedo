@@ -401,13 +401,9 @@ public class Player {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	public ArrayList<Card> getHand(){
-		return hand;
+	public void addToHand(Card c){
+		this.hand.add(c);
 	}
-
-
 	public Card getRoom() {
 		// TODO Auto-generated method stub
 		return null;

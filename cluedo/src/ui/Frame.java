@@ -31,6 +31,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	
 	//private static final long serialVersionUID;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9109857494274448808L;
 	//menu components
 	private JMenuBar menuBar;
 	private JMenu file;
@@ -77,7 +81,6 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						exitGame();
-						return;
 					}
 				});
 		file.add(exitGame);
@@ -89,8 +92,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		setContentPane(outerPanel);
 		
 		//create board panel
-		board = new BoardPanel(game);
-		outerPanel.add(board, BorderLayout.EAST);
+		//board = new BoardPanel(game);
+		//outerPanel.add(board, BorderLayout.EAST);
 		
 		//create options panel
 		options = new OptionPanel(this);
@@ -104,6 +107,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		this.setLocationRelativeTo(null);
 		addKeyListener(this);
 		addMouseListener(this);
+		setVisible(true);
 		setFocusable(true);
 		requestFocus();
 	}
