@@ -1,5 +1,6 @@
 package board;
 
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -86,7 +87,7 @@ public class Board {
 			}
 		}
 		Coordinate centre = new Coordinate(7, 5);
-		rooms.put("Study", new Room("Study", centre, locations, "Stdy"));
+		rooms.put("Study", new Room("Study", centre, locations, "Stdy", Color.BLUE));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 14; y += 2) {
@@ -95,7 +96,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(25, 7);
-		rooms.put("Hall", new Room("Hall", centre, locations, "Hall"));
+		rooms.put("Hall", new Room("Hall", centre, locations, "Hall", Color.GREEN));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 1; y < 12; y += 2) {
@@ -106,7 +107,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(39, 7);
-		rooms.put("Lounge", new Room("Lounge", centre, locations, "Lng"));
+		rooms.put("Lounge", new Room("Lounge", centre, locations, "Lng", Color.RED));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 13; y < 22; y += 2) {
@@ -117,7 +118,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(7, 18);
-		rooms.put("Library", new Room("Library", centre, locations, "Lib"));
+		rooms.put("Library", new Room("Library", centre, locations, "Lib", Color.YELLOW));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 25; y < 34; y += 2) {
@@ -126,7 +127,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(5, 31);
-		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations, "Bill"));
+		rooms.put("Billiard Room", new Room("Billiard Room", centre, locations, "Bill", Color.CYAN));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 39; y < 48; y += 2) {
@@ -137,7 +138,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(7, 45);
-		rooms.put("Conservatory", new Room("Conservatory", centre, locations, "Con"));
+		rooms.put("Conservatory", new Room("Conservatory", centre, locations, "Con", Color.MAGENTA));
 		rooms.get("Conservatory").setTunnel(rooms.get("Lounge"));
 		rooms.get("Lounge").setTunnel(rooms.get("Conservatory"));
 
@@ -150,7 +151,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(25, 43);
-		rooms.put("Ballroom", new Room("Ballroom", centre, locations,"Ball"));
+		rooms.put("Ballroom", new Room("Ballroom", centre, locations,"Ball", Color.PINK));
 
 		locations = new ArrayList<Coordinate>();
 		for (int y = 37; y < 48; y += 2) {
@@ -161,7 +162,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(43, 43);
-		rooms.put("Kitchen", new Room("Kitchen", centre, locations, "Kitch"));
+		rooms.put("Kitchen", new Room("Kitchen", centre, locations, "Kitch", Color.WHITE));
 
 		rooms.get("Kitchen").setTunnel(rooms.get("Study"));
 		rooms.get("Study").setTunnel(rooms.get("Kitchen"));
@@ -175,7 +176,7 @@ public class Board {
 			}
 		}
 		centre = new Coordinate(40, 27);
-		rooms.put("Dining Room", new Room("Dining Room", centre, locations, "Dining"));
+		rooms.put("Dining Room", new Room("Dining Room", centre, locations, "Dining", new Color(165,42,42)));
 	}
 
 	/**

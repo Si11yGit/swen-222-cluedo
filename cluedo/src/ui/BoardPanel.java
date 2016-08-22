@@ -44,18 +44,17 @@ public class BoardPanel extends JPanel{
 				JLabel tile = new JLabel(); {
 					if (i % 2 == 1 && j % 2 == 1) {
 						tile.setPreferredSize(new Dimension(SQUARE_SIZE,SQUARE_SIZE));
-					} else if () {
-						
-					} else if () {
-						
+					} else if (i % 2 == 1) {
+						tile.setPreferredSize(new Dimension(BOARDER_SIZE,SQUARE_SIZE));
+					} else if (j % 2 == 1) {
+						tile.setPreferredSize(new Dimension(SQUARE_SIZE,BOARDER_SIZE));
 					} else {
-						
+						tile.setPreferredSize(new Dimension(BOARDER_SIZE,BOARDER_SIZE));
 					}
 					tile.setBackground(board[i][j].getColor());
 					tile.setOpaque(true);
 					if(board[i][j].getPlayer() != null) {
 						tile.setIcon(board[i][j].getPlayer().getIcon());
-						//tile.setOpaque(false);
 					}
 					if(board[i][j] instanceof Room) {
 						calculateBorder(tile, i, j);
@@ -82,9 +81,9 @@ public class BoardPanel extends JPanel{
 				if(game.getPlayerPositions()[i][j]!=null){
 					labels[i][j].setToolTipText(game.getPlayerPositions()[i][j].getName());
 				}
-				else if(board[i][j] instanceof RoomTile){
+				else if(board[i][j] instanceof Room){
 					Room r = (Room) board[i][j];
-					labels[i][j].setToolTipText(r.getRoom().getName());
+					labels[i][j].setToolTipText(r.getName());
 				}
 				else{labels[i][j].setToolTipText(null);}
 			}
@@ -125,7 +124,7 @@ public class BoardPanel extends JPanel{
 				top = 1;
 			}
 		}else {top = 1;}
-		tile.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.black));
+		square.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.black));
 	}
 
 

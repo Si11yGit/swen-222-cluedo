@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Color;
+
 public interface Square {
 
 	/**
@@ -16,5 +18,11 @@ public interface Square {
 
 
 	public Coordinate getPosition();
+
+	/**
+	 * get color of the square for use with gui
+	 * @return
+	 */
+	public Color getColor();
 
 }

@@ -1,5 +1,6 @@
 package board;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import parts.Player;
@@ -18,12 +19,14 @@ public class Room implements Enterable {
 	private Coordinate centre;
 	private String name;
 	private String id;			//used to shorten name on board
+	private Color colour;
 
-	public Room(String name, Coordinate centre, ArrayList<Coordinate> positions, String id) {
+	public Room(String name, Coordinate centre, ArrayList<Coordinate> positions, String id, Color colour) {
 		this.name = name;
 		this.centre = centre;
 		this.positions = positions;
 		this.id = id;
+		this.colour = colour;
 	}
 
 	@Override
@@ -81,5 +84,10 @@ public class Room implements Enterable {
 
 	public void setDoor(Door door) {
 		doors.add(door);
+	}
+
+	@Override
+	public Color getColor() {
+		return colour;
 	}
 }

@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Color;
+
 /**
  * class to use in array to present impassable tiles
  * @author clarkebenj1
@@ -24,6 +26,12 @@ public class Impassable implements Square {
 
 	public String toString() {
 		return "@";
+	}
+
+
+	@Override
+	public Color getColor() {
+		return Color.black;
 	}
 
 }
