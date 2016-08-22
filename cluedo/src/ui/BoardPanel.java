@@ -12,6 +12,7 @@ import javax.swing.text.Position;
 
 import board.Board;
 import board.Coordinate;
+import board.Door;
 import board.Hallway;
 import board.Room;
 import board.Square;
@@ -58,8 +59,9 @@ public class BoardPanel extends JPanel{
 					}
 					if(board[i][j] instanceof Room) {
 						calculateBorder(tile, i, j);
+					} else {
+						tile.setBorder(new LineBorder(Color.BLACK));
 					}
-					else {tile.setBorder(new LineBorder(Color.BLACK));}
 					add(tile);
 					labels[i][j] = tile;
 				}
@@ -67,7 +69,6 @@ public class BoardPanel extends JPanel{
 		}
 		setBorder(new LineBorder(Color.black));
 		setMouseover();
-		
 	}
 
 	
@@ -76,19 +77,18 @@ public class BoardPanel extends JPanel{
 	 * Displays the names of any players on the tile then the name of the square.
 	 */
 	private void setMouseover() {
-		for(int i =0; i < labels[i].length; i++){
-			for(int j = 0; j < labels.length; j++){
-				if(game.getPlayerPositions()[i][j]!=null){
-					labels[i][j].setToolTipText(game.getPlayerPositions()[i][j].getName());
-				}
-				else if(board[i][j] instanceof Room){
+		for (int i =0; i < labels[i].length; i++) {
+			for (int j = 0; j < labels.length; j++) {
+				if (game.getBoard().getBoardArray()[i][j] != null && game.getBoard().getBoardArray()[i][j].getPlayer() != null) {
+					labels[i][j].setToolTipText(game.getBoard().getBoardArray()[i][j].getPlayer().toString());
+				} else if(board[i][j] instanceof Room) {
 					Room r = (Room) board[i][j];
 					labels[i][j].setToolTipText(r.getName());
+				} else {
+					labels[i][j].setToolTipText(null);
 				}
-				else{labels[i][j].setToolTipText(null);}
 			}
 		}
-		
 	}
 
 	/**
@@ -148,11 +148,11 @@ public class BoardPanel extends JPanel{
 	 * @param y - y position
 	 * @return
 	 */
-	public Tile checkMouseOnDoor(int x, int y){
+	public Square checkMouseOnDoor(int x, int y){
 		for(int i = 0; i < Board.BOARD_HEIGHT; i++) {
 			for(int j = 0; j < Board.BOARD_WIDTH; j++) {
 				if(labels[i][j].getBounds().contains(x,y)){
-					if(board[i][j] instanceof DoorTile){
+					if(board[i][j] instanceof Door){
 						return board[i][j];
 					}
 				}
@@ -167,10 +167,7 @@ public class BoardPanel extends JPanel{
 	 * @param player - player that is being removed
 	 */
 	public void removePlayer(Player player){
-		labels[player.getCurrentPosition().row()][player.getCurrentPosition().col()].setIcon(null);
+		labels[player.getPosition().getPosition().getX()][player.getPosition().getPosition().getY()].setIcon(null);
 		setMouseover();
 	}
-	
-	
-	
 }

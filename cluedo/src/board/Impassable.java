@@ -2,6 +2,8 @@ package board;
 
 import java.awt.Color;
 
+import parts.Player;
+
 /**
  * class to use in array to present impassable tiles
  * @author clarkebenj1
@@ -32,6 +34,12 @@ public class Impassable implements Square {
 	@Override
 	public Color getColor() {
 		return Color.black;
+	}
+
+
+	@Override
+	public Player getPlayer() {
+		return null;
 	}
 
 }

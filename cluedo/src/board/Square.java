@@ -2,6 +2,8 @@ package board;
 
 import java.awt.Color;
 
+import parts.Player;
+
 public interface Square {
 
 	/**
@@ -24,5 +26,11 @@ public interface Square {
 	 * @return
 	 */
 	public Color getColor();
+
+	/**
+	 * gets the player
+	 * @return
+	 */
+	public Player getPlayer();
 
 }
