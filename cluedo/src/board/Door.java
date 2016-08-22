@@ -2,6 +2,8 @@ package board;
 
 import java.awt.Color;
 
+import parts.Player;
+
 /**
  * class which represent a door between a room and the hallway. holds the room and hallway tile which it connects
  * @author clarkebenj1
@@ -51,6 +53,11 @@ public class Door implements Square {
 	@Override
 	public Color getColor() {
 		return Color.LIGHT_GRAY;
+	}
+
+	@Override
+	public Player getPlayer() {
+		return null;
 	}
 
 }

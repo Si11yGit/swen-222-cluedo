@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.Icon;
+
 import board.Board;
 import board.Coordinate;
 import board.Door;
@@ -138,8 +140,8 @@ public class Player {
 		}
 
 		//cant go outside the board
-		if (this.getX() + x < 0 || this.getX() + x >= board.getWidth()
-				|| this.getY() + y < 0 || this.getY() + y >= board.getHeight()) {
+		if (this.getX() + x < 0 || this.getX() + x >= Board.BOARD_WIDTH
+				|| this.getY() + y < 0 || this.getY() + y >= Board.BOARD_HEIGHT) {
 			System.out.println("please choose a position on the board");
 			return false;
 		}
@@ -405,6 +407,11 @@ public class Player {
 
 	public void setPosition(Enterable position) {
 		this.position = position;
+	}
+
+	public Icon getIcon() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

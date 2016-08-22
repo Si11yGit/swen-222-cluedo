@@ -90,4 +90,10 @@ public class Room implements Enterable {
 	public Color getColor() {
 		return colour;
 	}
+
+	@Override
+	public Player getPlayer() {
+		//not used due to being replaced with larger method
+		return null;
+	}
 }
