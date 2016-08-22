@@ -17,6 +17,7 @@ import parts.Player;
 import parts.RoomCard;
 import parts.Suggestion;
 import parts.Weapon;
+import ui.Frame;
 import ui.GUI;
 import parts.Character;
 /**
@@ -31,12 +32,20 @@ public class Main {
 	private ArrayList<Card> allCards;
 	private ArrayList<Card> listOfCards;
 	private ArrayList<Player> allPlayers;
+	
+	private ArrayList<Card> characters;
+	private ArrayList<Card> rooms;
+	private ArrayList<Card> weapons;
+	
 	private Map<String, Card> cardsearch = new HashMap<String, Card>();
 	private int numPlayers;
 	private Suggestion solution; // solution object
 	private Board board;// reference to a board
 	private boolean gameOver;// whether the game is over or not
 	private Scanner scan;
+	private Player currentPlayer;
+	static boolean gameFinished = false;
+	static private Frame frame;
 
 	public Main(int numPlayers, Scanner scan) {
 		this.numPlayers = numPlayers;
@@ -64,9 +73,14 @@ public class Main {
 
 	}
 
-	public Main(GUI gui) {
+	public Main(Frame gui) {
 		this.allCards = initialiseCards();
 		this.listOfCards = this.allCards;
+		for(Card c : allCards){
+			if(c instanceof Character){characters.add(c);}
+			else if(c instanceof Weapon){weapons.add(c);}
+			else if(c instanceof RoomCard){rooms.add(c);}
+		}
 		for(Card card: allCards) {
 			cardsearch.put(card.getName(), card);
 		}
@@ -286,8 +300,6 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
-		// current player
-		Player currentPlayer;
 		// all current players
 		int currentPlayers = this.allPlayers.size();
 		// random player starts
@@ -302,11 +314,11 @@ public class Main {
 				if (!gameOver) {
 					currentPlayer = this.allPlayers.get(i);
 					// is the current player in the game
-					if (currentPlayer.getInGame()) {
-						turn(currentPlayer);
+					if (this.currentPlayer.getInGame()) {
+						turn(this.currentPlayer);
 					}
 					// check if a player just lost
-					if (!currentPlayer.getInGame()) {
+					if (!this.currentPlayer.getInGame()) {
 						currentPlayers--;
 						if (currentPlayers == 0) {
 							// no players remaining
@@ -320,7 +332,56 @@ public class Main {
 
 		}
 	}
-
+	public Player getCurrentPlayer(){
+		return currentPlayer;
+	}
+	
+	public void makeSuggestion(String character, String room, String weapon){
+		List<Card> suggestion = new ArrayList<Card>();
+		for(Card c : characters){
+			if(c.getName().equals(character)){
+				suggestion.add(c);
+			}
+		}	
+		suggestion.add(currentPlayer.getRoom());
+		for(Card w : weapons){
+			if(w.getName().equals(weapon)){
+				suggestion.add(w);
+			}
+			
+		}
+		
+	}
+	public void makeAcccusation(String character, String room, String weapon){
+		List<Card> accusation = new ArrayList<Card>();
+		for(Card c : characters){
+			if(c.getName().equals(character)){
+				accusation.add(c);
+			}
+		}
+		for(Card r : rooms){
+			if(r.getName().equals(room)){
+				accusation.add(r);
+			}
+		}
+		for(Card w : weapons){
+			if(w.getName().equals(weapon)){
+				accusation.add(w);
+			}
+			
+		}
+	}
+	
+	/**
+	 * Simulates a dice roll in the game
+	 * @return
+	 */
+	public int	diceRoll(){
+		int diceOne = (int) Math.round(Math.random()*6);
+		int diceTwo = (int) Math.round(Math.random()*6);
+		return diceOne + diceTwo;
+	}
+	
 	/**
 	 * Turn method for a player
 	 * @throws InterruptedException
@@ -340,7 +401,7 @@ public class Main {
 			accuse(player);
 		}
 		System.out.println("");
-		int roll = player.diceRoll();
+		int roll = diceRoll();
 		System.out.println("you rolled " + roll);
 		if (player.checkForPassageWays()) {
 			System.out.println("Secret Tunnel in Room!! would you like to travel to "
@@ -439,7 +500,10 @@ public class Main {
 			}
 		}
 	}
-
+	public static void restart(){
+		frame = new Frame();
+		frame.setVisible(true);
+	}
 	/**
 	 * check the users response out of y and n
 	 * @return

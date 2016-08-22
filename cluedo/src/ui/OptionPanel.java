@@ -103,7 +103,7 @@ public class OptionPanel extends JPanel {
 		});
 		
 		//Stairs button
-		stairs =  new JButton("Stairs");
+		stairs =  new JButton("Use Stairs");
 		stairs.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e ){
 				frame.buttonPressed(e);//gotta make a frame class
@@ -155,7 +155,7 @@ public class OptionPanel extends JPanel {
 		return textArea;
 	}
 	
-	public void guessEnabled(boolean enable){
+	public void suggestionEnabled(boolean enable){
 		suggest.setEnabled(enable);
 		}
 	

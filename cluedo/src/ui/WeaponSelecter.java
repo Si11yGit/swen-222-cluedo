@@ -1,5 +1,22 @@
 package ui;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
+import main.Main;
+import parts.Weapon;
+
 /**
  * panel that is used in a guess or accuse to display the weapons
  *
@@ -17,7 +34,7 @@ public class WeaponSelect extends JPanel implements ActionListener{
 	//currently selected weapon
 	private String selectedWeapon;
 	
-	public WeaponSelect(Game game) {
+	public WeaponSelect(Main game) {
 		super(new BorderLayout());
 		weapons = new ArrayList<String>();
 		
@@ -63,18 +80,15 @@ public class WeaponSelect extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//update selected weapon and image
 		selectedWeapon = e.getActionCommand();
-		weaponPicture.setIcon(createImageIcon(e.getActionCommand()+".png"));
-		
-		
+		weaponPicture.setIcon(createImageIcon(e.getActionCommand()+".png"));		
 	}
-	
 	/**
 	 * create imageIcon for the weapons
 	 * @param path
 	 * @return
 	 */
 	private ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = Game.class.getResource("images/cards/"+path);
+        java.net.URL imgURL = Main.class.getResource("images/cards/"+path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
@@ -82,7 +96,6 @@ public class WeaponSelect extends JPanel implements ActionListener{
             return null;
         }
     }
-
 	/**
 	 * @return the selectedWeapon
 	 */
