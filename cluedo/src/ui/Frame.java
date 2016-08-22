@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -44,7 +45,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	
 	public Frame (){
 		//Initialize the game
-		//this.game = new Main();
+		this.game = new Main(this);
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(this);
@@ -94,8 +95,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		outerPanel.add(options, BorderLayout.WEST);
 		
 		//create hand panel 
-		hand = new HandPanel(game);
-		outerPanel.add(hand, BorderLayout.SOUTH);
+//		hand = new HandPanel(game);
+//		outerPanel.add(hand, BorderLayout.SOUTH);
 		
 		pack();
 		this.setLocationRelativeTo(null);
@@ -273,5 +274,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	}
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+	}
+	
+	//test starter
+	public static void main(String[] args) {
+		new Frame();
 	}
 }

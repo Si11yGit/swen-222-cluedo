@@ -18,7 +18,6 @@ import parts.RoomCard;
 import parts.Suggestion;
 import parts.Weapon;
 import ui.Frame;
-import ui.GUI;
 import parts.Character;
 /**
  *
@@ -33,9 +32,9 @@ public class Main {
 	private ArrayList<Card> listOfCards;
 	private ArrayList<Player> allPlayers;
 	
-	private ArrayList<Card> characters;
-	private ArrayList<Card> rooms;
-	private ArrayList<Card> weapons;
+	private ArrayList<Card> characters = new ArrayList<Card>();
+	private ArrayList<Card> rooms = new ArrayList<Card>();
+	private ArrayList<Card> weapons = new ArrayList<Card>();
 	
 	private Map<String, Card> cardsearch = new HashMap<String, Card>();
 	private int numPlayers;
@@ -74,6 +73,7 @@ public class Main {
 	}
 
 	public Main(Frame gui) {
+		this.numPlayers = 6;
 		this.allCards = initialiseCards();
 		this.listOfCards = this.allCards;
 		for(Card c : allCards){
@@ -94,11 +94,11 @@ public class Main {
 		// initialiseWeapons();
 
 		dealCards();
-		try {
-			playGame();
-		} catch (InterruptedException e) {
-			System.out.println("issue with game");
-		}
+//		try {
+//			playGame();
+//		} catch (InterruptedException e) {
+//			System.out.println("issue with game");
+//		}
 
 	}
 

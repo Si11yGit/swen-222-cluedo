@@ -2,6 +2,8 @@ package board;
 
 import java.awt.Color;
 
+import parts.Player;
+
 public class Wall implements Square {
 	private boolean vertical;
 	private Coordinate location;
@@ -32,8 +34,12 @@ public class Wall implements Square {
 
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
 		return Color.DARK_GRAY;
+	}
+
+	@Override
+	public Player getPlayer() {
+		return null;
 	}
 
 }
