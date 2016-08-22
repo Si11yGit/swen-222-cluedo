@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -66,12 +67,23 @@ public class RoomSelect extends JPanel implements ActionListener{
 
 	public String getSelectedRoom() {
 		// TODO Auto-generated method stub
-		return null;
+		return selectedRoom;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		selectedRoom = e.getActionCommand();
+				roomPic.setIcon(createImageIcon(e.getActionCommand()+".png"));
 		
+	}
+	
+	private ImageIcon createImageIcon(String s){
+		java.net.URL imgURL = Main.class.getResource("");
+		if(imgURL != null){
+			return new ImageIcon(imgURL);
+		}else{
+			System.err.println("File: " + s +" doesn't exist!!!");
+			return null;
+		}
 	}
 }
