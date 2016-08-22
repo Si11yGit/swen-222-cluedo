@@ -432,7 +432,7 @@ public class Board {
 		return rooms;
 	}
 
-	public Square[][] getBoard() {
+	public Square[][] getBoardArray() {
 		return board;
 	}
 }

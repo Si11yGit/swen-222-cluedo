@@ -95,8 +95,8 @@ public class Player {
 	 * method which moves the player
 	 */
 	public void move(int x,int y){
-		if (board.getBoard()[this.getX() + x][this.getY() + y] instanceof Hallway) {
-			Hallway hall = (Hallway)board.getBoard()[this.getX() + x][this.getY() + y];
+		if (board.getBoardArray()[this.getX() + x][this.getY() + y] instanceof Hallway) {
+			Hallway hall = (Hallway)board.getBoardArray()[this.getX() + x][this.getY() + y];
 			hall.addPlayer(this);
 			this.position.removePlayer(this);
 			this.position = hall;
@@ -144,8 +144,8 @@ public class Player {
 			return false;
 		}
 
-		if (board.getBoard()[this.getX() + x][this.getY() + y] instanceof Hallway) {
-			Hallway hall = (Hallway)board.getBoard()[this.getX() + x][this.getY() + y];
+		if (board.getBoardArray()[this.getX() + x][this.getY() + y] instanceof Hallway) {
+			Hallway hall = (Hallway)board.getBoardArray()[this.getX() + x][this.getY() + y];
 			if (hall.getPlayer() != null) {
 				System.out.println("Another player is already in that position");
 				return false;
@@ -153,13 +153,13 @@ public class Player {
 		}
 
 		//cant move into impassable square
-		if(board.getBoard()[this.getX() + x][this.getY() + y] instanceof Impassable) {
+		if(board.getBoardArray()[this.getX() + x][this.getY() + y] instanceof Impassable) {
 			System.out.println("cannot move to impassable block");
 			return false;
 		}
 
 		Room destination;
-		if(board.getBoard()[this.getX() + x][this.getY() + y] == null) {
+		if(board.getBoardArray()[this.getX() + x][this.getY() + y] == null) {
 			for(Room room: board.getRooms().values()) {
 				for(Coordinate co: room.getPositions()) {
 					if (co.equals(new Coordinate(this.getX() + x,this.getY() + y))) {

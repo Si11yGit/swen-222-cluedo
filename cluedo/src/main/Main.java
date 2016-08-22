@@ -185,32 +185,32 @@ public class Main {
 			Hallway position;
 			switch (i) {
 			case 0:
-				position = (Hallway) board.getBoard()[33][1];
+				position = (Hallway) board.getBoardArray()[33][1];
 				players.get(i).setPosition(position);
 				position.addPlayer(players.get(i));
 				break;
 			case 1:
-				position = (Hallway) board.getBoard()[47][15];
+				position = (Hallway) board.getBoardArray()[47][15];
 				players.get(i).setPosition(position);
 				position.addPlayer(players.get(i));
 				break;
 			case 2:
-				position = (Hallway) board.getBoard()[1][11];
+				position = (Hallway) board.getBoardArray()[1][11];
 				players.get(i).setPosition(position);
 				position.addPlayer(players.get(i));
 				break;
 			case 3:
-				position = (Hallway) board.getBoard()[19][49];
+				position = (Hallway) board.getBoardArray()[19][49];
 				players.get(i).setPosition(position);
 				position.addPlayer(players.get(i));
 				break;
 			case 4:
-				position = (Hallway) board.getBoard()[29][49];
+				position = (Hallway) board.getBoardArray()[29][49];
 				players.get(i).setPosition(position);
 				position.addPlayer(players.get(i));
 				break;
 			case 5:
-				position = (Hallway) board.getBoard()[1][37];
+				position = (Hallway) board.getBoardArray()[1][37];
 				players.get(i).setPosition(position);
 				position.addPlayer(players.get(i));
 				break;
@@ -407,7 +407,7 @@ public class Main {
 					if (scan.hasNextInt()) {
 						y = scan.nextInt();
 						y*=2;
-						if (player.getY() + y < 0 || player.getY() + y >= board.getHeight()) {
+						if (player.getY() + y < 0 || player.getY() + y >= board.BOARD_HEIGHT) {
 							System.out.println("please input somewhere on the board");
 						} else {
 							check2 = true;
