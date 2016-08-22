@@ -15,13 +15,13 @@ import java.util.Map;
 import parts.Player;
 
 public class Board {
-	int width = 49;
-	int height = 51;
-	Square board[][] = new Square[width][height];
-	char asciiboard[][] = new char[width][height];
+	public static final int BOARD_WIDTH = 49;
+	public static final int BOARD_HEIGHT = 51;
+	private Square board[][] = new Square[BOARD_WIDTH][BOARD_HEIGHT];
+	private char asciiboard[][] = new char[BOARD_WIDTH][BOARD_HEIGHT];
 
-	ArrayList<Player> players;
-	Map<String, Room> rooms = new HashMap<String, Room>();
+	private ArrayList<Player> players;
+	private Map<String, Room> rooms = new HashMap<String, Room>();
 
 	public Board() {
 		setupBoard();
@@ -434,14 +434,5 @@ public class Board {
 
 	public Square[][] getBoard() {
 		return board;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-
-	public int getHeight() {
-		return height;
 	}
 }
