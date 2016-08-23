@@ -28,7 +28,6 @@ public class HandPanel extends JPanel {
 		cardLabels = new ArrayList<JLabel>();
 		setLayout(new GridLayout(1, 0, 0, 0));
 		setToolTipText("Current players hand");
-<<<<<<< HEAD
 		List<Card> hand = game.getCurrentPlayer().getCards();
 		for(Card c : hand) {
 			ImageIcon card = c.getIcon();
@@ -39,16 +38,7 @@ public class HandPanel extends JPanel {
 			cardLabels.add(label);
 			add(label);
 		}
-=======
-		//List<Card> hand = game.getCurrentPlayer().getCards();
-		//for(Card c : hand) {
-			//ImageIcon card = c.getIcon();
-			
-			//JLabel label = new JLabel(card);
-			//cardLabels.add(label);
-			//add(label);
-		//}
->>>>>>> branch 'master' of git://github.com/Si11yGit/swen-222-cluedo.git
+
 	}
 	
 	/**
