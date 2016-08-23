@@ -265,7 +265,7 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
-		/*numPlayers = 0;
+		/**numPlayers = 0;
 		while(numPlayers < 3 || numPlayers > 6){
 			String inputValue = (String)JOptionPane.showInputDialog(null, "Enter amount of players (3-6): ", "Cluedo", JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if(inputValue == null){

@@ -27,12 +27,7 @@ import parts.Player;
 public class Frame extends JFrame implements KeyListener, MouseListener, WindowListener{
 	
 	//the frame is the window which holds all the other swing components
-	
-	//private static final long serialVersionUID;
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -9109857494274448808L;
 	//menu components
 	private JMenuBar menuBar;
