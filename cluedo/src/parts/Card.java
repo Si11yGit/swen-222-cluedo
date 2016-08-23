@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import main.Main;
+import ui.Frame;
 
 public class Card {
 	private String name;
@@ -64,17 +65,19 @@ public class Card {
 	}
 
 	private static ImageIcon makeImageIcon(String s){
-		java.net.URL imageURL = Main.class.getResource("cards/"+s+".png");
+		s = s.toLowerCase();
+		java.net.URL imageURL = Frame.class.getResource("cards/"+s+".png");
 
 		ImageIcon icon = null;
 		if (imageURL != null) {
 			icon = new ImageIcon(imageURL);
 		} else {
-			System.out.println("URL did not work");
+			System.out.println("URL did not work for " + s);
 		}
 		return icon;
 	}
-	public ImageIcon getIcon() {
+	public ImageIcon getIcon() { 
+		
 		
 		return icon;
 	}
