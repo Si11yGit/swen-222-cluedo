@@ -55,13 +55,8 @@ public class BoardPanel extends JPanel{
 					}
 					tile.setBackground(board[i][j].getColor());
 					tile.setOpaque(true);
-					if(board[i][j].getPlayer() != null) {
+					if(board[i][j] != null && board[i][j].getPlayer() != null) {
 						tile.setIcon(board[i][j].getPlayer().getIcon());
-					}
-					if(board[i][j] instanceof Room) {
-						calculateBorder(tile, i, j);
-					} else {
-						tile.setBorder(new LineBorder(Color.BLACK));
 					}
 					add(tile);
 					labels[i][j] = tile;
@@ -80,7 +75,7 @@ public class BoardPanel extends JPanel{
 	private void setMouseover() {
 		for (int i =0; i < labels.length; i++) {
 			for (int j = 0; j < labels[i].length; j++) {
-				if (game.getBoard().getBoardArray()[i][j] != null && game.getBoard().getBoardArray()[i][j].getPlayer() != null) {
+				if (board[i][j] != null && board[i][j].getPlayer() != null) {
 					labels[i][j].setToolTipText(game.getBoard().getBoardArray()[i][j].getPlayer().toString());
 				} else if(board[i][j] instanceof Room) {
 					Room r = (Room) board[i][j];
