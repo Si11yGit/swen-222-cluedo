@@ -98,7 +98,7 @@ public class OptionPanel extends JPanel {
 		rollDice.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e ){
 						rollDice.setEnabled(false);
-						frame.buttonPressed(e);//gotta make a frame class
+						frame.buttonPressed(e);
 					};
 		});
 		
@@ -106,7 +106,7 @@ public class OptionPanel extends JPanel {
 		stairs =  new JButton("Use Stairs");
 		stairs.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e ){
-				frame.buttonPressed(e);//gotta make a frame class
+				frame.buttonPressed(e);
 			};
 		});
 		GridBagConstraints gbcStairs = new GridBagConstraints();

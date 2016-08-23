@@ -100,8 +100,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		outerPanel.add(options, BorderLayout.WEST);
 		
 		//create hand panel 
-		//hand = new HandPanel(game);
-		//outerPanel.add(hand, BorderLayout.SOUTH);
+		hand = new HandPanel(game);
+		outerPanel.add(hand, BorderLayout.SOUTH);
 		
 		pack();
 		this.setLocationRelativeTo(null);

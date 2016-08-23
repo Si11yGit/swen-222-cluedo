@@ -64,11 +64,13 @@ public class Card {
 	}
 
 	private static ImageIcon makeImageIcon(String s){
-		java.net.URL imageURL = Main.class.getResource("images/cards/"+s+".png");
+		java.net.URL imageURL = Main.class.getResource("cards/"+s+".png");
 
 		ImageIcon icon = null;
 		if (imageURL != null) {
 			icon = new ImageIcon(imageURL);
+		} else {
+			System.out.println("URL did not work");
 		}
 		return icon;
 	}
