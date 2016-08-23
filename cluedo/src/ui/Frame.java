@@ -27,12 +27,7 @@ import parts.Player;
 public class Frame extends JFrame implements KeyListener, MouseListener, WindowListener{
 	
 	//the frame is the window which holds all the other swing components
-	
-	//private static final long serialVersionUID;
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -9109857494274448808L;
 	//menu components
 	private JMenuBar menuBar;
@@ -47,6 +42,9 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	private BoardPanel board;
 	//the game
 	private Main game;
+	
+	//dice roll
+	int roll;
 	
 	public Frame(){
 		super("Game of Cluedo!");
@@ -142,7 +140,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		
 		switch(s){
 		case "Roll Dice":
-			game.diceRoll();//need to move the dice roll method into the Main class
+			this.roll = game.diceRoll();
+			this.getOptions().getTextArea().append("You rolled a: " + roll + "\n");
 			break;
 		case "Suggest":
 			if(game.getCurrentPlayer().getRoom() == null){
@@ -177,8 +176,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	 * ends the players turn 
 	 */
 	private void endTurn() {
-		// TODO Auto-generated method stub
-		
+		this.game.nextPlayerTurn();//change the current player to the next in line
+		options.rollEnabled(true);
+		hand.updateLabels();
+		this.getOptions().getTextArea().append(game.getCurrentPlayer().getCharacterName() + ", it's your turn!!" + "\n");
 	}
 	/**
 	 * moves the player on the board

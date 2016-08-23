@@ -29,7 +29,7 @@ import parts.Player;
 public class BoardPanel extends JPanel{
 	private Main game;
 	
-	public static final int SQUARE_SIZE = 20;
+	public static final int SQUARE_SIZE = 15;
 	public static final int BOARDER_SIZE = 3;
 	private Square[][] board;
 	private JLabel[][] labels;
