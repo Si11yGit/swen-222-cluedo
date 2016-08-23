@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -27,7 +29,7 @@ import parts.Player;
 public class BoardPanel extends JPanel{
 	private Main game;
 	
-	public static final int SQUARE_SIZE = 30;
+	public static final int SQUARE_SIZE = 20;
 	public static final int BOARDER_SIZE = 5;
 	private Square[][] board;
 	private JLabel[][] labels;
@@ -38,15 +40,21 @@ public class BoardPanel extends JPanel{
 	 */
 	public BoardPanel(Main game) {
 		this.game = game;
-		setLayout(new GridLayout(Board.BOARD_HEIGHT, Board.BOARD_WIDTH));
+		setLayout(new GridBagLayout());
 		board = game.getBoard().getBoardArray();
 		labels = new JLabel[Board.BOARD_WIDTH][Board.BOARD_HEIGHT];
+		GridBagConstraints c;
 		System.out.println("initialized labels");
 		for(int i = 0; i < Board.BOARD_HEIGHT; i++) {
 			for(int j = 0; j < Board.BOARD_WIDTH; j++) {
+				c = new GridBagConstraints();
+				c.gridx = j;
+				c.gridy = i;
 				JLabel tile = new JLabel(); {
 					if (i % 2 == 1 && j % 2 == 1) {
 						tile.setPreferredSize(new Dimension(SQUARE_SIZE,SQUARE_SIZE));
+						
+						
 					} else if (i % 2 == 1) {
 						tile.setPreferredSize(new Dimension(BOARDER_SIZE,SQUARE_SIZE));
 					} else if (j % 2 == 1) {
@@ -66,7 +74,7 @@ public class BoardPanel extends JPanel{
 					if(board[j][i] != null && board[j][i].getPlayer() != null) {
 						tile.setIcon(board[j][i].getPlayer().getIcon());
 					}
-					add(tile);
+					add(tile,c);
 					labels[j][i] = tile;
 				}
 			}
