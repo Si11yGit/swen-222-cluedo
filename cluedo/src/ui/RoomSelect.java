@@ -66,17 +66,26 @@ public class RoomSelect extends JPanel implements ActionListener{
 				
 	}
 
+	/**
+	 * returns the selected room
+	 * @return
+	 */
 	public String getSelectedRoom() {
 		return selectedRoom;
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		selectedRoom = e.getActionCommand();
 				roomPic.setIcon(createImageIcon(e.getActionCommand()+".png"));
 		
 	}
-	
+
+	/**
+	 * creates an image icon for the room
+	 * @param s
+	 * @return
+	 */
 	private ImageIcon createImageIcon(String s){
 		s = s.toLowerCase();
 		java.net.URL imgURL = Frame.class.getResource("cards/"+s);
