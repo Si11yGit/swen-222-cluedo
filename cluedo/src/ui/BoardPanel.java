@@ -124,6 +124,7 @@ public class BoardPanel extends JPanel{
 	 */
 	public Coordinate mouseSelection(int x, int y){
 		System.out.println(x + " "  + y);
+		System.out.println(this.getBounds().getMinX() + " "  + this.getBounds().getMinY());
 		x = (int) (x - this.getBounds().getMinX());
 		y = (int) (y - this.getBounds().getMinY());
 		for(int i = 0; i < Board.BOARD_HEIGHT; i++) {
