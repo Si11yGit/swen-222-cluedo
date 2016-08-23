@@ -96,12 +96,6 @@ public class Main {
 		this.board.update();
 		// initialiseWeapons();
 		dealCards();
-		try {
-			playGame();
-		} catch (InterruptedException e) {
-			System.out.println("issue with game");
-		}
-
 	}
 
 	/**
