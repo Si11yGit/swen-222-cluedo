@@ -31,6 +31,7 @@ public class HandPanel extends JPanel {
 		List<Card> hand = game.getCurrentPlayer().getCards();
 		for(Card c : hand) {
 			ImageIcon card = c.getIcon();
+
 			if(card == null) {
 				System.out.println("icon still missing");
 			}
@@ -38,7 +39,6 @@ public class HandPanel extends JPanel {
 			cardLabels.add(label);
 			add(label);
 		}
-
 	}
 	
 	/**
