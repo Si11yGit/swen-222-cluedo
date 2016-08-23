@@ -43,8 +43,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	//the game
 	private Main game;
 	
-	//dice roll
-	int roll;
+	//dice roll and checking if this turn has rolled
+	private int roll;
+	private boolean rolled = false;
+	
 	
 	public Frame(){
 		super("Game of Cluedo!");
@@ -143,6 +145,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		switch(s){
 		case "Roll Dice":
 			this.roll = game.diceRoll();
+			this.rolled = true;
 			this.getOptions().getTextArea().append("You rolled a: " + roll + "\n");
 			break;
 		case "Suggest":
@@ -180,6 +183,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		options.rollEnabled(true);
 		hand.updateLabels();
 		this.getOptions().getTextArea().append(game.getCurrentPlayer().getCharacterName() + ", it's your turn!!" + "\n");
+		this.rolled = false;
 	}
 	
 	/**
@@ -266,11 +270,22 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		requestFocus();
-		int x = e.getX()-board.getX()-8;
-		int y = e.getY()-board.getY()-53;
-		
+		if (rolled) {
+			Coordinate old = game.getCurrentPlayer().getPosition().getPosition();
+			Coordinate c = board.mouseSelection(e.getX(), e.getY());
+			if (c == null) {
+				System.out.println("coordinate fail");
+			}
+			boolean check = game.move(c);
+			if (check) {
+				movePlayer(game.getCurrentPlayer(), old, c);
+			} else {
+				this.getOptions().getTextArea().append("Illegal Move" + "\n");
+			}
+		} else {
+			this.getOptions().getTextArea().append("please roll the dice before moving" + "\n");
+		}
 	}
-	
 	
 	/*
 	 * unused actions that require implementation

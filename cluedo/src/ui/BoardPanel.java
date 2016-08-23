@@ -123,6 +123,9 @@ public class BoardPanel extends JPanel{
 	 * @return
 	 */
 	public Coordinate mouseSelection(int x, int y){
+		System.out.println(x + " "  + y);
+		x = (int) (x - this.getBounds().getMinX());
+		y = (int) (y - this.getBounds().getMinY());
 		for(int i = 0; i < Board.BOARD_HEIGHT; i++) {
 			for(int j = 0; j < Board.BOARD_WIDTH; j++) {
 				if(labels[j][i].getBounds().contains(x,y)){

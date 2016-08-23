@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import board.Board;
+import board.Coordinate;
 import board.Hallway;
 import board.Impassable;
 import board.Room;
@@ -47,7 +48,9 @@ public class Main {
 	private Player currentPlayer;   // we need some way to get this working with the GUI currently uses scanner, its not working
 	static boolean gameFinished = false;
 	static private Frame frame;
+	private int dice;
 
+	
 	public Main(int numPlayers, Scanner scan) {
 		this.numPlayers = numPlayers;
 		this.allCards = initialiseCards();
@@ -388,6 +391,7 @@ public class Main {
 	public int	diceRoll(){
 		int diceOne = (int) Math.round(Math.random()*6);
 		int diceTwo = (int) Math.round(Math.random()*6);
+		dice = diceOne + diceTwo;
 		return diceOne + diceTwo;
 	}
 	
@@ -521,6 +525,21 @@ public class Main {
 	}
 	
 	/**
+	 * a method that simulates the movement of a player for the gui
+	 * @param player
+	 * @param roll
+	 */
+	public boolean move(Coordinate newPos) {	
+		int changeX = newPos.getX() - currentPlayer.getPosition().getPosition().getX();
+		int changeY = newPos.getY() - currentPlayer.getPosition().getPosition().getY();
+		if (currentPlayer.isValidMove(changeX,changeY, dice*2)) {
+			currentPlayer.move(changeX, changeY);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * starts a new game
 	 */
 	public static void restart(){
@@ -615,5 +634,9 @@ public class Main {
 	 */
 	public Board getBoard() {
 		return this.board;
+	}
+	
+	public int getDice() {
+		return dice;
 	}
 }
