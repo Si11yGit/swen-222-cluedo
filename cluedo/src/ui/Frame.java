@@ -117,7 +117,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	
 
 	protected void newGame() {
-		game.restart();
+		Main.restart();
 		this.dispose();
 	}
 
@@ -192,7 +192,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	 *  @param the parameter is the player that Won
 	 */
 	public void gameOver(Player player){
-		int option = JOptionPane.showOptionDialog(this, player.getCharacter().name() + " has 					won!!!!", "Winner!!", JOptionPane.OK_CANCEL_OPTION,
+		int option = JOptionPane.showOptionDialog(this, player.getCharacter().name() + " has won!!!!", "Winner!!", JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.QUESTION_MESSAGE, 
 							null, new String[]{"New Game", "Exit"}, "New Game");
 		if(option == JOptionPane.OK_OPTION){
@@ -261,6 +261,12 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		}
 	}
 	
+	
+	/*
+	 * unused actions that require implementation
+	 * (non-Javadoc)
+	 * @see java.awt.event.WindowListener#windowActivated(java.awt.event.WindowEvent)
+	 */
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 	}

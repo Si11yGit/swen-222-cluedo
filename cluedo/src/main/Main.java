@@ -480,10 +480,12 @@ public class Main {
 			}
 		}
 	}
+	
 	public static void restart(){
 		frame = new Frame();
 		frame.setVisible(true);
 	}
+	
 	/**
 	 * check the users response out of y and n
 	 * @return
