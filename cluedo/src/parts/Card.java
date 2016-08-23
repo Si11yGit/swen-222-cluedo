@@ -73,7 +73,7 @@ public class Card {
 		if (imageURL != null) {
 			ImageIcon img = new ImageIcon(imageURL);
             Image image = img.getImage(); // transform it
-            Image newimg = image.getScaledInstance(115, 186,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            Image newimg = image.getScaledInstance(95, 156,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
             icon = new ImageIcon(newimg);  // transform it back
 		} else {
 			System.out.println("URL did not work for " + s);

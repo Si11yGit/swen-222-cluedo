@@ -79,7 +79,7 @@ public class CharacterSelect extends JPanel implements ActionListener{
         if (imgURL != null) {
             ImageIcon img = new ImageIcon(imgURL);
             Image image = img.getImage(); // transform it
-            Image newimg = image.getScaledInstance(105, 176,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            Image newimg = image.getScaledInstance(95, 156,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
             return new ImageIcon(newimg);  // transform it back
         } else {
             System.err.println("File: " + s +" doesn't exist!!!");
