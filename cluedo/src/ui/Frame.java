@@ -268,10 +268,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		requestFocus();
 		int x = e.getX()-board.getX()-8;
 		int y = e.getY()-board.getY()-53;
-		Square square = board.checkMouseOnDoor(x, y);
-		if(square != null){
-			game.doorClicked(square);
-		}
+		
 	}
 	
 	

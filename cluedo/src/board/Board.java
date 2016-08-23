@@ -23,6 +23,7 @@ public class Board {
 
 	private ArrayList<Player> players;
 	private Map<String, Room> rooms = new HashMap<String, Room>();
+	private Map<Coordinate, Square> coordinates = new HashMap<Coordinate,Square>();
 
 	public Board() {
 		setupBoard();
@@ -71,6 +72,20 @@ public class Board {
 		 * create walls
 		 */
 		setupWalls();
+		
+		for(int x = 0; x < BOARD_WIDTH; x++) {
+			for(int y = 0; y < BOARD_HEIGHT; y++) {
+				if (board[x][y] != null) {
+					coordinates.put(new Coordinate(x,y), board[x][y]);
+				} else {
+					for(Room r: rooms.values()) {
+						if (r.getPositions().contains(new Coordinate(x,y))) {
+							coordinates.put(new Coordinate(x,y), r);
+						}
+					}
+				}
+			}
+		}
 
 	}
 

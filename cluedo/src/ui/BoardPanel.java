@@ -103,43 +103,6 @@ public class BoardPanel extends JPanel{
 	}
 
 	/**
-	 * calculate what side the border should be on
-	 * 
-	 * @param square - square that the border is being created for
-	 * @param y - y pos of the tile on the board
-	 * @param x - x pos of the tile on the board
-	 */
-	private void calculateBorder(JLabel square, int y, int x) {
-		Square[][] board  = game.getBoard().getBoardArray();
-		int top = 0;
-		int right = 0;
-		int bottom = 0;
-		int left = 0;
-		if(x < 23){
-			if(board[y][x+1] instanceof Hallway) {
-				right = 1;
-			}
-		} else{right = 1;}
-		if(x > 0){
-			if(board[y][x-1] instanceof Hallway) {
-				left = 1;
-			}
-		} else{left = 1;}
-		if(y < 24){
-			if(board[y+1][x] instanceof Hallway) {
-				bottom = 1;
-			}
-		} else {bottom = 1;}
-		if(y > 0){
-			if(board[y-1][x] instanceof Hallway) {
-				top = 1;
-			}
-		}else {top = 1;}
-		square.setBorder(BorderFactory.createMatteBorder(top, left, bottom, right, Color.black));
-	}
-
-
-	/**
 	 * moves a player from the old position to the new position
 	 * 
 	 * @param player - player to move
@@ -153,19 +116,17 @@ public class BoardPanel extends JPanel{
 	}
 	
 	/**
-	 * check if a x and y position is on a door tile
+	 * check if a x and y position is on a square
 	 * 
 	 * @param x - x position
 	 * @param y - y position
 	 * @return
 	 */
-	public Square checkMouseOnDoor(int x, int y){
+	public Coordinate mouseSelection(int x, int y){
 		for(int i = 0; i < Board.BOARD_HEIGHT; i++) {
 			for(int j = 0; j < Board.BOARD_WIDTH; j++) {
-				if(labels[i][j].getBounds().contains(x,y)){
-					if(board[i][j] instanceof Door){
-						return board[i][j];
-					}
+				if(labels[j][i].getBounds().contains(x,y)){
+					return new Coordinate(j,i);
 				}
 			}
 		}
