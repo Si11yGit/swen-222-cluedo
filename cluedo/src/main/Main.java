@@ -250,7 +250,6 @@ public class Main {
 		}
 		for (int i = 1; i <= this.numPlayers; ++i) {
 			List<Card> cards = this.allPlayers.get(i - 1).getCards();
-			// System.out.println("Your cards are: "+cards.toString());
 		}
 		System.out.println();
 	}

@@ -129,7 +129,7 @@ public class OptionPanel extends JPanel {
 					public void actionPerformed(ActionEvent e ){
 						endTurn.setEnabled(true);
 						rollDice.setEnabled(true);
-						frame.buttonPressed(e);//gotta make a frame class
+						frame.buttonPressed(e);
 					};
 		});
 		

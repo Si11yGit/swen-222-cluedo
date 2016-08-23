@@ -34,7 +34,7 @@ public class Wall implements Square {
 
 	@Override
 	public Color getColor() {
-		return Color.DARK_GRAY;
+		return Color.WHITE;
 	}
 
 	@Override

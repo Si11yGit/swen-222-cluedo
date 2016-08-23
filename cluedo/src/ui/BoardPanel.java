@@ -30,7 +30,7 @@ public class BoardPanel extends JPanel{
 	private Main game;
 	
 	public static final int SQUARE_SIZE = 20;
-	public static final int BOARDER_SIZE = 5;
+	public static final int BOARDER_SIZE = 3;
 	private Square[][] board;
 	private JLabel[][] labels;
 
@@ -92,7 +92,7 @@ public class BoardPanel extends JPanel{
 		for (int i =0; i < labels.length; i++) {
 			for (int j = 0; j < labels[i].length; j++) {
 				if (board[i][j] != null && board[i][j].getPlayer() != null) {
-					labels[i][j].setToolTipText(game.getBoard().getBoardArray()[i][j].getPlayer().toString());
+					labels[i][j].setToolTipText(game.getBoard().getBoardArray()[i][j].getPlayer().getName());
 				} else if (game.getBoard().isInRoom(new Coordinate(j,i))) {
 					labels[i][j].setToolTipText(game.getBoard().getRoom(new Coordinate(j,i)).getName());
 				} else {

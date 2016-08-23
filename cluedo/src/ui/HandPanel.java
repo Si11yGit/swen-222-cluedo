@@ -26,7 +26,7 @@ public class HandPanel extends JPanel {
 	public HandPanel(Main game) {
 		this.game = game;
 		cardLabels = new ArrayList<JLabel>();
-		setLayout(new GridLayout(1, 0, 0, 0));
+		setLayout(new GridLayout(1, 0));
 		setToolTipText("Current players hand");
 		List<Card> hand = game.getCurrentPlayer().getCards();
 		for(Card c : hand) {
@@ -38,6 +38,7 @@ public class HandPanel extends JPanel {
 			JLabel label = new JLabel(card);
 			cardLabels.add(label);
 			add(label);
+			System.out.println(c.getName());
 		}
 	}
 	
