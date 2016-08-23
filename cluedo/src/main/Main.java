@@ -396,9 +396,9 @@ public class Main {
 	 */
 	public void turn(Player player) throws InterruptedException {
 		setCurrentPlayer(player);
-		System.out.println(player.character().getName() + ", you are next, please get ready");
+		System.out.println(player.getCharacter().getName() + ", you are next, please get ready");
 		this.board.update();
-		System.out.println(player.character().name() + " its your turn!");
+		System.out.println(player.getCharacter().name() + " its your turn!");
 		System.out.print("your hand is:");
 		for (Card card: player.getCards()) {
 			System.out.print(card.getName() + ", ");
@@ -441,7 +441,7 @@ public class Main {
 				if (!p.equals(player)) {
 					Card refuted = p.refuteSuggestion(sug);
 					if (refuted != null) {
-						System.out.println(p.character().name() + "presents" + refuted.getName());
+						System.out.println(p.getCharacter().name() + "presents" + refuted.getName());
 						break;
 					}
 				}
@@ -461,10 +461,10 @@ public class Main {
 		Suggestion accusation = player.makeAccusation(cardsearch);
 		boolean right = accusation.compare(solution);
 		if (right) {
-			System.out.println("Correct!!!! " + player.character().getName() + " you win!!");
+			System.out.println("Correct!!!! " + player.getCharacter().getName() + " you win!!");
 			setGameOver();
 		} else {
-			System.out.println("Incorrect!!!! Sorry " + player.character().getName() + " you are out!!");
+			System.out.println("Incorrect!!!! Sorry " + player.getCharacter().getName() + " you are out!!");
 			player.lose();
 			return;
 		}

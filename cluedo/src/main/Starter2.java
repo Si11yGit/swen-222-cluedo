@@ -6,14 +6,17 @@ import java.util.Scanner;
 import ui.Frame;
 /**
  * Starter for GUI intialization
- * @author Ben
+ * @author Henry
  *
  */
 public class Starter2 {
 	static boolean gameFinished = false;
-	//static private Frame frame;
-	public static void main(String[] args) {
-
-	}
+		/**
+		 * start the game
+		 * @param args
+		 */
+		public static void main(String[] args) {
+			new Frame();
+		}
 }
 

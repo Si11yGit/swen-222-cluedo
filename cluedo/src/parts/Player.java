@@ -1,15 +1,11 @@
 package parts;
 
 import java.awt.Image;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import board.Board;
@@ -19,7 +15,6 @@ import board.Enterable;
 import board.Hallway;
 import board.Impassable;
 import board.Room;
-import board.Square;
 import main.Main;
 import ui.Frame;
 
@@ -44,43 +39,68 @@ public class Player {
 		this.scan = scan;
 		this.icon = makeImageIcon(playerCharacter.getName());
 	}
-
+	
+	/**
+	 * sets the game to the current game
+	 * @param game
+	 */
 	public void setGame(Main game){
 		this.game = game;
 		setBoard(game.getBoard());
 	}
-
+	
+	/**
+	 * called when a card is dealt to the player
+	 * @param card
+	 */
 	public void deal(Card card){
 		this.hand.add(card);
 	}
-
+	
+	/**
+	 * sets the field which contains a list of all the cards
+	 * @param all
+	 */
 	public void setAllCards(ArrayList<Card> all){
 		this.AllCards= all;
 	}
 
-	
-
-	public Character character() {
-		return character;
-	}
-
+	/**
+	 * returns the hand of the player
+	 * @return
+	 */
 	public List<Card> getCards(){
 		return hand;
 	}
 
+	/**
+	 * returns the number of the player
+	 * @return
+	 */
 	public int getPlayerNumber(){
 		return playerNum;
 	}
-
+	
+	/**
+	 * returns whether or not the player is still in the game
+	 * @return
+	 */
 	public boolean getInGame(){
 		return this.inGame;
 	}
-
+	
+	/**
+	 * removes the player when they lose
+	 */
 	public void lose(){
 		inGame = false;
 		this.position.removePlayer(this);
 	}
-
+	
+	/**
+	 * sets the board state
+	 * @param board
+	 */
 	public void setBoard(Board board){
 		this.board =  board;
 	}
@@ -109,11 +129,19 @@ public class Player {
 			}
 		}
 	}
-
+	
+	/**
+	 * returns the x position of the player
+	 * @return
+	 */
 	public int getX() {
 		return position.getPosition().getX();
 	}
 
+	/**
+	 * returns the y position of the player
+	 * @return
+	 */
 	public int getY() {
 		return position.getPosition().getY();
 	}
@@ -206,7 +234,6 @@ public class Player {
 	 * @param cards
 	 * @return
 	 */
-	
 	public Suggestion makeSuggestion(Map<String,Card> cards) {
 		RoomCard room = (RoomCard)cards.get(((Room)position).getName());
 		Weapon weapon = null;
@@ -259,7 +286,6 @@ public class Player {
 	 * @param seg
 	 * @return
 	 */
-	
 	public Card refuteSuggestion(Suggestion sug) {
 		for (Card card: hand) {
 			if (sug.compare(card) != null) {
@@ -274,7 +300,6 @@ public class Player {
 	 * @param cards
 	 * @return
 	 */
-	
 	public Suggestion makeAccusation(Map<String,Card> cards) {
 		RoomCard room = null;
 		Weapon weapon = null;
@@ -340,8 +365,9 @@ public class Player {
 
 		return new Suggestion(room,character,weapon);
 	}
+	
 	/**
-	 * A method for creating a suggestion
+	 * auto generated hash code
 	 */
 	@Override
 	public int hashCode() {
@@ -354,7 +380,10 @@ public class Player {
 		result = prime * result + playerNum;
 		return result;
 	}
-
+	
+	/**
+	 * auto generated equals method
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -385,33 +414,51 @@ public class Player {
 			return false;
 		return true;
 	}
-
+	
+	/**
+	 * to string method
+	 */
 	public String toString() {
 		return character.toString();
 	}
 	
+	/**
+	 * returns the players character
+	 * @return
+	 */
 	public Character getCharacter(){
 		return character;
 	}
-
+	
+	/**
+	 * returns the position of the player on the board
+	 * @return
+	 */
 	public Enterable getPosition() {
 		return position;
 	}
 
+	/**
+	 * sets the position of the player on the board
+	 */
 	public void setPosition(Enterable position) {
 		this.position = position;
 	}
-
+	
+	/**
+	 * adds a card to the players hand 
+	 * @param c
+	 */
 	public void addToHand(Card c){
 		this.hand.add(c);
 	}
+	
 	public Card getRoom() {
 		return null;
 	}
 	
-	
 	/**
-	 * 
+	 * makes an image icon for the player
 	 * @param s
 	 * @return
 	 */
@@ -431,12 +478,22 @@ public class Player {
 		return icon;
 	}
 	
+	/**
+	 * returns the image icon of a player
+	 * @return
+	 */
 	public ImageIcon getIcon() { 
 		return icon;
 	}
+	
+	/**
+	 * returns the character name of the player
+	 * @return
+	 */
 	public String getCharacterName(){
 		return this.character.getName();
 	}
+	
 	/**
 	 * shortens call for name
 	 * @return
