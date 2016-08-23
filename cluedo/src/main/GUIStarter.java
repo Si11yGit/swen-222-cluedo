@@ -9,7 +9,7 @@ import ui.Frame;
  * @author Henry
  *
  */
-public class Starter2 {
+public class GUIStarter {
 	static boolean gameFinished = false;
 		/**
 		 * start the game
