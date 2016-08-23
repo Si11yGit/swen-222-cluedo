@@ -43,6 +43,9 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	//the game
 	private Main game;
 	
+	//dice roll
+	int roll;
+	
 	public Frame(){
 		super("Game of Cluedo!");
 		//Initialize the game
@@ -137,7 +140,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		
 		switch(s){
 		case "Roll Dice":
-			game.diceRoll();//need to move the dice roll method into the Main class
+			this.roll = game.diceRoll();
+			this.getOptions().getTextArea().append("You rolled a: " + roll + "\n");
 			break;
 		case "Suggest":
 			if(game.getCurrentPlayer().getRoom() == null){
