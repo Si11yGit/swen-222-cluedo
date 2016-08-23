@@ -76,9 +76,8 @@ public class Card {
 		}
 		return icon;
 	}
+	
 	public ImageIcon getIcon() { 
-		
-		
 		return icon;
 	}
 

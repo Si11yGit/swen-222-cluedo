@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import board.Board;
 import board.Coordinate;
@@ -19,6 +20,7 @@ import board.Impassable;
 import board.Room;
 import board.Square;
 import main.Main;
+import ui.Frame;
 
 public class Player {
 	private Character character;
@@ -31,6 +33,7 @@ public class Player {
 	private Enterable position;
 	private Room prevroom = null;
 	private Scanner scan;
+	private ImageIcon icon;
 
 	public Player(int playerNumber, Character playerCharacter, Scanner scan){
 		this.character = playerCharacter;
@@ -38,6 +41,7 @@ public class Player {
 		this.hand = new ArrayList<Card>();
 		this.inGame = true;
 		this.scan = scan;
+		this.icon = makeImageIcon(playerCharacter.getName());
 	}
 
 	public void setGame(Main game){
@@ -397,15 +401,27 @@ public class Player {
 		this.position = position;
 	}
 
-	public Icon getIcon() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public void addToHand(Card c){
 		this.hand.add(c);
 	}
 	public Card getRoom() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private static ImageIcon makeImageIcon(String s){
+		s = s.toLowerCase();
+		java.net.URL imageURL = Frame.class.getResource("cards/"+s+".png");
+
+		ImageIcon icon = null;
+		if (imageURL != null) {
+			icon = new ImageIcon(imageURL);
+		} else {
+			System.out.println("URL did not work for " + s);
+		}
+		return icon;
+	}
+	
+	public ImageIcon getIcon() { 
+		return icon;
 	}
 }
