@@ -93,6 +93,7 @@ public class Main {
 		this.board = new Board();
 		this.solution = initialiseSolution();
 		this.allPlayers = initialisePlayer();
+		this.currentPlayer = allPlayers.get(0);
 		this.board.update();
 		// initialiseWeapons();
 		dealCards();
@@ -244,7 +245,7 @@ public class Main {
 			Card newCard = this.allCards.get(0);
 			player.deal(newCard); // give the current player the top card
 			newCard.setOwner(player);// set the owner of the card to the current
-			System.out.println(newCard.toString() + "has been addded to the hand");							// player
+			System.out.println(newCard.getName() + " has been added to the hand");							// player
 			this.allCards.remove(0);// remove the card from the deck
 		}
 		for (int i = 1; i <= this.numPlayers; ++i) {
@@ -264,7 +265,7 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
-		/**numPlayers = 0;
+		/*numPlayers = 0;
 		while(numPlayers < 3 || numPlayers > 6){
 			String inputValue = (String)JOptionPane.showInputDialog(null, "Enter amount of players (3-6): ", "Cluedo", JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if(inputValue == null){
