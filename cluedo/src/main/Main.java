@@ -505,6 +505,21 @@ public class Main {
 		}
 		return false;
 	}
+	/**
+	 * ends the current players turn, moves it on to the next player
+	 */
+	public void nextPlayerTurn(){
+		if(this.currentPlayer.getPlayerNumber() < this.numPlayers){
+			for(Player p : allPlayers){
+				if(p.getPlayerNumber() == (this.currentPlayer.getPlayerNumber()+1)){
+					currentPlayer = p;
+					break;
+				}
+			}
+		}else{
+		currentPlayer = allPlayers.get(0);
+		}
+	}
 	public int getNumPlayers() {
 		return this.numPlayers;
 	}

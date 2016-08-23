@@ -434,7 +434,9 @@ public class Player {
 	public ImageIcon getIcon() { 
 		return icon;
 	}
-
+	public String getCharacterName(){
+		return this.character.getName();
+	}
 	/**
 	 * shortens call for name
 	 * @return

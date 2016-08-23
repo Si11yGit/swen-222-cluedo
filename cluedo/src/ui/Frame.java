@@ -172,8 +172,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	 * ends the players turn 
 	 */
 	private void endTurn() {
-		// TODO Auto-generated method stub
-		
+		this.game.nextPlayerTurn();//change the current player to the next in line
+		options.rollEnabled(true);
+		hand.updateLabels();
+		this.getOptions().getTextArea().append(game.getCurrentPlayer().getCharacterName() + ", it's your turn!!" + "\n");
 	}
 	/**
 	 * moves the player on the board
