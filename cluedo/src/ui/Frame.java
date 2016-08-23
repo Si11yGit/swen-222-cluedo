@@ -110,10 +110,9 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		requestFocus();
 	}
 	
-	
-	
-	
-
+	/**
+	 * creates a new game
+	 */
 	protected void newGame() {
 		Main.restart();
 		this.dispose();
@@ -133,7 +132,10 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	}
 
 
-
+	/**
+	 * Identifies which button was pressed and executes that action
+	 * @param e
+	 */
 	public void buttonPressed(ActionEvent e) {
 		String s = e.getActionCommand();
 		System.out.println(s);
@@ -170,8 +172,6 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		requestFocus();
 	}
 	
-	
-
 	/**
 	 * ends the players turn 
 	 */
@@ -181,12 +181,14 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		hand.updateLabels();
 		this.getOptions().getTextArea().append(game.getCurrentPlayer().getCharacterName() + ", it's your turn!!" + "\n");
 	}
+	
 	/**
 	 * moves the player on the board
 	 */
 	public void movePlayer(Player player, Coordinate oldPos, Coordinate newPos){
 		board.movePlayer(player, oldPos, newPos);
 	}
+	
 	/**
 	 * game over
 	 * 
@@ -242,15 +244,25 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		return answers;
 	}
 	
+	/**
+	 * returns the boardpanel 
+	 * @return
+	 */
 	public BoardPanel getBoard(){
 		return this.board;
 	}
 	
+	/**
+	 * returns the option panel
+	 * @return
+	 */
 	public OptionPanel getOptions(){
 		return this.options;
 	}
 	
-	
+	/**
+	 * what to do when the mouse is clicked
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		requestFocus();
