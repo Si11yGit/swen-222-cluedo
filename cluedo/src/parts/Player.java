@@ -1,5 +1,6 @@
 package parts;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -416,11 +417,14 @@ public class Player {
 	 */
 	private static ImageIcon makeImageIcon(String s){
 		s = s.toLowerCase();
-		java.net.URL imageURL = Frame.class.getResource("cards/"+s+".png");
+		java.net.URL imageURL = Frame.class.getResource("pieces/"+s+".png");
 
 		ImageIcon icon = null;
 		if (imageURL != null) {
 			icon = new ImageIcon(imageURL);
+			Image image = icon.getImage(); // transform it
+            Image newimg = image.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            icon = new ImageIcon(newimg);  // transform it back
 		} else {
 			System.out.println("URL did not work for " + s);
 		}
@@ -429,5 +433,13 @@ public class Player {
 	
 	public ImageIcon getIcon() { 
 		return icon;
+	}
+
+	/**
+	 * shortens call for name
+	 * @return
+	 */
+	public String getName() {
+		return character.getName();
 	}
 }

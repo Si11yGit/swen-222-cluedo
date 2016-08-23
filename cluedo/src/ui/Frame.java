@@ -235,12 +235,25 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		answers[answers.length-1] = ws.getSelectedWeapon();
 		return answers;
 	}
+	
 	public BoardPanel getBoard(){
 		return this.board;
 	}
 	
 	public OptionPanel getOptions(){
 		return this.options;
+	}
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		requestFocus();
+		int x = e.getX()-board.getX()-8;
+		int y = e.getY()-board.getY()-53;
+		Square square = board.checkMouseOnDoor(x, y);
+		if(square != null){
+			game.doorClicked(square);
+		}
 	}
 	
 	@Override
@@ -264,16 +277,6 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	}
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		requestFocus();
-		int x = e.getX()-board.getX()-8;
-		int y = e.getY()-board.getY()-53;
-		Square square = board.checkMouseOnDoor(x, y);
-		if(square != null){
-			game.doorClicked(square);
-		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
