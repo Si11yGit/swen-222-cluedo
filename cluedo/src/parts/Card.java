@@ -24,19 +24,41 @@ public class Card {
 		this.name = name;
 		icon = makeImageIcon(name); 
 	}
+	
+	/**
+	 * returns the name of a player
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * sets the name of a player
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * returns the owner of a card
+	 * @return
+	 */
 	public Player getOwner() {
 		return Owner;
 	}
+	
+	/**
+	 * sets the owner of a card
+	 * @param owner
+	 */
 	public void setOwner(Player owner) {
 		Owner = owner;
 	}
-	
+	/**
+	 * auto generated hashcode method
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +66,10 @@ public class Card {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+	
+	/**
+	 * auto generated equals method
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -60,11 +86,20 @@ public class Card {
 			return false;
 		return true;
 	}
+	
+	/**
+	 * returns a formatted version of the card name
+	 */
 	@Override
 	public String toString() {
 		return "Card [name=" + name + "]";
 	}
 
+	/**
+	 * metohd for creating the image icon for a card
+	 * @param s
+	 * @return
+	 */
 	private static ImageIcon makeImageIcon(String s){
 		s = s.toLowerCase();
 		java.net.URL imageURL = Frame.class.getResource("cards/"+s+".png");
@@ -81,6 +116,10 @@ public class Card {
 		return icon;
 	}
 	
+	/**
+	 * returns the image icon 
+	 * @return
+	 */
 	public ImageIcon getIcon() { 
 		return icon;
 	}

@@ -1,6 +1,5 @@
 package ui;
 
-//import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -36,7 +35,6 @@ public class OptionPanel extends JPanel {
 	 a panel with the options a player has when making
 	 a move
 	*/
-
 	public OptionPanel(Frame frame){
 		setBorder(new TitledBorder(null,"Options", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout layout = new GridBagLayout();
@@ -155,10 +153,18 @@ public class OptionPanel extends JPanel {
 		return textArea;
 	}
 	
+	/**
+	 * allows the button for making a suggestion to be clicked
+	 * @param enable
+	 */
 	public void suggestionEnabled(boolean enable){
 		suggest.setEnabled(enable);
 		}
 	
+	/**
+	 * allows the button for rolling a dice to be clicked
+	 * @param enable
+	 */
 	public void rollEnabled(boolean enable){
 		rollDice.setEnabled(enable);
 		}

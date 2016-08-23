@@ -73,6 +73,11 @@ public class CharacterSelect extends JPanel implements ActionListener{
 		
 	}
 	
+	/**
+	 * creates an image icon for the character
+	 * @param s
+	 * @return
+	 */
 	private ImageIcon createImageIcon(String s) {
 		s = s.toLowerCase();
         java.net.URL imgURL = Frame.class.getResource("cards/"+s);

@@ -224,6 +224,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		//create character select GUI
 		CharacterSelect cs = new CharacterSelect(game);
 		int i = JOptionPane.showOptionDialog(this, cs, "Character Select", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		this.getOptions().getTextArea().append("I think it was: " + cs.getSelectedChar()+ ",\n");
 		if(i == JOptionPane.CANCEL_OPTION || i == JOptionPane.CLOSED_OPTION) {
 			return null;
 		}
@@ -233,6 +234,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 			// create Room select GUI
 			RoomSelect rs = new RoomSelect(game);
 			int k = JOptionPane.showOptionDialog(this, rs, "Room Select", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			this.getOptions().getTextArea().append("in the: " +rs.getSelectedRoom()+", \n");
 			if(k == JOptionPane.CANCEL_OPTION || k == JOptionPane.CLOSED_OPTION) {
 				return null;
 			}
@@ -241,6 +243,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		// create weapon select GUI
 		WeaponSelect ws = new WeaponSelect(game);
 		int j = JOptionPane.showOptionDialog(this, ws, "Weapon Select", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		this.getOptions().getTextArea().append("with the: " +ws.getSelectedWeapon()+". \n");
 		if(j == JOptionPane.CANCEL_OPTION || j == JOptionPane.CLOSED_OPTION) {
 			return null;
 		}

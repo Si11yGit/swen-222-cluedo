@@ -20,14 +20,14 @@ public class CluedoTests {
 		Character c = new Character("Mrs. White");
 		Player p = new Player(1, c, new Scanner(System.in));
 		
-		assertTrue(p.character().getName() == "Mrs. White");
+		assertTrue(p.getCharacter().getName() == "Mrs. White");
 	}
 	@Test
 	public void testPlayAssignedCharacter2(){
 		Character c = new Character("Mrs. White");
 		Player p = new Player(1, c, new Scanner(System.in));
 		
-		assertFalse(p.character().getName() == "Colonel Mustard");
+		assertFalse(p.getCharacter().getName() == "Colonel Mustard");
 	}
 
 //package cluedoTests;
