@@ -53,7 +53,7 @@ public class RoomSelect extends JPanel implements ActionListener{
 		}
 		
 		//set images for the buttons
-		roomPic = new JLabel(createImageIcon(rooms.get(0)+".jpg"));
+		roomPic = new JLabel(createImageIcon(rooms.get(0)+".png"));
 		//add buttons to panel
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
 		for(JRadioButton b : buttons) {
@@ -72,7 +72,7 @@ public class RoomSelect extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		selectedRoom = e.getActionCommand();
-				roomPic.setIcon(createImageIcon(e.getActionCommand()+".jpg"));
+				roomPic.setIcon(createImageIcon(e.getActionCommand()+".png"));
 		
 	}
 	
