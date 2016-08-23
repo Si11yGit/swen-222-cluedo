@@ -74,7 +74,10 @@ public class Main {
 		}
 
 	}
-
+	/**
+	 * The Constructor which creates a graphical interface version of the game
+	 * @param gui
+	 */
 	public Main(Frame gui) {
 		this.frame = gui;
 		this.numPlayers = 6;  //this needs to be fixed
@@ -253,12 +256,14 @@ public class Main {
 		}
 		System.out.println();
 	}
+	
 	/**
 	 * sets the game state to over (false)
 	 */
 	public void setGameOver() {
 		this.gameOver = true;
 	}
+	
 	/**
 	 * This method should begin playing the game
 	 * @throws InterruptedException
@@ -311,13 +316,28 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * sets the current player
+	 * @param p
+	 */
 	public void setCurrentPlayer(Player p){
 		this.currentPlayer = p;
 	}
+	
+	/**
+	 * returns the current player
+	 * @return
+	 */
 	public Player getCurrentPlayer(){
 		return currentPlayer;
 	}
 	
+	/**
+	 * A method for making a suggestion
+	 * @param character
+	 * @param room
+	 * @param weapon
+	 */
 	public void makeSuggestion(String character, String room, String weapon){
 		List<Card> suggestion = new ArrayList<Card>();
 		for(Card c : characters){
@@ -334,6 +354,13 @@ public class Main {
 		}
 		
 	}
+	
+	/**
+	 * a method for making an accusation
+	 * @param character
+	 * @param room
+	 * @param weapon
+	 */
 	public void makeAccusation(String character, String room, String weapon){
 		List<Card> accusation = new ArrayList<Card>();
 		for(Card c : characters){
@@ -426,6 +453,11 @@ public class Main {
 			accuse(player);
 		}
 	}
+	
+	/**
+	 * a method for accusing a player in the game
+	 * @param player
+	 */
 	public void accuse(Player player) {
 		Suggestion accusation = player.makeAccusation(cardsearch);
 		boolean right = accusation.compare(solution);
@@ -438,6 +470,12 @@ public class Main {
 			return;
 		}
 	}
+	
+	/**
+	 * a method that simulates the movement of a player
+	 * @param player
+	 * @param roll
+	 */
 	public void move(Player player, int roll) {
 		boolean check3 = false;
 		while (!check3) {
@@ -482,6 +520,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * starts a new game
+	 */
 	public static void restart(){
 		frame = new Frame();
 		frame.setVisible(true);
@@ -508,8 +549,13 @@ public class Main {
 		}
 		return false;
 	}
+	
 	/**
 	 * ends the current players turn, moves it on to the next player
+	 */
+	
+	/**
+	 * for ending a turn and moving to the next player
 	 */
 	public void nextPlayerTurn(){
 		Player nextplayer = currentPlayer;
@@ -522,21 +568,51 @@ public class Main {
 		}
 		this.currentPlayer = nextplayer;
 	}
+	
+	/**
+	 * returns the number of players
+	 * @return
+	 */
 	public int getNumPlayers() {
 		return this.numPlayers;
 	}
+	
+	/**
+	 * returns the solution to the current game
+	 * @return
+	 */
 	public Suggestion getSolution() {
 		return this.solution;
 	}
+	
+	/**
+	 * returns a list of the weapon cards
+	 * @return
+	 */
 	public ArrayList<Card> getWeapons(){
 		return this.weapons;
 	}
+	
+	/**
+	 * returns a list of the room cards
+	 * @return
+	 */
 	public ArrayList<Card> getRoom(){
 		return this.rooms;
 	}
+	
+	/**
+	 * returns a list of the character cards
+	 * @return
+	 */
 	public ArrayList<Card> getCharacters(){
 		return this.characters;
 	}
+	
+	/**
+	 * returns the board
+	 * @return
+	 */
 	public Board getBoard() {
 		return this.board;
 	}
