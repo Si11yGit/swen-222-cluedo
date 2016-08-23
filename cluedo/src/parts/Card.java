@@ -1,5 +1,6 @@
 package parts;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -70,7 +71,10 @@ public class Card {
 
 		ImageIcon icon = null;
 		if (imageURL != null) {
-			icon = new ImageIcon(imageURL);
+			ImageIcon img = new ImageIcon(imageURL);
+            Image image = img.getImage(); // transform it
+            Image newimg = image.getScaledInstance(115, 186,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            icon = new ImageIcon(newimg);  // transform it back
 		} else {
 			System.out.println("URL did not work for " + s);
 		}

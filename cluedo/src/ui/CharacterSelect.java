@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -76,7 +77,10 @@ public class CharacterSelect extends JPanel implements ActionListener{
 		s = s.toLowerCase();
         java.net.URL imgURL = Frame.class.getResource("/images/"+s);
         if (imgURL != null) {
-            return new ImageIcon(imgURL);
+            ImageIcon img = new ImageIcon(imgURL);
+            Image image = img.getImage(); // transform it
+            Image newimg = image.getScaledInstance(105, 176,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            return new ImageIcon(newimg);  // transform it back
         } else {
             System.err.println("File: " + s +" doesn't exist!!!");
             return null;
