@@ -559,8 +559,8 @@ public class Main {
 	 */
 	public void nextPlayerTurn(){
 		Player nextplayer = currentPlayer;
-		while(nextplayer == currentPlayer || nextplayer.getInGame()) {
-			if(currentPlayer.getPlayerNumber() == this.allPlayers.size() - 1){
+		while(nextplayer == currentPlayer || !nextplayer.getInGame()) {
+			if(currentPlayer.getPlayerNumber() >= this.allPlayers.size() - 1){
 				nextplayer = allPlayers.get(0);
 			} else {
 				nextplayer = allPlayers.get(nextplayer.getPlayerNumber() + 1);
