@@ -514,7 +514,7 @@ public class Main {
 	public void nextPlayerTurn(){
 		Player nextplayer = currentPlayer;
 		while(nextplayer == currentPlayer || nextplayer.getInGame()) {
-			if(currentPlayer.getPlayerNumber() == this.numPlayers){
+			if(currentPlayer.getPlayerNumber() == this.allPlayers.size() - 1){
 				nextplayer = allPlayers.get(0);
 			} else {
 				nextplayer = allPlayers.get(nextplayer.getPlayerNumber() + 1);
@@ -539,9 +539,5 @@ public class Main {
 	}
 	public Board getBoard() {
 		return this.board;
-	}
-	public void doorClicked(Square square) {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -76,7 +76,13 @@ public class Board {
 		for(int x = 0; x < BOARD_WIDTH; x++) {
 			for(int y = 0; y < BOARD_HEIGHT; y++) {
 				if (board[x][y] != null) {
-					coordinates.put(new Coordinate(x,y), );
+					coordinates.put(new Coordinate(x,y), board[x][y]);
+				} else {
+					for(Room r: rooms.values()) {
+						if (r.getPositions().contains(new Coordinate(x,y))) {
+							coordinates.put(new Coordinate(x,y), r);
+						}
+					}
 				}
 			}
 		}
