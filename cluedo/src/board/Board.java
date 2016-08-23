@@ -429,6 +429,34 @@ public class Board {
 		}
 	}
 
+	/**
+	 * checks whether a coordinate belongs to a room
+	 * @param c
+	 * @return
+	 */
+	public boolean isInRoom(Coordinate c) {
+		for(Room r: rooms.values()) {
+			if(r.getPositions().contains(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * returns the room a coordinate belongs to or null if it doesn't belong to a room
+	 * @param c
+	 * @return
+	 */
+	public Room getRoom(Coordinate c) {
+		for(Room r: rooms.values()) {
+			if(r.getPositions().contains(c)) {
+				return r;
+			}
+		}
+		return null;
+	}
+	
 	public Map<String, Room> getRooms() {
 		return rooms;
 	}

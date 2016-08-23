@@ -28,7 +28,7 @@ public class BoardPanel extends JPanel{
 	private Main game;
 	
 	public static final int SQUARE_SIZE = 30;
-	public static final int BOARDER_SIZE = 10;
+	public static final int BOARDER_SIZE = 5;
 	private Square[][] board;
 	private JLabel[][] labels;
 
@@ -40,7 +40,8 @@ public class BoardPanel extends JPanel{
 		this.game = game;
 		setLayout(new GridLayout(Board.BOARD_HEIGHT, Board.BOARD_WIDTH));
 		board = game.getBoard().getBoardArray();
-		labels = new JLabel[Board.BOARD_HEIGHT][Board.BOARD_WIDTH];
+		labels = new JLabel[Board.BOARD_WIDTH][Board.BOARD_HEIGHT];
+		System.out.println("initialized labels");
 		for(int i = 0; i < Board.BOARD_HEIGHT; i++) {
 			for(int j = 0; j < Board.BOARD_WIDTH; j++) {
 				JLabel tile = new JLabel(); {
@@ -53,13 +54,20 @@ public class BoardPanel extends JPanel{
 					} else {
 						tile.setPreferredSize(new Dimension(BOARDER_SIZE,BOARDER_SIZE));
 					}
-					tile.setBackground(board[i][j].getColor());
+					if (board[j][i] != null) {
+						tile.setBackground(board[j][i].getColor());
+					} else if (game.getBoard().isInRoom(new Coordinate(j,i))) {
+						tile.setBackground(game.getBoard().getRoom(new Coordinate(j,i)).getColor());
+					} else {
+						tile.setBackground(Color.BLACK);
+					}
+					
 					tile.setOpaque(true);
-					if(board[i][j] != null && board[i][j].getPlayer() != null) {
-						tile.setIcon(board[i][j].getPlayer().getIcon());
+					if(board[j][i] != null && board[j][i].getPlayer() != null) {
+						tile.setIcon(board[j][i].getPlayer().getIcon());
 					}
 					add(tile);
-					labels[i][j] = tile;
+					labels[j][i] = tile;
 				}
 			}
 		}
@@ -77,9 +85,8 @@ public class BoardPanel extends JPanel{
 			for (int j = 0; j < labels[i].length; j++) {
 				if (board[i][j] != null && board[i][j].getPlayer() != null) {
 					labels[i][j].setToolTipText(game.getBoard().getBoardArray()[i][j].getPlayer().toString());
-				} else if(board[i][j] instanceof Room) {
-					Room r = (Room) board[i][j];
-					labels[i][j].setToolTipText(r.getName());
+				} else if (game.getBoard().isInRoom(new Coordinate(j,i))) {
+					labels[i][j].setToolTipText(game.getBoard().getRoom(new Coordinate(j,i)).getName());
 				} else {
 					labels[i][j].setToolTipText(null);
 				}

@@ -91,7 +91,7 @@ public class WeaponSelect extends JPanel implements ActionListener{
 	 */
 	private ImageIcon createImageIcon(String s) {
 		s = s.toLowerCase();
-        java.net.URL imgURL = Main.class.getResource("cluedo/src/cluedo/cards/"+s);
+        java.net.URL imgURL = Frame.class.getResource("cards/"+s);
         if (imgURL != null) {
         	ImageIcon img = new ImageIcon(imgURL);
             Image image = img.getImage(); // transform it

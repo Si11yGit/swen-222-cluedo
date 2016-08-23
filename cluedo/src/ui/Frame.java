@@ -92,8 +92,8 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 		setContentPane(outerPanel);
 		
 		//create board panel
-		//board = new BoardPanel(game);
-		//outerPanel.add(board, BorderLayout.EAST);
+		board = new BoardPanel(game);
+		outerPanel.add(board, BorderLayout.EAST);
 		
 		//create options panel
 		options = new OptionPanel(this);

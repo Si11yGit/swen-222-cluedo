@@ -408,6 +408,12 @@ public class Player {
 		return null;
 	}
 	
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
 	private static ImageIcon makeImageIcon(String s){
 		s = s.toLowerCase();
 		java.net.URL imageURL = Frame.class.getResource("cards/"+s+".png");
