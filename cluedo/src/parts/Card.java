@@ -22,7 +22,7 @@ public class Card {
 	 */
 	public Card(String name){
 		this.name = name;
-		icon = makeImageIcon(name);
+		icon = makeImageIcon(name); 
 	}
 	public String getName() {
 		return name;

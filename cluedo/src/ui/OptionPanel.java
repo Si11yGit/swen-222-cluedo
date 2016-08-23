@@ -61,7 +61,7 @@ public class OptionPanel extends JPanel {
 		
 		accuse.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e ){
-						frame.buttonPressed(e);//gotta make a fram class
+						frame.buttonPressed(e);
 					};
 		});
 		
