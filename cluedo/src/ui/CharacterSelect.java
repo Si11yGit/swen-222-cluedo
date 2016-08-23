@@ -52,7 +52,7 @@ public class CharacterSelect extends JPanel implements ActionListener{
 		}
 		//set first button to selected and update image
 		buttons[0].setSelected(true);
-		characterPicture = new JLabel(createImageIcon(characters.get(0)+".jpg"));
+		characterPicture = new JLabel(createImageIcon(characters.get(0)+".png"));
 		//add buttons to button panel
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
 		for(JRadioButton b : buttons) {
@@ -67,14 +67,14 @@ public class CharacterSelect extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		characterPicture.setIcon(createImageIcon(e.getActionCommand()+".jpg"));
+		characterPicture.setIcon(createImageIcon(e.getActionCommand()+".png"));
 		selectedChar = e.getActionCommand();
 		
 	}
 	
 	private ImageIcon createImageIcon(String s) {
 		s = s.toLowerCase();
-        java.net.URL imgURL = Main.class.getResource("cards/"+s);
+        java.net.URL imgURL = Main.class.getResource("images/"+s);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {

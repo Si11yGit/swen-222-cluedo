@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -50,6 +49,7 @@ public class Frame extends JFrame implements KeyListener, MouseListener, WindowL
 	private Main game;
 	
 	public Frame(){
+		super("Game of Cluedo!");
 		//Initialize the game
 		this.game = new Main(this);
 		

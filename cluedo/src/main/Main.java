@@ -44,7 +44,7 @@ public class Main {
 	private Board board;// reference to a board
 	private boolean gameOver;// whether the game is over or not
 	private Scanner scan;
-	private Player currentPlayer;
+	private Player currentPlayer;   // we need some way to get this working with the GUI currently uses scanner, its not working
 	static boolean gameFinished = false;
 	static private Frame frame;
 
@@ -97,6 +97,7 @@ public class Main {
 		this.board.update();
 		// initialiseWeapons();
 		dealCards();
+
 	}
 
 	/**
@@ -253,45 +254,12 @@ public class Main {
 		}
 		System.out.println();
 	}
-
 	/**
 	 * sets the game state to over (false)
 	 */
 	public void setGameOver() {
 		this.gameOver = true;
 	}
-
-	/**
-	 * This method places all the weapons in the rooms
-	 */
-	// Will be used with gui, pointless in current version
-
-	// public void initialiseWeapons(){
-	// Map<String, Room> rooms = this.board.getRooms();
-	// List<Room> list = new ArrayList<Room>(rooms.values());
-	//
-	// //iterate over all cards
-	// for(int i = 0; i<listOfCards.size();i++){
-	//
-	// //if its a weapon card assign it a random room
-	// if(this.listOfCards.get(i) instanceof Weapon){
-	// Weapon weapon = (Weapon) listOfCards.get(i);
-	//
-	// //a random room index
-	// int random = (int) Math.round(Math.random()*list.size());
-	//
-	// //avoid index out of bounds exceptions
-	// if(random == list.size()){
-	// random--;
-	// }
-	// System.out.println("The " + weapon.toString()+" is in "+
-	// rooms.get(random).toString());
-	// rooms.remove(random);
-	// }
-	// }
-	// System.out.println();
-	// }
-
 	/**
 	 * This method should begin playing the game
 	 * @throws InterruptedException
@@ -313,6 +281,7 @@ public class Main {
 		int currentPlayers = this.allPlayers.size();
 		// random player starts
 		int random = (int) Math.round(Math.random() * this.allPlayers.size());
+		
 		if (random == this.allPlayers.size()) {
 			random--;
 		} // avoid out of bounds exception
@@ -340,6 +309,10 @@ public class Main {
 			}
 
 		}
+	}
+	
+	public void setCurrentPlayer(Player p){
+		this.currentPlayer = p;
 	}
 	public Player getCurrentPlayer(){
 		return currentPlayer;
@@ -396,6 +369,7 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void turn(Player player) throws InterruptedException {
+		setCurrentPlayer(player);
 		System.out.println(player.character().getName() + ", you are next, please get ready");
 		this.board.update();
 		System.out.println(player.character().name() + " its your turn!");
