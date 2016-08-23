@@ -264,7 +264,8 @@ public class Main {
 	 * @throws InterruptedException
 	 */
 	public void playGame() throws InterruptedException {
-		/**numPlayers = 0;
+		/*
+		numPlayers = 0;
 		while(numPlayers < 3 || numPlayers > 6){
 			String inputValue = (String)JOptionPane.showInputDialog(null, "Enter amount of players (3-6): ", "Cluedo", JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if(inputValue == null){
@@ -511,17 +512,15 @@ public class Main {
 	 * ends the current players turn, moves it on to the next player
 	 */
 	public void nextPlayerTurn(){
-		if(this.currentPlayer.getPlayerNumber() <= this.numPlayers){
-			for(Player p : allPlayers){
-				if(p.getPlayerNumber() == (this.currentPlayer.getPlayerNumber()+1)){
-					currentPlayer = p;
-					break;
-				}
+		Player nextplayer = currentPlayer;
+		while(nextplayer == currentPlayer || nextplayer.getInGame()) {
+			if(currentPlayer.getPlayerNumber() == this.numPlayers){
+				nextplayer = allPlayers.get(0);
+			} else {
+				nextplayer = allPlayers.get(nextplayer.getPlayerNumber() + 1);
 			}
 		}
-		if(currentPlayer.getPlayerNumber() == this.numPlayers){
-			currentPlayer = allPlayers.get(0);
-		}
+		this.currentPlayer = nextplayer;
 	}
 	public int getNumPlayers() {
 		return this.numPlayers;

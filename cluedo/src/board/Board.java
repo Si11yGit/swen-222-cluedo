@@ -75,8 +75,8 @@ public class Board {
 		
 		for(int x = 0; x < BOARD_WIDTH; x++) {
 			for(int y = 0; y < BOARD_HEIGHT; y++) {
-				if () {
-					
+				if (board[x][y] != null) {
+					coordinates.put(new Coordinate(x,y), );
 				}
 			}
 		}
