@@ -518,8 +518,8 @@ public class Main {
 					break;
 				}
 			}
-		}else{
-		currentPlayer = allPlayers.get(0);
+		}else if(currentPlayer.getPlayerNumber() == this.numPlayers){
+			currentPlayer = allPlayers.get(0);
 		}
 	}
 	public int getNumPlayers() {
